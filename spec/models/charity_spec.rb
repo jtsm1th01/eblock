@@ -1,8 +1,13 @@
 describe Charity do
   
-  it "should be valid" do
-    charity = Charity.new(name: 'NorCal Austism Research Foundation')
-    expect(charity).to be_valid
-  end
+before(:each) { @charity = Charity.new(name: 'NorCal Austism Research Foundation') } 
+  subject { @charity }
   
+  it { should be_valid }
+  
+  describe "when name is blank" do
+    before { @charity.name = " " }
+    it { should_not be_valid }
+  end
+
 end

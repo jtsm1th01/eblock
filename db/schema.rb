@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421172137) do
+ActiveRecord::Schema.define(version: 20150421174449) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150421172137) do
     t.datetime "finish"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "auctions", ["charity_id"], name: "index_auctions_on_charity_id"

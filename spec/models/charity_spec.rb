@@ -1,5 +1,8 @@
-require 'rails_helper'
-
-RSpec.describe Charity, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Charity do
+  
+  it "should be valid" do
+    charity = Charity.new(name: 'NorCal Austism Research Foundation')
+    expect(charity).to be_valid
+  end
+  
 end

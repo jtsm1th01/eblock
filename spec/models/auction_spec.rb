@@ -1,5 +1,8 @@
-require 'rails_helper'
-
-RSpec.describe Auction, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Auction do
+  
+  it "should be valid" do
+    auction = Auction.new(name: 'Spring Fundraiser', charity_id: 1, start: Time.now, finish: Time.now + 86400)
+    expect(auction).to be_valid
+  end
+  
 end

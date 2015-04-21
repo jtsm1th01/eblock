@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sesitive: false }
-  
+
   has_many :items
-  
+  has_many :bids
+
 end

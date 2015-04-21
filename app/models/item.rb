@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
   validates :description, presence: true
   validates :value, presence: true
   validates :value, numericality: {only_integer: true}
-  
+
   belongs_to :auction
   belongs_to :user
   has_many :bids

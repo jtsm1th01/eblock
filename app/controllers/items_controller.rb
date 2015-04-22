@@ -6,6 +6,14 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new(:auction_id => Auction.last.id)
   end
+  
+  def show
+    @item = Item.find(params[:id])
+  end
+  
+  def edit
+    @item = Item.find(params[:id])
+  end
 
   def create
     @item = Item.new(item_params)
@@ -15,9 +23,14 @@ class ItemsController < ApplicationController
       render 'new'
     end
   end
-
-  def show
+  
+  def update
     @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render 'edit'
+    end
   end
 
   private

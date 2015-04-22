@@ -23,7 +23,7 @@
   <%= f.number_field :auction_id %>
 </div>
 
-<%= f.submit 'Donate Item' %>
+<%= f.submit @item.new_record? ? 'Donate item' : 'Update donation'%>
 
 <% end %>
 

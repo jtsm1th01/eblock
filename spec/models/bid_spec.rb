@@ -1,34 +1,35 @@
 describe Bid do
+  describe 'validations' do
+    before(:each) { @bid = Bid.new(user_id: 1, item_id: 1, amount: 100) }
+    subject { @bid }
 
-  before(:each) { @bid = Bid.new(user_id: 1, item_id: 1, amount: 100) }
+    it 'sample bid is valid' do
+      expect(@bid).to be_valid
+    end
 
-  subject { @bid }
+    it "rejects a blank user_id" do
+      @bid.user = nil
+      expect(@bid).to be_invalid
+    end
 
-  it { should be_valid }
+    it "rejects a blank item_id" do
+      @bid.item = nil
+      expect(@bid).to be_invalid
+    end
 
-  describe "when user is blank" do
-    before { @bid.user = nil }
-    it { should_not be_valid }
+    it "rejects a blank amount" do
+      @bid.amount = ''
+      expect(@bid).to be_invalid
+    end
+
+    it "requires a numeric amount" do
+      @bid.amount = 'one hundred million'
+      expect(@bid).to be_invalid
+    end
+
+    it "requires an amount > 0" do
+      @bid.amount = 0
+      expect(@bid).to be_invalid
+    end
   end
-
-  describe "when item is blank" do
-    before { @bid.item = nil }
-    it { should_not be_valid }
-  end
-
-  describe "when amount is blank" do
-    before { @bid.amount = '' }
-    it { should_not be_valid }
-  end
-
-  describe "when amount is non-numeric" do
-    before { @bid.amount = 'one hundred million' }
-    it { should_not be_valid }
-  end
-
-  describe "when amount is 0" do
-    before { @bid.amount = 0 }
-    it { should_not be_valid }
-  end
-
 end

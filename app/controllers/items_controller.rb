@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new(:auction_id => Auction.last.id)
   end
-  
+
   def create
     @item = Item.new(item_params)
     if @item.save
@@ -15,14 +15,12 @@ class ItemsController < ApplicationController
       render 'new'
     end
   end
-    
-  
+
   def show
     @item = Item.find(params[:id])
   end
-    
-    private
-    
+
+  private
     def item_params
       params.require(:item).permit(:name, :description, :value, :user_id, :auction_id)
     end

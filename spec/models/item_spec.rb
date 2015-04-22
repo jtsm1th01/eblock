@@ -1,7 +1,6 @@
 describe Item do
 
-  before(:each) { @item = Item.new(auction_id: 1, user_id: 1, name: 'piano',
-                                  description: 'old and broken', value: 2000) }
+  before(:each) { @item = FactoryGirl.create(:item) }
 
   subject { @item }
 

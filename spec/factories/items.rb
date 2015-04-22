@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :item do
-    auction nil
-user nil
-name "MyString"
-description "MyText"
-value 1
+    auction_id 1
+    user_id 1
+    name "MyPiano"
+    description "old and out of tune"
+    value 2000
   end
 
 end

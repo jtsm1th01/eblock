@@ -1,6 +1,23 @@
 <h1>Items Up for Bid</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Current Bid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+    <tr>
+      <td><%= link_to item.name %></td>
+      <td><%= item.bids.last.amount %></td> 
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<% @items.each do |item| %>
-  <%= item.name %>
-  <%= item.bids.last.amount %>
-<% end %>
+
+
+
+
+

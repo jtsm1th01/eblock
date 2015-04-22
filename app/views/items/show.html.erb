@@ -1,1 +1,7 @@
-<%= @item.name %>
+<h1><%= @item.name %></h1>
+<div>
+  <%= @item.description %>
+</div>
+<div>
+  <%= @item.bids.last.try(:amount) %>
+</div>

@@ -1,0 +1,10 @@
+<%= form_for(@item) do |f| %>
+  <%= f.fields_for :bids do |ff| %>
+    <% if ff.object.new_record? %>
+      <%= ff.label :amount, 'Amount: $' %>
+      <%= ff.number_field :amount %>
+    <% end %>
+  <% end %>
+
+<%= f.submit "Place Bid" %>
+<% end %>

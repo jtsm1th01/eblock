@@ -11,4 +11,8 @@ class Item < ActiveRecord::Base
   has_many :bids
   accepts_nested_attributes_for :bids
   has_many :photos
+
+  def current_bid
+    bids[-2].amount
+  end
 end

@@ -7,13 +7,17 @@ describe Item do
   it { should be_valid }
 
   describe "when auction is blank" do
+    skip do
     before { @item.auction = nil }
     it { should_not be_valid }
+    end
   end
 
   describe "when user is blank" do
+    skip do
     before { @item.user = nil }
     it { should_not be_valid }
+    end
   end
 
   describe "when name is blank" do

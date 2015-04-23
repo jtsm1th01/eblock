@@ -13,17 +13,7 @@
   <%= f.number_field :value %>
 </div>
 
-<div>
-  <%= f.label :user_id %>
-  <%= f.number_field :user_id %>
-</div>
-
-<div>
-  <%= f.label :auction_id %>
-  <%= f.number_field :auction_id %>
-</div>
-
-<%= f.submit @item.new_record? ? 'Donate item' : 'Update donation'%>
+<%= f.submit @item.new_record? ? 'Donate item' : 'Update donation' %>
 
 <% end %>
 

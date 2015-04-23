@@ -7,16 +7,16 @@
   <%= @item.description %>
 </div>
 
-<% if @item.bids.count == 0 %>
 <div>
-  <%= "Start the Bidding!" %>
-<% else %>
-  <%= "Current Bid: $#{@item.current_bid}" %>
-</div>
+  <% if @item.bids.count == 0 %>
+    <%= "Start the Bidding!" %> 
+  <% else %>
+    <%= "Current Bid: $#{@item.current_bid}" %>
 <div>
   Total Bids:
   <%= @item.bids.count %>
 </div>
 <% end %>
+</div>
 
 <%= render 'bid_form' %>

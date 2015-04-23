@@ -1,5 +1,6 @@
 class Bid < ActiveRecord::Base
-  validates :item_id, :user_id, presence: true
+  validates :item_id, presence: true
+ # validates :user_id, presence: true
   validates :amount, numericality: { only_integer: true, greater_than: 0 }
 
   belongs_to :item

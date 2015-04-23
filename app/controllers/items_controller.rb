@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
   
   def show
     @item = Item.find(params[:id])
+    @item.bids.build
   end
   
   def edit
@@ -35,6 +36,6 @@ class ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:name, :description, :value, :user_id, :auction_id)
+      params.require(:item).permit(:name, :description, :value, :user_id, :auction_id, bids_attributes: [:id, :amount])
     end
 end

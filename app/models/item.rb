@@ -15,4 +15,8 @@ class Item < ActiveRecord::Base
   def current_bid
     bids[-2].amount
   end
+
+  def next_bid
+    current_bid + 5
+  end
 end

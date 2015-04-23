@@ -11,7 +11,7 @@
 <div>
   <%= "Start the Bidding!" %>
 <% else %>
-  <%= "Current Bid $ #{@item.bids[-2].try(:amount)}" %>
+  <%= "Current Bid: $#{@item.bids[-2].try(:amount)}" %>
 </div>
 <div>
   Total Bids:
@@ -22,7 +22,7 @@
 <%= form_for(@item) do |f| %>
   <%= f.fields_for :bids do |ff| %>
     <% if ff.object.new_record? %>
-      <%= ff.label :amount %>
+      <%= ff.label :amount, 'Amount: $' %>
       <%= ff.number_field :amount %>
     <% end %>
   <% end %>

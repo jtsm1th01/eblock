@@ -46,6 +46,7 @@ class ItemsController < ApplicationController
                                    :value,
                                    :user_id,
                                    :auction_id,
+                                   :photo,
                                     bids_attributes: [:id, :amount])
     end
 end

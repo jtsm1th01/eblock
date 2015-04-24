@@ -2,16 +2,20 @@
 <%= render 'shared/error_messages' %>
 
 <div>
-  <%= f.label :name %>
+  <%= f.label :name, 'Item Name' %>
   <%= f.text_field :name %>
 </div>
 <div>
-  <%= f.label :description %>
+  <%= f.label :description, 'Description' %>
   <%= f.text_area :description %>
 </div>
 <div>
-  <%= f.label :value, 'Amount: $' %>
+  <%= f.label :value, 'Value: $' %>
   <%= f.number_field :value %>
+</div>
+<div>
+  <%= f.label :photo %>
+  <%= f.file_field :photo %>
 </div>
 
 <%= f.submit @item.new_record? ? 'Donate item' : 'Update donation' %>

@@ -5,7 +5,9 @@
 </div>
 <div>
   <%= @item.description %>
+  <%= image_tag @item.photo.url(:medium) %>
 </div>
+
 
 <div>
   <%= @no_bids ? 'Start the Bidding!' : "Current Bid: $#{@item.high_bid}" %>

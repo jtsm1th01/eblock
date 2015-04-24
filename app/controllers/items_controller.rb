@@ -30,8 +30,10 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(item_params)
-      redirect_to item_path(@item)
+    flash_msg = params[:item][:bids_attributes] \
+      ? "Your bid has been entered. Thanks for your support!" : "Item has been updated."
+    if @item.update(item_params) 
+      redirect_to item_path(@item), :notice => "#{flash_msg}"
     else
       render 'edit'
     end

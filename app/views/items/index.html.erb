@@ -12,15 +12,9 @@
     <% @items.each do |item| %>
       <tr>
         <td><%= link_to item.name, item_path(item) %></td>
-        <td>$<%= item.bids.last.try(:amount) || 0 %></td>
+        <td>$<%= item.high_bid || 0 %></td>
         <td><%= item.bids.count %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
-
-
-
-

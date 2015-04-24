@@ -12,11 +12,8 @@ class Item < ActiveRecord::Base
   accepts_nested_attributes_for :bids
   has_many :photos
 
-  def current_bid
-    bids[-2].amount
+  def high_bid
+    bids.maximum("amount")
   end
 
-  def min_bid(no_bids_flag)
-    no_bids_flag ? 5 : current_bid + 5
-  end
 end

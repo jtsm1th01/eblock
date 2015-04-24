@@ -2,12 +2,10 @@
   <%= f.fields_for :bids do |ff| %>
     <% if ff.object.new_record? %>
       <%= ff.label :amount, 'Amount: $' %>
-      <%= ff.number_field :amount,
-                          :value => @item.min_bid(@no_bids),
-                          min: @item.min_bid(@no_bids) %>
+      <%= ff.number_field :amount, :value => @min_bid, min: @min_bid %>
     <% end %>
   <% end %>
 
 <%= f.submit "Place Bid" %><br>
-(Minimum bid: $<%= @item.min_bid(@no_bids) %>)
+(Minimum bid: $<%= @min_bid %>)
 <% end %>

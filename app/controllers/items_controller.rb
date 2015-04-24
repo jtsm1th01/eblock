@@ -10,7 +10,8 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @bid_count = @item.bids.count
-    @bid_count == 0 ? @no_bids = true : nil
+    @no_bids = @bid_count == 0 ? true : nil
+    @min_bid = @no_bids ? 5 : @item.high_bid + 5
     @item.bids.build
   end
 

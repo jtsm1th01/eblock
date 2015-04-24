@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421221949) do
+ActiveRecord::Schema.define(version: 20150424194715) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -49,6 +49,10 @@ ActiveRecord::Schema.define(version: 20150421221949) do
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "items", ["auction_id"], name: "index_items_on_auction_id"

@@ -10,8 +10,8 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @bid_count = @item.bids.count
-    @no_bids = @bid_count == 0 ? true : nil
-    @min_bid = @no_bids ? 5 : @item.high_bid + 5
+    @high_bid = @item.high_bid unless @bid_count == 0
+    @min_bid = @high_bid ? @high_bid + 5 : 5
     @item.bids.build
   end
 
@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     flash_msg = params[:item][:bids_attributes] \
       ? "Your bid has been entered. Thanks for your support!" : "Item has been updated."
-    if @item.update(item_params) 
+    if @item.update(item_params)
       redirect_to item_path(@item), :notice => "#{flash_msg}"
     else
       render 'edit'
@@ -40,6 +40,7 @@ class ItemsController < ApplicationController
   end
 
   private
+
     def item_params
       params.require(:item).permit(:name,
                                    :description,

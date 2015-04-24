@@ -1,21 +1,24 @@
 <h1>Item Details</h1>
-<h1><%= @item.name %></h1>
-<div>
-  Item Description:
+
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= @item.name %></h1>
+  </div>
 </div>
-<div>
-  <%= @item.description %>
-  <%= image_tag @item.photo.url(:medium) %>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag @item.photo.url(:medium) %>
+  </div>
+  <div class="col-md-4">
+    <h4>Item Description:</h4><br>
+    <p><%= @item.description %></p><br>
+    <%= @no_bids ? 'Start the Bidding!' : "Current Bid: $#{@item.high_bid}" %>
+    | Total Bids:
+    <%= @bid_count %><br>
+      <%= render 'bid_form' %>
+  </div>
 </div>
 
 
-<div>
-  <%= @no_bids ? 'Start the Bidding!' : "Current Bid: $#{@item.high_bid}" %>
-</div>
-<div>
-  Total Bids:
-  <%= @bid_count %>
-</div>
 
-
-<%= render 'bid_form' %>

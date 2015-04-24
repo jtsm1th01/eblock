@@ -6,12 +6,14 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new(:auction_id => Auction.last.id)
   end
-  
+
   def show
     @item = Item.find(params[:id])
+    @bid_count = @item.bids.count
+    @bid_count == 0 ? @no_bids = true : nil
     @item.bids.build
   end
-  
+
   def edit
     @item = Item.find(params[:id])
   end
@@ -24,7 +26,7 @@ class ItemsController < ApplicationController
       render 'new'
     end
   end
-  
+
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
@@ -36,6 +38,11 @@ class ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:name, :description, :value, :user_id, :auction_id, bids_attributes: [:id, :amount])
+      params.require(:item).permit(:name,
+                                   :description,
+                                   :value,
+                                   :user_id,
+                                   :auction_id,
+                                    bids_attributes: [:id, :amount])
     end
 end

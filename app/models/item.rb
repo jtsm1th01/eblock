@@ -16,7 +16,7 @@ class Item < ActiveRecord::Base
     bids[-2].amount
   end
 
-  def next_bid
-    current_bid + 5
+  def min_bid(no_bids_flag)
+    no_bids_flag ? 5 : current_bid + 5
   end
 end

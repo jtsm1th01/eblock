@@ -6,6 +6,38 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+  
+  <div class="container">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-md-1">
+          <p><span class="glyphicon glyphicon-heart"></span>
+          </p>
+        </div>
+        <div class="col-md-11">
+          <h2>The Autism Research Foundation<br>
+            <small>Northern California Chapter</small>
+          </h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav navbar-nav pull-right layout-nav">
+            <li><a href="#">Home</a></li>
+            <li><%= link_to "Items Up for Bid", items_path %></li>
+            <li><%= link_to "Donate an Item", new_item_path %></li>
+            <li><a href="#">My Watchlist</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h1>2015 Auction Fundraiser</h1>
+    <h2>April 28th - 30th, 2015</h2>
+
+  </div>
+  
 <body>
 
   <div class="container">

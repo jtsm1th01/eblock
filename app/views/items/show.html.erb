@@ -10,14 +10,15 @@
   <div class="col-md-4">
     <%= image_tag @item.photo.url(:medium) %>
   </div>
-  <div class="col-md-4">
-    <h4>Item Description:</h4><br>
-    <p><%= @item.description %></p><br>
-    <%= @no_bids ? 'Start the Bidding!' : "Current Bid: $#{@item.high_bid}" %>
+  <div class="col-md-6">
+    <div class="h4">Item Description:</div>
+    <div class="p"><%= @item.description %></div>
+    <div class="h4"><%= @no_bids ? 'Start the Bidding!' : "Current Bid: $#{@item.high_bid}" %>
     | Total Bids:
-    <%= @bid_count %><br>
+      <%= @bid_count %></div>
+    <div>
       <%= render 'bid_form' %>
-  </div>
+    </div>
 </div>
 
 

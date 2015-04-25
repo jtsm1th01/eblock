@@ -1,24 +1,44 @@
 <%= form_for @item do |f| %>
 <%= render 'shared/error_messages' %>
 
-<div>
-  <%= f.label :name, 'Item Name' %>
-  <%= f.text_field :name %>
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :name, 'Item Name:' %>
+  </div>
+  <div class="col-md-3">
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
 </div>
-<div>
-  <%= f.label :description, 'Description' %>
-  <%= f.text_area :description %>
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :description, 'Description:' %>
+  </div>
+  <div class="col-md-3">
+    <%= f.text_area :description, class: 'form-control' %>
+  </div>
 </div>
-<div>
-  <%= f.label :value, 'Value: $' %>
-  <%= f.number_field :value %>
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :value, 'Approx. Value:' %>
+  </div>
+  <div class="col-md-3">
+    $ <%= f.number_field :value, class: 'form-control amount-field' %> .00
+  </div>
 </div>
-<div>
-  <%= f.label :photo %>
-  <%= f.file_field :photo %>
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :photo, 'Photo:' %>
+  </div>
+  <div class="col-md-3">
+    <%= f.file_field :photo, class: 'form-control' %>
+  </div>
 </div>
 
-<%= f.submit @item.new_record? ? 'Donate item' : 'Update donation' %>
+<div class="row">
+  <div class="col-md-2">
+    <%= f.submit @item.new_record? ? 'Donate item' : 'Update donation', class: "form-control btn btn-danger" %>
+  </div>
+</div>
 
 <% end %>
 

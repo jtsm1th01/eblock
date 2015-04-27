@@ -15,11 +15,15 @@
 }
 
 .amount-field {
-  width: 50%;
+  width: 65%;
   display: inline;
 }
 
 .countdown {
   color: red;
   text-align: right;
+}
+
+.field_with_errors { 
+  display: inline;
 }

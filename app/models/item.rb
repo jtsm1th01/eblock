@@ -1,5 +1,4 @@
 class Item < ActiveRecord::Base
-
 # validates :auction_id, presence: true
 # validates :user_id, presence: true
   validates :name, presence: true
@@ -14,7 +13,7 @@ class Item < ActiveRecord::Base
   
   has_attached_file :photo,
                     :styles => { :medium => "300x300>", :thumb => "100x100>" },
-                    :default_url => "/images/:style/missing.png"
+                    :default_url => "/images/:style/missing.png",
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
   

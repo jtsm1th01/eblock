@@ -36,7 +36,8 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.submit @item.new_record? ? 'Donate item' : 'Update donation', class: "form-control btn btn-danger" %>
+    <% button_txt = @item.new_record? ? 'Donate item' : 'Update donation' %>
+    <%= f.submit "#{button_txt}", class: "form-control btn btn-danger" %>
   </div>
 </div>
 

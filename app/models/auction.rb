@@ -1,4 +1,5 @@
 class Auction < ActiveRecord::Base
+  
   validates :charity_id, presence: true
   validates :name, presence: true
   validates :start, presence: true

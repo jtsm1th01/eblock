@@ -18,18 +18,10 @@
 
 <body>
 
-  <div class="container">
-    <% if flash[:alert] %>
-      <div class='alert alert-danger'>
-        <%= alert %>
-      </div>
-    <% elsif flash[:notice] %>
-      <div class='alert alert-success'>
-        <%= notice %>
-      </div>
-    <% end %>
-    <%= yield %>
-  </div>
+<div class="container">
+  <%= render 'layouts/flash' %>
+  <%= yield %>
+</div>
 
 </body>
 </html>

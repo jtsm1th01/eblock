@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.7'
 gem "paperclip", "~>4.2"
 gem 'aws-sdk', '< 2.0'
+gem 'devise'
 
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 4.0.3'

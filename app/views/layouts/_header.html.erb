@@ -17,7 +17,7 @@
         <li><%= link_to "Items Up for Bid", items_path %></li>
         <li><%= link_to "Donate an Item", new_item_path %></li>
         <li><a href="#">My Watchlist</a></li>
-        <li><a href="#">Logout</a></li>
+        <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
       </ul>
     </div>
   </div>

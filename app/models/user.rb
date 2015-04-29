@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sesitive: false }
 
-  has_many :items
+  has_many :items, inverse_of: :user
   has_many :bids
 
 end

@@ -51,8 +51,6 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:name,
                                    :description,
                                    :value,
-                                   :user_id,
-                                   :auction_id,
                                    :photo,
                                     bids_attributes: [:id, :amount])
     end

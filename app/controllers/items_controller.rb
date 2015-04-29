@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  
+
   def index
     @items = Item.all
   end
@@ -23,6 +23,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = current_user.items.build(item_params)
+    @item.auction = Auction.last
     if @item.save
       redirect_to root_url
     else

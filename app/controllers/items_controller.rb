@@ -11,6 +11,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @bid = @item.bids.build
     @bid_count = @item.bids.count
     @high_bid = @item.high_bid unless @bid_count == 0
     @min_bid = @high_bid ? @high_bid + 5 : 5
@@ -25,23 +26,17 @@ class ItemsController < ApplicationController
     @item = current_user.items.build(item_params)
     @item.auction = Auction.last
     if @item.save
-      redirect_to root_url
+      redirect_to root_url, :notice => 'Thank you for your donation!'
     else
-      render 'new'
+      render 'new', :alert => "We're sorry but we could not accept \
+                               your donation at this time."
     end
   end
 
   def update
     @item = Item.find(params[:id])
-    if params[:item][:bids_attributes]
-      require_login
-      flash_msg = 'Your bid has been entered. Thanks for your support!'
-      return
-    else
-      flash_msg = 'Item has been updated.'
-    end
     if @item.update(item_params)
-      redirect_to item_path(@item), :notice => "#{flash_msg}"
+      redirect_to item_path(@item), :notice => 'Item has been updated.'
     else
       render 'edit'
     end
@@ -49,14 +44,7 @@ class ItemsController < ApplicationController
 
   private
 
-  def require_login
-    unless user_signed_in?
-      session[:forward_url] = request.fullpath
-      redirect_to new_user_session_path, :notice => "Please sign in."
-    end
-  end
-  
-  def item_params
+    def item_params
       params.require(:item).permit(:name,
                                    :description,
                                    :value,

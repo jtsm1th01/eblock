@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :update]
 
   def index
     @items = Item.all
@@ -11,10 +11,10 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @bid = @item.bids.build
     @bid_count = @item.bids.count
     @high_bid = @item.high_bid unless @bid_count == 0
     @min_bid = @high_bid ? @high_bid + 5 : 5
-    @item.bids.build
   end
 
   def edit
@@ -25,21 +25,17 @@ class ItemsController < ApplicationController
     @item = current_user.items.build(item_params)
     @item.auction = Auction.last
     if @item.save
-      redirect_to root_url
+      redirect_to root_url, :notice => 'Thank you for your donation!'
     else
-      render 'new'
+      render 'new', :alert => "We're sorry but we could not accept \
+                               your donation at this time."
     end
   end
 
   def update
     @item = Item.find(params[:id])
-    if params[:item][:bids_attributes]
-      flash_msg = 'Your bid has been entered. Thanks for your support!'
-    else
-      flash_msg = 'Item has been updated.'
-    end
     if @item.update(item_params)
-      redirect_to item_path(@item), :notice => "#{flash_msg}"
+      redirect_to item_path(@item), :notice => 'Item has been updated.'
     else
       render 'edit'
     end
@@ -51,7 +47,6 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:name,
                                    :description,
                                    :value,
-                                   :photo,
-                                    bids_attributes: [:id, :amount])
+                                   :photo)
     end
 end

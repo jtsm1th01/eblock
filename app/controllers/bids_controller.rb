@@ -1,28 +1,30 @@
 class BidsController < ApplicationController
-  
+  before_action :set_item
+  before_action :require_login
+
   def create
-    @item = Item.find(params[:item_id])
-    if require_login
-      return
+    @bid = @item.bids.build(bid_params)
+    @bid.user = current_user
+    if @bid.save
+      redirect_to item_url(@item),
+      :notice => 'Your bid has been entered. Thanks for your support!'
     else
-      @bid = @item.bids.build(bid_params)
-      @bid.user = current_user    
-      if @bid.save
-        flash_msg = 'Your bid has been entered. Thanks for your support!'
-        redirect_to item_url(@item), :notice => "#{flash_msg}"
-      else
-        flash_msg = "We're sorry, but your bid could not be entered."
-        flash.now.alert = flash_msg
-        redirect_to item_url(@item), :alert => "#{flash_msg}"
-      end
+      redirect_to item_url(@item),
+      :alert => "We're sorry, but your bid could not be entered."
     end
   end
   
   private
+
+    def set_item
+      @item = Item.find(params[:item_id])
+    end
+
     def require_login
       unless user_signed_in?
         session[:forward_url] = item_url(@item)
-        redirect_to new_user_session_path, :notice => "Please sign in."
+        redirect_to new_user_session_path,
+                    :alert => 'Please sign up or sign in before continuing.'
       end
     end
 

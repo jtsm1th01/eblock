@@ -13,9 +13,11 @@
   <div class="col-md-6">
     <div class="h4">Item Description:</div>
     <div class="p"><%= @item.description %></div>
-    <div class="h4"><%= @high_bid ? "Current Bid: $#{@high_bid}" : 'Start the Bidding!'%>
-    | Total Bids:
-      <%= @bid_count %></div>
+    <div class="h4">
+      <%= @high_bid ? "Current Bid: $#{@high_bid}" : 'Start the Bidding!'%>
+      | Total Bids:
+      <%= @bid_count %>
+    </div>
     <div>
       <%= render 'items/bid_form' %>
     </div>

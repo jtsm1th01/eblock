@@ -15,7 +15,6 @@ class ItemsController < ApplicationController
     @bid_count = @item.bids.count
     @high_bid = @item.high_bid unless @bid_count == 0
     @min_bid = @high_bid ? @high_bid + 5 : 5
-    @item.bids.build
   end
 
   def edit
@@ -48,7 +47,6 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:name,
                                    :description,
                                    :value,
-                                   :photo,
-                                    bids_attributes: [:id, :amount])
+                                   :photo)
     end
 end

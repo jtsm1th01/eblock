@@ -13,4 +13,7 @@ class User < ActiveRecord::Base
   has_many :items, inverse_of: :user
   has_many :bids
 
+  def to_s
+    "#{fname} #{lname}"
+  end
 end

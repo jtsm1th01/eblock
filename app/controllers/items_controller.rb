@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :update]
 
   def index
     @items = Item.all
@@ -34,7 +34,9 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if params[:item][:bids_attributes]
+      require_login
       flash_msg = 'Your bid has been entered. Thanks for your support!'
+      return
     else
       flash_msg = 'Item has been updated.'
     end
@@ -47,7 +49,14 @@ class ItemsController < ApplicationController
 
   private
 
-    def item_params
+  def require_login
+    unless user_signed_in?
+      session[:forward_url] = request.fullpath
+      redirect_to new_user_session_path, :notice => "Please sign in."
+    end
+  end
+  
+  def item_params
       params.require(:item).permit(:name,
                                    :description,
                                    :value,

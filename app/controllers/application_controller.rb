@@ -10,5 +10,9 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:fname, :lname, :email, :password, :password_confirmation) }
   end
+  
+  def after_sign_in_path_for user
+    session[:forward_url] ? session.delete(:forward_url) : super
+  end
 
 end

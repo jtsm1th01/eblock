@@ -1,18 +1,19 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
-  before_action :email_setup
+  default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
   
   def email_donor_wrapup(user)
+    email_setup(user)
   end
-  
+
   def email_bidder_wrapup(user)
+    email_setup(user)
   end
   
   private
-    def email_setup
-      @user = user
-      @url = root_url
-      email_with_name = %(@user <#{@user.email}>)
-      mail(to: email_with_name, subject: 'Charity Auction Wrap-up')
-    end
+  def email_setup(user)
+    @user = user
+    @url = root_url
+    email_with_name = %(@user <#{@user.email}>)
+    mail(to: email_with_name, subject: 'Charity Auction Wrap-up')
+  end
 end

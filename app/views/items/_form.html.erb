@@ -21,14 +21,15 @@
   <div class="col-md-2">
     <%= f.label :value, 'Approx. Value:' %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     $ <%= f.number_field :value, class: 'form-control amount-field' %> .00
   </div>
+</div>
 <div class="row form-group">
   <div class="col-md-2">
-    <%= f.label :starting_bid, 'Starting Bid' %>
+    <%= f.label :starting_bid, 'Starting Bid:' %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     $ <%= f.number_field :starting_bid, class: 'form-control amount-field' %> .00
   </div>  
 </div>
@@ -36,9 +37,10 @@
   <div class="col-md-2">
     <%= f.label :bid_increment, 'Bid Increment:' %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     $ <%= f.number_field :bid_increment, class: 'form-control amount-field' %> .00
   </div>
+</div>
 <div class="row form-group">
   <div class="col-md-2">
     <%= f.label :photo, 'Photo:' %>

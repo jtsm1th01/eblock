@@ -5,7 +5,8 @@
     <tr>
       <th>Photo</th>
       <th>Item</th>
-      <th>Current Bid</th>
+      <th>Going For</th>
+      <th>Do I Hear</th>
       <th>Bids</th>
     </tr>
   </thead>
@@ -14,7 +15,8 @@
       <tr>
         <td><%= image_tag item.photo.url(:thumb) %></td>
         <td><%= link_to item.name, item_path(item) %></td>
-        <td>$<%= item.high_bid || 0 %></td>
+        <td>$<%= going_bid = item.high_bid || item.starting_bid %></td>
+        <td>$<%= item.min_bid(going_bid) %></td>
         <td><%= item.bids.count %></td>
       </tr>
     <% end %>

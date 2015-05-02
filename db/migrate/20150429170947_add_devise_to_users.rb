@@ -1,6 +1,7 @@
 class AddDeviseToUsers < ActiveRecord::Migration
   def self.up
-    change_column :users, :email, null: false, default: ""
+    change_column_default :users, :email, ""
+    change_column_null :users, :email, false
     
     change_table(:users) do |t|
       
@@ -44,7 +45,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
   end
 
   def self.down
-    change_column :users, :email, null: true
+    change_column_null :users, :email, true
 
     change_table(:users) do |t|
       t.remove_column :encrypted_password

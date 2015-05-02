@@ -1,9 +1,10 @@
 class AddDeviseToUsers < ActiveRecord::Migration
   def self.up
+    change_column :users, :email, null: false, default: ""
+    
     change_table(:users) do |t|
       
       ## Database authenticatable
-      t.change_column :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -43,8 +44,9 @@ class AddDeviseToUsers < ActiveRecord::Migration
   end
 
   def self.down
+    change_column :users, :email, null: true
+
     change_table(:users) do |t|
-      t.change_column_null :email, true
       t.remove_column :encrypted_password
       t.remove_column :reset_password_token
       t.remove_column :reset_password_sent_at

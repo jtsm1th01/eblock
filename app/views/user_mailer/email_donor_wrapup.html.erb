@@ -1,4 +1,4 @@
-<p>Dear, <%= @user.fname %></p>
+<p>Dear <%= @user.fname %>,</p>
 <p>
   Thank you for participating in our auction.
   The auction was a great success! We were able to raise over (auction total) to fund
@@ -18,6 +18,16 @@
       <th>Winning Bidder Email</th>
     </tr>
   </thead>
+   <tbody>
+      <%= @user.winning_bids.each do |winning_bid| %>
+        <tr>        
+          <td><%= winning_bid.item.name %></td>
+          <td><%= winning_bid.bid.amount %></td>
+          <td><a href="https://www.paypal.com/home">Pay via PayPal</a></td>
+          <td><a href="#">Contact Charity for Payment</a></td>
+        </tr>
+      <% end %>
+   </tbody>
 </table>
 <p>We couldn't do this without your support. See you next time!</p>
 <p>Sincerely,</p>

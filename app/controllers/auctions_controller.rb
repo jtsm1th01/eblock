@@ -15,14 +15,16 @@ class AuctionsController < ApplicationController
       schedule_wrapup
       redirect_to root_url, :notice => 'Your auction has been created!'
     else
-      render 'new', :alert => "We're sorry but we could create your auction \
+      render 'new', :alert => "We're sorry but we couldn't create your auction \
                                at this time"
     end
   end
   
   def wrapup
-    user = User.find_by_fname("Forrest")
-    UserMailer.email_bidder_wrapup(user).deliver
+    User.all.each do |user|
+      UserMailer.email_bidder_wrapup(user).deliver
+      UserMailer.email_donor_wrapup(user).deliver unless bids.items.empty?
+    end
     render json: nil, status: :ok
   end
   

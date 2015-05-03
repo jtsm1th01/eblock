@@ -1,4 +1,8 @@
+require 'cgi'
+
 class AuctionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => [:wrapup]
+  
   def new
     @charity = Charity.find(params[:charity_id])
     @auction = @charity.auctions.build
@@ -8,8 +12,8 @@ class AuctionsController < ApplicationController
     @charity = Charity.find(params[:charity_id])
     @auction = @charity.auctions.build(auction_params)
     if @auction.save
-      redirect_to root_url, :notice => 'Your auction has been created!'
       schedule_wrapup
+      redirect_to root_url, :notice => 'Your auction has been created!'
     else
       render 'new', :alert => "We're sorry but we could create your auction \
                                at this time"
@@ -19,14 +23,17 @@ class AuctionsController < ApplicationController
   def wrapup
     user = User.find_by_fname("Forrest")
     UserMailer.email_bidder_wrapup(user).deliver
+    render json: nil, status: :ok
   end
   
   private
 
     def schedule_wrapup
-      date = @auction.finish
-      url = wrapup_url
-      Temporize.post("/events/#{date}/#{url}")
+      date = @auction.finish.utc.iso8601
+      url = CGI::escape(wrapup_url)
+      uri = URI(ENV["TEMPORIZE_URL"])
+      HTTParty.post("https://api.temporize.net/v1/events/#{date}/#{url}",
+        :basic_auth => {:username => uri.user, :password => uri.password})
     end
 
     def auction_params

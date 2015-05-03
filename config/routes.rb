@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :charities, only: [] do
     resources :auctions, only: [:new, :create]
   end
-  post 'auctions/:id/wrapup' => 'auctions#wrapup', as: :wrapup
+  post 'auctions/wrapup' => 'auctions#wrapup', as: :wrapup
 
   resources :items, except: [:destroy] do
     resources :bids, only: :create

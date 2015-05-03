@@ -8,6 +8,13 @@ Rails.application.configure do
   :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
   }
 }
+
+  config.action_mailer.perform_deliveries = true
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+  # Recommended by Devise http://devise.plataformatec.com.br/
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

@@ -14,10 +14,16 @@ class Item < ActiveRecord::Base
   belongs_to :auction, inverse_of: :items
   belongs_to :user, inverse_of: :items
   has_many :bids
+  has_one :winning_bid
   accepts_nested_attributes_for :bids
   
   def high_bid
     bids.maximum("amount")
   end
+  
+  def winning_bid
+    bids.find_by_amount(high_bid)
+  end  
+  
 
 end

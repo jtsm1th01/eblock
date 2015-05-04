@@ -5,7 +5,6 @@
   <thead>
     <tr>
       <th>Item Name</th>
-      <th>Item Value</th>
       <th>Winning Bid</th>
       <th>Donor Name</th>
       <th>Donor Email</th>
@@ -17,11 +16,10 @@
      <% WinningBid.all.each do |winning_bid| %>
      <tr>        
        <td><%= winning_bid.item.name %></td>
-       <td><%= winning_bid.item.value %></td>
-       <td><%= winning_bid.bid.amount %></td>
-       <td><%= winning_bid.item.user.fname %></td>
+       <td>$<%= winning_bid.bid.amount %></td>
+       <td><%= winning_bid.item.user %></td>
        <td><%= winning_bid.item.user.email %></td>
-       <td><%= winning_bid.bid.user.fname %></td>
+       <td><%= winning_bid.bid.user %></td>
        <td><%= winning_bid.bid.user.email %></td>
      </tr>
      <% end %>

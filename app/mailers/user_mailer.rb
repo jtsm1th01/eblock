@@ -13,6 +13,7 @@ class UserMailer < ActionMailer::Base
   def email_setup(user)
     @user = user
     @url = root_url
+    @funds_raised = Auction.last.calculate_funds_raised
     email_with_name = %(@user <#{@user.email}>)
     mail(to: email_with_name, subject: 'Charity Auction Wrap-up')
   end

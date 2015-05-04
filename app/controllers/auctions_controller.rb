@@ -26,6 +26,7 @@ class AuctionsController < ApplicationController
       UserMailer.email_bidder_wrapup(user).deliver unless user.bids.empty?
       UserMailer.email_donor_wrapup(user).deliver unless user.items.empty?
     end
+    UserMailer.email_sponsor_wrapup.deliver
     render json: nil, status: :ok
   end
   

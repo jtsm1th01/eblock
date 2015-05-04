@@ -1,0 +1,30 @@
+<h2>Charity Auction Donor/Bidder Match List:</h2>
+
+<p>Donors should contact winning bidder(s) via email to arrange delivery.</p>
+<table style="width:100%">
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Item Value</th>
+      <th>Winning Bid</th>
+      <th>Donor Name</th>
+      <th>Donor Email</th>
+      <th>Bidder Name</th>
+      <th>Bidder Email</th>
+    </tr>
+  </thead>
+   <tbody>
+     <% WinningBid.all.each do |winning_bid| %>
+     <tr>        
+       <td><%= winning_bid.item.name %></td>
+       <td><%= winning_bid.item.value %></td>
+       <td><%= winning_bid.bid.amount %></td>
+       <td><%= winning_bid.item.user.fname %></td>
+       <td><%= winning_bid.item.user.email %></td>
+       <td><%= winning_bid.bid.user.fname %></td>
+       <td><%= winning_bid.bid.user.email %></td>
+     </tr>
+     <% end %>
+   </tbody>
+</table>
+

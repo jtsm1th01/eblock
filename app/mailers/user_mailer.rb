@@ -10,6 +10,10 @@ class UserMailer < ActionMailer::Base
     email_setup(user)
   end
   
+  def email_sponsor_wrapup
+    mail(to: travis.smith@mac.com, subject: 'Charity Auction Wrap-up')
+  end
+  
   private
   def email_setup(user)
     @user = user

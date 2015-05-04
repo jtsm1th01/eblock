@@ -54,19 +54,17 @@ ActiveRecord::Schema.define(version: 20150503222705) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.integer  "starting_bid"
-    t.integer  "bid_increment"
   end
 
   add_index "items", ["auction_id"], name: "index_items_on_auction_id"
   add_index "items", ["user_id"], name: "index_items_on_user_id"
 
   create_table "users", force: true do |t|
+    t.string   "email",                  default: "", null: false
     t.string   "fname"
     t.string   "lname"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

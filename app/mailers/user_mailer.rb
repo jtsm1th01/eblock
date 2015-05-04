@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
+  before_action :get_funds_raised
   
   def email_donor_wrapup(user)
     email_setup(user)
@@ -13,8 +14,12 @@ class UserMailer < ActionMailer::Base
   def email_setup(user)
     @user = user
     @url = root_url
-    @funds_raised = Auction.last.calculate_funds_raised
+    @charity = Charity.first
     email_with_name = %(@user <#{@user.email}>)
     mail(to: email_with_name, subject: 'Charity Auction Wrap-up')
+  end
+  
+  def get_funds_raised
+    @funds_raised = Auction.last.calculate_funds_raised
   end
 end

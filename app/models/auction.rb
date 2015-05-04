@@ -17,7 +17,7 @@ class Auction < ActiveRecord::Base
   end  
 
   def calculate_funds_raised
-    WinningBid.all.inject { |sum, bid| sum + bid.amount }
+    WinningBid.all.map { |bid| bid.amount }.sum
   end
 
 end

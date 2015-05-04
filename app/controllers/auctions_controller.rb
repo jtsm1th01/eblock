@@ -21,9 +21,10 @@ class AuctionsController < ApplicationController
   end
   
   def wrapup
+    Auction.last.determine_winning_bids
     User.all.each do |user|
-      UserMailer.email_bidder_wrapup(user).deliver
-      UserMailer.email_donor_wrapup(user).deliver unless bids.items.empty?
+      UserMailer.email_bidder_wrapup(user).deliver unless user.bids.empty?
+      UserMailer.email_donor_wrapup(user).deliver unless user.items.empty?
     end
     render json: nil, status: :ok
   end
@@ -37,9 +38,6 @@ class AuctionsController < ApplicationController
       HTTParty.post("https://api.temporize.net/v1/events/#{date}/#{url}",
         :basic_auth => {:username => uri.user, :password => uri.password})
     end
-  
-    def total_funds_raised
-      WinningBids.all
 
     def auction_params
       params.require(:auction).permit(:name, :start, :finish)

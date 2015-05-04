@@ -7,37 +7,42 @@
     <p>Dear <%= @user.fname %>,</p>
     <p>
      Thank you for participating in our auction.
-     The auction was a great success! We were able to raise over <%= @funds_raised %>
+     The auction was a great success! We were able to raise $<%= @funds_raised %>
      to fund further charitable activities.<br>
     </p>
-    <% if user.winning_bids.any? %>
     <p>
       A summary of your participation is below...
     </p>
     <h3>Auction Items Won:</h3>
-    <p>Item <%= "donor".pluralize(user.winning_bids) %> will contact you \
-      via email to arrange delivery of item(s).</p>
+    <p>Item <%= pluralize(@user.winning_bids.length, 'donor') %> will contact you
+      via email to arrange delivery of item(s).
+    </p>
     <table>
       <thead>
         <tr>
           <th>Item Name</th>
           <th>Winning Bid</th>
           <th>PayPal</th>
-          <th>Alt Payment</th>])
+          <th>Alt Payment</th>
         </tr>
       </thead>
       <tbody>
-      <%= @user.winning_bids.each do |winning_bid| %>
-        <tr>        
-          <td><%= winning_bid.item.name %></td>
-          <td><%= winning_bid.bid.amount %></td>
-          <td><a href="https://www.paypal.com/home">Pay via PayPal</a></td>
-          <td><a href="#">Contact Charity for Payment</a></td>
-        </tr>
-      <% end %>
+        <% if @user.winning_bids.any? %>
+          <% @user.winning_bids.each do |winning_bid| %>
+            <tr>
+              <td><%= winning_bid.item.name %></td>
+              <td><%= winning_bid.bid.amount %></td>
+              <td><a href="https://www.paypal.com/home">Pay via PayPal</a></td>
+              <td><a href="#">Contact Charity for Payment</a></td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td>No items won</td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
-    <% end %>
     <p>We couldn't do this without your support. See you next time!</p>
     <p>Sincerely,</p>
     <p>The Sponsor</p>

@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
   end
   
   def email_sponsor_wrapup
-    mail(to: travis.smith@mac.com, subject: 'Charity Auction Wrap-up')
+    mail(to: 'travis.smith@mac.com', subject: 'Charity Auction Wrap-up')
   end
   
   private

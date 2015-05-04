@@ -15,20 +15,21 @@
       <th>Item Name</th>
       <th>Item Value</th>
       <th>Winning Bid</th>
-      <th>Winning Bidder Email</th>
+      <th>Bidder Email</th>
     </tr>
   </thead>
    <tbody>
-      <%= @user.winning_bids.each do |winning_bid| %>
-        <tr>        
-          <td><%= winning_bid.item.name %></td>
-          <td><%= winning_bid.bid.amount %></td>
-          <td><a href="https://www.paypal.com/home">Pay via PayPal</a></td>
-          <td><a href="#">Contact Charity for Payment</a></td>
-        </tr>
-      <% end %>
+     <% @user.items.each do |item| %>
+     <tr>        
+       <td><%= item.name %></td>
+       <td><%= item.value %></td>
+       <% winning_bid = WinningBid.find_by_item_id(item.id) %>
+       <td><%= winning_bid ? winning_bid.bid.amount : "Item Not Sold" %></td>
+       <td><%= winning_bid ? winning_bid.bid.user.email : nil %></td>
+     </tr>
+     <% end %>
    </tbody>
 </table>
 <p>We couldn't do this without your support. See you next time!</p>
 <p>Sincerely,</p>
-<p>The Sponsor</p>
+<p><%= Charity.name %></p>

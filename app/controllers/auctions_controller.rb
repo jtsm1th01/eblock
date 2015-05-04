@@ -37,6 +37,9 @@ class AuctionsController < ApplicationController
       HTTParty.post("https://api.temporize.net/v1/events/#{date}/#{url}",
         :basic_auth => {:username => uri.user, :password => uri.password})
     end
+  
+    def total_funds_raised
+      WinningBids.all
 
     def auction_params
       params.require(:auction).permit(:name, :start, :finish)

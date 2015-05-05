@@ -17,6 +17,10 @@ class Item < ActiveRecord::Base
   has_one :winning_bid
   has_many :watch_list_items, dependent: :destroy
   
+  def to_s
+    name
+  end
+
   def high_bid
     bids.maximum("amount")
   end

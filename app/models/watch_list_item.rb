@@ -4,4 +4,8 @@ class WatchListItem < ActiveRecord::Base
   
   validates :item, presence: true
   validates :user, presence: true
+  
+  def to_s
+    item.name
+  end
 end

@@ -11,10 +11,10 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @bid = @item.bids.build
     @bid_count = @item.bids.count
-    @high_bid = @item.high_bid unless @bid_count == 0
-    @min_bid = @high_bid ? @high_bid + 5 : 5
+    @high_bid = @bid_count == 0 ? nil : @item.high_bid
+    @min_bid = @high_bid ? @item.min_bid(@high_bid) : @item.starting_bid
+    @bid = @item.bids.build
   end
 
   def edit
@@ -47,6 +47,8 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:name,
                                    :description,
                                    :value,
-                                   :photo)
+                                   :photo,
+                                   :starting_bid,
+                                   :bid_increment)
     end
 end

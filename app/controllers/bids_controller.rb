@@ -24,7 +24,7 @@ class BidsController < ApplicationController
       unless user_signed_in?
         session[:forward_url] = item_url(@item)
         redirect_to new_user_session_path,
-                    :alert => 'Please sign up or sign in before continuing.'
+                    :alert => 'Please sign in or sign up before continuing.'
       end
     end
 

@@ -15,6 +15,7 @@ class Item < ActiveRecord::Base
   belongs_to :user, inverse_of: :items
   has_many :bids
   has_one :winning_bid
+  has_many :watch_list_items, dependent: :destroy
   
   def high_bid
     bids.maximum("amount")

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503222705) do
+ActiveRecord::Schema.define(version: 20150505210131) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(version: 20150503222705) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "watch_list_items", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "watch_list_items", ["item_id"], name: "index_watch_list_items_on_item_id"
+  add_index "watch_list_items", ["user_id"], name: "index_watch_list_items_on_user_id"
 
   create_table "winning_bids", force: true do |t|
     t.integer "bid_id"

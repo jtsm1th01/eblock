@@ -1,0 +1,41 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.page-header {
+  background-color: lightblue;
+}
+
+.glyphicon {
+  font-size: 90px;
+  color: #D45555;
+}
+
+.number-input {
+  width: 30%;
+}
+
+.amount-field {
+  width: 65%;
+  display: inline;
+}
+
+.countdown {
+  color: red;
+  text-align: right;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors { 
+  display: inline;
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}

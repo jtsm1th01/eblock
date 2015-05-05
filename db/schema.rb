@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421172137) do
+ActiveRecord::Schema.define(version: 20150424194715) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -19,12 +19,49 @@ ActiveRecord::Schema.define(version: 20150421172137) do
     t.datetime "finish"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "auctions", ["charity_id"], name: "index_auctions_on_charity_id"
 
+  create_table "bids", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bids", ["item_id"], name: "index_bids_on_item_id"
+  add_index "bids", ["user_id"], name: "index_bids_on_user_id"
+
   create_table "charities", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", force: true do |t|
+    t.integer  "auction_id"
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
+
+  add_index "items", ["auction_id"], name: "index_items_on_auction_id"
+  add_index "items", ["user_id"], name: "index_items_on_user_id"
+
+  create_table "users", force: true do |t|
+    t.string   "email"
+    t.string   "fname"
+    t.string   "lname"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

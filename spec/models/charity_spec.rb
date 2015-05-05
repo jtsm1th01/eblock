@@ -1,5 +1,13 @@
-require 'rails_helper'
+describe Charity do
+  
+before(:each) { @charity = Charity.new(name: 'NorCal Austism Research Foundation') } 
+  subject { @charity }
+  
+  it { should be_valid }
+  
+  describe "when name is blank" do
+    before { @charity.name = " " }
+    it { should_not be_valid }
+  end
 
-RSpec.describe Charity, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
 end

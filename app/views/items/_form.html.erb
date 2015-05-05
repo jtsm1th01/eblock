@@ -1,0 +1,47 @@
+<%= form_for @item do |f| %>
+<%= render 'shared/error_messages' %>
+
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :name, 'Item Name:' %>
+  </div>
+  <div class="col-md-3">
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+</div>
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :description, 'Description:' %>
+  </div>
+  <div class="col-md-3">
+    <%= f.text_area :description, class: 'form-control' %>
+  </div>
+</div>
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :value, 'Approx. Value:' %>
+  </div>
+  <div class="col-md-3">
+    $ <%= f.number_field :value, class: 'form-control amount-field' %> .00
+  </div>
+</div>
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :photo, 'Photo:' %>
+  </div>
+  <div class="col-md-3">
+    <%= f.file_field :photo, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <% button_txt = @item.new_record? ? 'Donate item' : 'Update donation' %>
+    <%= f.submit "#{button_txt}", class: "form-control btn btn-danger" %>
+  </div>
+</div>
+
+<% end %>
+
+
+

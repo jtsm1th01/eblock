@@ -1,0 +1,22 @@
+<%= form_for(@item) do |f| %>
+  <%= f.fields_for :bids do |ff| %>
+    <% if ff.object.new_record? %>
+      <div class="row bid-fields">
+        <div class="col-md-4">
+          $ <%= ff.number_field :amount,
+                                :value => @min_bid,
+                                     min: @min_bid,
+                                   class: "amount-field form-control" %> .00
+        </div>
+        <div class="col-md-3">
+          <%= f.submit "Place Bid", class: "form-control btn btn-danger" %>
+        </div>
+      </div>
+          <p class="help-block">(Minimum bid: $<%= @min_bid %>)</p> 
+      </div>
+    <% end %>
+  <% end %>
+
+  
+
+<% end %>

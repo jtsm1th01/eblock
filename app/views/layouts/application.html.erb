@@ -6,9 +6,22 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+  
+<div class="container">
+  <%= render 'layouts/header' %>
+  <div class="row">
+    <div class="col-md-5"><h1>2015 Auction Fundraiser</h1></div>
+    <div class="col-md-7 h3 countdown">Auction Begins: 01 Day 03 Hours 34 Mins</div>
+  </div>
+  <h2>April 28th - 30th, 2015</h2>
+</div>
+
 <body>
 
-<%= yield %>
+<div class="container">
+  <%= render 'layouts/flash' %>
+  <%= yield %>
+</div>
 
 </body>
 </html>

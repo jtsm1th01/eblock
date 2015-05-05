@@ -1,7 +1,26 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Charity.create(name: "NorCal Autism Research Foundation")
+
+t = Time.now
+Auction.create(      name: "Spring Fundraiser",
+               charity_id: 1,
+                    start: t,
+                   finish: (t + 86400))
+
+User.create(fname: "Julian",
+            lname: "Bishop",
+            email: "jbishop@xtol.com")
+
+(1..10).each do |number|
+  Item.create(auction_id: 1,
+                 user_id: 1,
+                    name: "piano " + number.to_s,
+             description: "old and out of tune",
+                   value: number * 10000)
+  Bid.create(    item_id: number,
+                 user_id: 1,
+                  amount: number * 20)
+end
+  
+
+
+

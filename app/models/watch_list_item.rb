@@ -8,4 +8,5 @@ class WatchListItem < ActiveRecord::Base
   def to_s
     item.name
   end
+
 end

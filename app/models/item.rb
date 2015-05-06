@@ -17,10 +17,6 @@ class Item < ActiveRecord::Base
   has_one :winning_bid
   has_many :watch_list_items, dependent: :destroy
   
-  def to_s
-    name
-  end
-
   def high_bid_amount
     bids.maximum("amount")
   end
@@ -32,5 +28,8 @@ class Item < ActiveRecord::Base
   def min_bid(going_bid)
     bids.count == 0 ? going_bid : (going_bid + bid_increment)
   end
-
+  
+  def watched?(user)
+    user.watch_list_items.pluck(:item_id).include?(id)
+  end
 end

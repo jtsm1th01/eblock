@@ -15,6 +15,10 @@ class ItemsController < ApplicationController
     @high_bid = @bid_count == 0 ? nil : @item.high_bid_amount
     @min_bid = @high_bid ? @item.min_bid(@high_bid) : @item.starting_bid
     @bid = @item.bids.build
+    if @item.watched?(current_user)
+      @watch_list_item = WatchListItem. \
+                         find_by(item_id: @item.id, user_id: current_user.id).id
+    end
   end
 
   def edit

@@ -3,8 +3,11 @@ class WatchListItemsController < ApplicationController
 
   def index
     watch_list_items = WatchListItem.where(user: current_user)
-    @items = watch_list_items.map { |watch_list_item| watch_list_item.item }
-    
+    items = watch_list_items.map { |watch_list_item| watch_list_item.item }
+    @items_with_status = Hash.new
+    items.each do |item|   
+      @items_with_status[item] = status_msg(item)
+    end   
   end
 
   def create
@@ -16,6 +19,18 @@ class WatchListItemsController < ApplicationController
       flash[:alert] = "#{item} could not be added to your watch list."
     end
     redirect_to :back
+  end
+  
+  private
+  
+  def status_msg(item)
+     if item.bids.where(user: current_user).empty?
+        "You have not bid."
+      elsif item.winning_bid.user == current_user
+        "You are winning this item."
+      else
+        "You have been outbid!"
+      end
   end
   
 end

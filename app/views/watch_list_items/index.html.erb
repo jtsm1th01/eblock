@@ -11,19 +11,13 @@
     </tr>
   </thead>
   <tbody>
-    <% @items.each do |item| %>
+    <% @items_with_status.each do |item, status| %>
     <tr>
       <td><%= image_tag item.photo.url(:thumb) %></td>
       <td><%= link_to item, item_path(item) %></td>
-      <td>$<%= going_bid = item.high_bid_amount || item.starting_bid %></td>
+      <td>$<%= item.high_bid_amount || item.starting_bid %></td>
       <td>$<%= item.bids.where(user: current_user).maximum("amount") || 0 %></td>
-      <% if item.bids.where(user: current_user).empty? %>
-        <td><%= "You have not bid." %></td>
-      <% elsif item.winning_bid.user == current_user %>
-        <td><%= "You are winning this item." %></td>
-      <% else %>
-        <td> <%= "You have been outbid!" %></td>
-      <% end %>
+      <td><%= status %></td>
     </tr>
     <% end %>
   </tbody>

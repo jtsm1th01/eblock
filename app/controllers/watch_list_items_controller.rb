@@ -5,8 +5,9 @@ class WatchListItemsController < ApplicationController
     watch_list_items = WatchListItem.where(user: current_user)
     items = watch_list_items.map { |watch_list_item| watch_list_item.item }
     @items_with_status = Hash.new
-    items.each do |item|   
-      @items_with_status[item] = status_msg(item)
+    items.each do |item|
+      user_bid = item.bids.where(user: current_user).maximum("amount") || 0
+      @items_with_status[item] = { :msg => status_msg(item), :user_bid => user_bid }
     end   
   end
 

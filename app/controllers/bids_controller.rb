@@ -6,6 +6,7 @@ class BidsController < ApplicationController
     @bid = @item.bids.build(bid_params)
     @bid.user = current_user
     if @bid.save
+      auto_add_to_watch_list(@item)
       redirect_to item_url(@item),
       :notice => 'Your bid has been entered. Thanks for your support!'
     else
@@ -16,6 +17,12 @@ class BidsController < ApplicationController
   
   private
 
+    def auto_add_to_watch_list(item)
+      unless item.watched?(current_user)
+        current_user.watch_list_items.create(item_id: item.id)
+      end
+    end
+
     def set_item
       @item = Item.find(params[:item_id])
     end
@@ -23,8 +30,8 @@ class BidsController < ApplicationController
     def require_login
       unless user_signed_in?
         session[:forward_url] = item_url(@item)
-        redirect_to new_user_session_path,
-                    :alert => 'Please sign in or sign up before continuing.'
+                 redirect_to new_user_session_path,
+                :alert => 'Please sign in or sign up before continuing.'
       end
     end
 

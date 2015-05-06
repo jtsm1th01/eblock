@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @bid_count = @item.bids.count
-    @high_bid = @bid_count == 0 ? nil : @item.high_bid
+    @high_bid = @bid_count == 0 ? nil : @item.high_bid_amount
     @min_bid = @high_bid ? @item.min_bid(@high_bid) : @item.starting_bid
     @bid = @item.bids.build
   end

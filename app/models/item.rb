@@ -21,12 +21,12 @@ class Item < ActiveRecord::Base
     name
   end
 
-  def high_bid
+  def high_bid_amount
     bids.maximum("amount")
   end
   
   def winning_bid
-    bids.find_by_amount(high_bid)
+    bids.find_by_amount(high_bid_amount)
   end  
   
   def min_bid(going_bid)

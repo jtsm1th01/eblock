@@ -8,24 +8,22 @@
       <th>Current Bid</th>
       <th>My Bid</th>
       <th>Status</th>
-      <th>Bids</th>
     </tr>
   </thead>
   <tbody>
     <% @items.each do |item| %>
     <tr>
-      <td><%= image_tag item.item.photo.url(:thumb) %></td>
-      <td><%= link_to item, item_path(item.item) %></td>
-      <td>$<%= going_bid = item.item.high_bid || item.item.starting_bid %></td>
-      <td>$<%= item.item.bids.where(user: current_user).maximum("amount") || 0 %></td>
-      <% if item.item.bids.where(user: current_user).empty? %>
+      <td><%= image_tag item.photo.url(:thumb) %></td>
+      <td><%= link_to item, item_path(item) %></td>
+      <td>$<%= going_bid = item.high_bid_amount || item.starting_bid %></td>
+      <td>$<%= item.bids.where(user: current_user).maximum("amount") || 0 %></td>
+      <% if item.bids.where(user: current_user).empty? %>
         <td><%= "You have not bid." %></td>
-      <% elsif item.item.winning_bid.user == current_user %>
+      <% elsif item.winning_bid.user == current_user %>
         <td><%= "You are winning this item." %></td>
       <% else %>
         <td> <%= "You have been outbid!" %></td>
       <% end %>
-      <td><%= item.item.bids.length %></td>
     </tr>
     <% end %>
   </tbody>

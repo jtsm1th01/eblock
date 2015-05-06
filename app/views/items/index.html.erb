@@ -15,7 +15,7 @@
       <tr>
         <td><%= image_tag item.photo.url(:thumb) %></td>
         <td><%= link_to item.name, item_path(item) %></td>
-        <td>$<%= going_bid = item.high_bid || item.starting_bid %></td>
+        <td>$<%= going_bid = item.high_bid_amount || item.starting_bid %></td>
         <td>$<%= item.min_bid(going_bid) %></td>
         <td><%= item.bids.count %></td>
       </tr>

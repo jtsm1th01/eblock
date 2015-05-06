@@ -2,7 +2,9 @@ class WatchListItemsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @items = WatchListItem.where(user: current_user)
+    watch_list_items = WatchListItem.where(user: current_user)
+    @items = watch_list_items.map { |watch_list_item| watch_list_item.item }
+    
   end
 
   def create

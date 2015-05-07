@@ -8,9 +8,9 @@ class WatchListItemsController < ApplicationController
     items.each do |item|
       user_bid = item.bids.where(user: current_user).maximum("amount") || 0
       @watch_list[item] = {
-             :status => status_msg(item),
-             :user_bid => user_bid,
-             :watch_list_item => watch_list_items.find_by(item: item).id }
+                 :status => status_msg(item),
+                 :user_bid => user_bid,
+                 :watch_list_item => watch_list_items.find_by(item: item).id }
     end   
   end
 
@@ -29,7 +29,7 @@ class WatchListItemsController < ApplicationController
     watch_list_item = WatchListItem.find(params[:id])
     item = watch_list_item.item
     watch_list_item.destroy
-    redirect_to :back, :notice => "#{item} removed from your watch list."
+    redirect_to :back, :notice => "#{item.name} removed from your watch list."
   end
 
   private

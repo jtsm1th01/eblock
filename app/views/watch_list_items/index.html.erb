@@ -15,7 +15,7 @@
     <tr>
       <td><%= image_tag item.photo.url(:thumb) %></td>
       <td><%= link_to item.name, item_path(item) %></td>
-      <td>$<%= item.high_bid_amount || item.starting_bid %></td>
+      <td>$<%= item.high_bid_amount %></td>
       <td>$<%= details[:user_bid] %></td>
       <td><%= details[:status] %></td>
       <td><%= link_to 'Remove', watch_list_item_path(details[:watch_list_item]),

@@ -10,7 +10,7 @@ class WatchListItemsController < ApplicationController
       @watch_list[item] = {
              :status => status_msg(item),
              :user_bid => user_bid,
-             :watch_list_item => watch_list_items.find_by(item_id: item.id).id }
+             :watch_list_item => watch_list_items.find_by(item: item).id }
     end   
   end
 
@@ -18,9 +18,9 @@ class WatchListItemsController < ApplicationController
     item = Item.find(params[:item_id])
     watch_list_item = WatchListItem.new(item: item, user: current_user)
     if watch_list_item.save
-      flash[:notice] = "#{item} added to your watch list."
+      flash[:notice] = "#{item.name} added to your watch list."
     else
-      flash[:alert] = "#{item} could not be added to your watch list."
+      flash[:alert] = "#{item.name} could not be added to your watch list."
     end
     redirect_to :back
   end

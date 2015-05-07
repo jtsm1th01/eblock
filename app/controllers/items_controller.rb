@@ -44,6 +44,11 @@ class ItemsController < ApplicationController
       render 'edit'
     end
   end
+  
+  def show_my_donations
+    @donations = Item.where(user: current_user)
+    render 'my_donations'
+  end
 
   private
 

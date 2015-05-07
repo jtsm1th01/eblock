@@ -12,9 +12,13 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @bid_count = @item.bids.count
-    @high_bid = @bid_count == 0 ? nil : @item.high_bid
-    @min_bid = @high_bid ? @item.min_bid(@high_bid) : @item.starting_bid
+    @high_bid = @item.high_bid_amount
+    @min_bid = @item.next_bid_amount
     @bid = @item.bids.build
+    if @item.watched?(current_user)
+      @watch_list_item = WatchListItem. \
+                         find_by(item: @item, user: current_user).id
+    end
   end
 
   def edit

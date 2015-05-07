@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :watch_list_items, only: :create
   end
 
-  resources :watch_list_items, only: :index
+  resources :watch_list_items, only: [:index, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

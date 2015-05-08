@@ -3,6 +3,10 @@ class BidsController < ApplicationController
   before_action :require_login
 
   def create
+    high_bid_amount = @item.high_bid_amount
+    @high_bid = @item.bids.find_by_amount(high_bid_amount)
+    high_bid = @high_bid
+    UserMailer.email_bid_update(high_bid).deliver
     @bid = @item.bids.build(bid_params)
     @bid.user = current_user
     if @bid.save

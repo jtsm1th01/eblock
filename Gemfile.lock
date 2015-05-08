@@ -84,6 +84,9 @@ GEM
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery-final_countdown-rails (2.0.4)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -199,6 +202,7 @@ DEPENDENCIES
   factory_girl_rails
   httparty
   jbuilder (~> 2.0)
+  jquery-final_countdown-rails
   jquery-rails
   paperclip (~> 4.2)
   pg

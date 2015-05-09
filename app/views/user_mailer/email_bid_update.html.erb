@@ -1,20 +1,21 @@
 
-    <p>Dear <%= @user.fname%>,</p>
-    <p>
-      You have been outbid and are no longer winning an item from your watchlist.    
-    <table style="width:80%">
-      <thead>
-        <tr>
-          <th>Item Name</th>
-          <th>Link to Item</th>
-        </tr>
-      </thead>
-      <tbody> 
-        <tr>
-          <td><%= @high_bid.item.name %></td>
-        </tr>
-      </tbody>
-    </table>
-    <p>We couldn't do this without your support!</p>
-    <p>Sincerely,</p>
-    <p>The Sponsor</p>
+<p>Dear <%= @user.fname%>,</p>
+<p>
+  You have been outbid and are no longer winning an item from your watchlist.
+</p>
+<table style="width:80%">
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Link to Item</th>
+    </tr>
+  </thead>
+  <tbody> 
+    <tr>
+      <td><%= @high_bid.item.name %></td>
+    </tr>
+  </tbody>
+</table>
+<p>We couldn't do this without your support!</p>
+<p>Sincerely,</p>
+<p>The Sponsor</p>

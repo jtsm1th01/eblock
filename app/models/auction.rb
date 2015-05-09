@@ -6,6 +6,7 @@ class Auction < ActiveRecord::Base
   validates :finish, presence: true
 
   has_many :items, inverse_of: :auction
+  has_many :winning_bids, through: :items
   belongs_to :charity, inverse_of: :auctions
   
   def determine_winning_bids
@@ -17,7 +18,7 @@ class Auction < ActiveRecord::Base
   end  
 
   def calculate_funds_raised
-    WinningBid.all.map { |bid| bid.amount }.sum
+    winning_bids.map { |bid| bid.amount }.sum
   end
 
 end

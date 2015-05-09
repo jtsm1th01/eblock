@@ -10,7 +10,7 @@ class Auction < ActiveRecord::Base
   
   def determine_winning_bids
     items.each do |item|
-      if item.bids.any?
+      unless item.bids.empty?
         WinningBid.create(bid: item.high_bid, item: item)
       end
     end

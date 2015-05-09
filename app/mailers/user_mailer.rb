@@ -14,8 +14,8 @@ class UserMailer < ActionMailer::Base
     mail(to: 'travis.smith@mac.com', subject: 'Charity Auction Wrap-up')
   end
   
-  def email_bid_update(item)
-    @high_bid = item.bids.find_by_amount(item.high_bid_amount)
+  def email_bid_update(high_bid)
+    @high_bid = high_bid
     @user = @high_bid.user 
     @url = root_url
     @charity = Charity.first

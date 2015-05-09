@@ -3,15 +3,18 @@ class BidsController < ApplicationController
   before_action :require_login
 
   def create
-    @high_bid = @item.bids.find_by_amount(@item.high_bid_amount)
-    watch_list_item = WatchListItem.find_by(user_id: @high_bid.user, item_id: @item.id)
-    if @item.high_bid_amount != 0 && !watch_list_item.nil? && 
-      watch_list_item.wants_email
-      UserMailer.email_bid_update(@item).deliver
+    high_bid = @item.bids.find_by_amount(@item.high_bid_amount)
+    if high_bid
+      watch_list_item = WatchListItem.find_by(user_id: high_bid.user, item_id: @item.id)
+      if @item.high_bid_amount != 0 && !watch_list_item.nil? && 
+        watch_list_item.wants_email
+        outbid_email = UserMailer.email_bid_update(high_bid)
+      end
     end
     @bid = @item.bids.build(bid_params)
     @bid.user = current_user
     if @bid.save
+      outbid_email.deliver unless outbid_email.nil?
       auto_add_to_watch_list(@item)
       redirect_to item_url(@item),
       :notice => 'Your bid has been entered. Thanks for your support!'

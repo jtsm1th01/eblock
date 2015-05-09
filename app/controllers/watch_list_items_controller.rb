@@ -37,7 +37,7 @@ class WatchListItemsController < ApplicationController
   def status_msg(item)
      if item.bids.where(user: current_user).empty?
         "You have not bid."
-      elsif item.winning_bid.user == current_user
+     elsif item.high_bid.user == current_user
         "You are winning this item."
       else
         "You have been outbid!"

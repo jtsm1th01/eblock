@@ -1,4 +1,5 @@
 class Bid < ActiveRecord::Base
+  include Comparable
   
   validates :item, presence: true
   validates :user, presence: true
@@ -7,4 +8,8 @@ class Bid < ActiveRecord::Base
   belongs_to :item
   belongs_to :user
   has_one :winning_bid
+  
+  def <=>(other)
+   amount <=> other.amount
+  end
 end

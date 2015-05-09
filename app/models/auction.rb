@@ -11,7 +11,7 @@ class Auction < ActiveRecord::Base
   def determine_winning_bids
     items.each do |item|
       if item.bids.any?
-        WinningBid.create(bid_id:item.winning_bid.id,item_id:item.id)
+        WinningBid.create(bid: item.high_bid, item: item)
       end
     end
   end  

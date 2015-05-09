@@ -1,21 +1,22 @@
-
 <p>Dear <%= @user.fname%>,</p>
 <p>
   You have been outbid and are no longer winning an item from your watchlist.
+  Click on the link below to return to the auction site and place a new bid.
 </p>
-<table style="width:80%">
+<table style="width:60%">
   <thead>
     <tr>
-      <th>Item Name</th>
-      <th>Link to Item</th>
+      <th style="text-align:left">Item Name</th>
+      <th style="text-align:left">Link to Item</th>
     </tr>
   </thead>
   <tbody> 
     <tr>
       <td><%= @high_bid.item.name %></td>
+      <td><%= link_to "Return to item", item_url(@high_bid.item) %>
     </tr>
   </tbody>
 </table>
-<p>We couldn't do this without your support!</p>
+<p>Good luck in the auction. We couldn't do this without your support!</p>
 <p>Sincerely,</p>
 <p>The Sponsor</p>

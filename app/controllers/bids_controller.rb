@@ -3,7 +3,10 @@ class BidsController < ApplicationController
   before_action :require_login
 
   def create
-    unless @item.high_bid_amount == 0
+    @high_bid = @item.bids.find_by_amount(@item.high_bid_amount)
+    watch_list_item = WatchListItem.find_by(user_id: @high_bid.user, item_id: @item.id)
+    if @item.high_bid_amount != 0 && !watch_list_item.nil? && 
+      watch_list_item.wants_email
       UserMailer.email_bid_update(@item).deliver
     end
     @bid = @item.bids.build(bid_params)

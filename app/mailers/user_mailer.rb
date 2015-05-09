@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
-  before_action :get_funds_raised
+  before_action :get_funds_raised, except: :email_bid_update
   
   def email_donor_wrapup(user)
     email_setup(user)
@@ -19,8 +19,8 @@ class UserMailer < ActionMailer::Base
     @user = @high_bid.user 
     @url = root_url
     @charity = Charity.first
-    email_with_name = %("#{@user.fname}" <#{@user.email}>)
-    mail(to: email_with_name, subject: 'Outbid!')
+    email_with_name = %(@user <#{@user.email}>)
+    mail(to: email_with_name, subject: "You\'ve been outbid!")
   end
   
   private

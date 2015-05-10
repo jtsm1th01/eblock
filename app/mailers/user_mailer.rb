@@ -14,13 +14,13 @@ class UserMailer < ActionMailer::Base
     mail(to: 'travis.smith@mac.com', subject: 'Charity Auction Wrap-up')
   end
   
-  def email_bid_update(high_bid)
-    @high_bid = high_bid
-    @user = @high_bid.user 
+  def email_bid_update(item)
+    @item = item
+    @user = item.current_winner
     @url = root_url
     @charity = Charity.first
     email_with_name = %(@user <#{@user.email}>)
-    mail(to: email_with_name, subject: "You\'ve been outbid!")
+    mail(to: email_with_name, subject: "You've been outbid!")
   end
   
   private
@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
     mail(to: email_with_name, subject: 'Charity Auction Wrap-up')
   end
   
-  def get_funds_raised
+  def get_funds_raised #TODO: correct auction selection
     @funds_raised = Auction.last.calculate_funds_raised
   end
 end

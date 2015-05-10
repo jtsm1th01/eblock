@@ -1,6 +1,6 @@
 <p>Dear <%= @user.fname%>,</p>
 <p>
-  You have been outbid for the item, "<%= @high_bid.item.name %>."
+  You have been outbid for the item, "<%= @item.name %>."
   Click on the link below to return to the auction site and place a new bid.
 </p>
 <table style="width:60%">
@@ -12,8 +12,8 @@
   </thead>
   <tbody> 
     <tr>
-      <td><%= @high_bid.item.name %></td>
-      <td><%= link_to "Return to item", item_url(@high_bid.item) %>
+      <td><%= @item.name %></td>
+      <td><%= link_to "Return to item", item_url(@item) %>
     </tr>
   </tbody>
 </table>

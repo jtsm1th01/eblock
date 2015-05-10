@@ -21,6 +21,10 @@ class Item < ActiveRecord::Base
     bids.max
   end
   
+  def current_winner
+    high_bid.user
+  end
+
   def next_bid_amount
     bids.empty? ? starting_bid : high_bid.amount + bid_increment
   end

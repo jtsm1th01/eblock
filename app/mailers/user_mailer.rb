@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
     email_setup(user)   
   end
   
-  def email_sponsor_wrapup
+  def email_sponsor_wrapup #TODO: change hard-coded email address to use the real sponsor's email 
     mail(to: 'travis.smith@mac.com', subject: 'Charity Auction Wrap-up')
   end
   

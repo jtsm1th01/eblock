@@ -14,7 +14,7 @@ class UserMailer < ActionMailer::Base
     mail(to: 'travis.smith@mac.com', subject: 'Charity Auction Wrap-up')
   end
   
-  def email_bid_update(item)
+  def email_outbid_notice(item)
     @item = item
     @user = item.current_winner
     @url = root_url

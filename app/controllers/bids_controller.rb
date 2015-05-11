@@ -3,7 +3,7 @@ class BidsController < ApplicationController
   before_action :require_login
 
   def create
-    prepare_outbid_notice_if_requested
+    outbid_email = prepare_outbid_notice_if_requested
     @bid = @item.bids.build(bid_params)
     @bid.user = current_user
     if @bid.save
@@ -23,7 +23,7 @@ class BidsController < ApplicationController
       if WatchListItem.where(item: @item,
                              user: @item.current_winner,
                              wants_email: true).exists?
-        outbid_email = UserMailer.email_bid_update(@item)
+        UserMailer.email_outbid_notice(@item)
       end
     end
 

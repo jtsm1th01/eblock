@@ -4,10 +4,14 @@
 .page-header {
   background-color: lightblue;
 }
-
-.glyphicon {
+/* TODO: (remove charity logo hardcode stylerule) */
+.glyphicon-heart {
   font-size: 90px;
   color: #D45555;
+}
+
+.glyphicon-plus-sign, .glyphicon-minus-sign {
+  font-size: 150%;
 }
 
 .number-input {

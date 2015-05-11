@@ -22,7 +22,7 @@ class Item < ActiveRecord::Base
   end
   
   def current_winner
-    high_bid.user
+    high_bid.try(:user)
   end
 
   def next_bid_amount

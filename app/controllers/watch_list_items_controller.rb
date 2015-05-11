@@ -10,7 +10,7 @@ class WatchListItemsController < ApplicationController
       @watch_list[item] = {
                  :status => status_msg(item),
                  :user_bid => user_bid,
-                 :watch_list_item => watch_list_items.find_by(item: item).id }
+                 :watch_list_item => watch_list_items.find_by(item: item) }
     end   
   end
 
@@ -23,6 +23,18 @@ class WatchListItemsController < ApplicationController
       flash[:alert] = "#{item.name} could not be added to your watch list."
     end
     redirect_to :back
+  end
+
+  def update
+    watch_list_item = WatchListItem.find(params[:id])
+    watch_list_item.toggle!(:wants_email)
+    item = watch_list_item.item.name
+    if watch_list_item.wants_email
+      msg = "You will receive an email if you are outbid for the item: "
+    else
+      msg = "You will not be notified regarding the item: "
+    end
+    redirect_to :back, :notice => msg + item
   end
 
   def destroy

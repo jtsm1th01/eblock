@@ -8,6 +8,7 @@
       <th>Current Bid</th>
       <th>My Bid</th>
       <th>Status</th>
+      <th>Outbid Notice</th>
     </tr>
   </thead>
   <tbody>
@@ -18,8 +19,13 @@
       <td>$<%= item.high_bid.try(:amount) || 0 %></td>
       <td>$<%= details[:user_bid] %></td>
       <td><%= details[:status] %></td>
-      <td><%= link_to 'Remove', watch_list_item_path(details[:watch_list_item]),
-                                method: :delete %></td>
+      <% link_txt = details[:watch_list_item].wants_email ? "Don't Email Me" : 'Email Me' %>
+      <td><%= link_to "#{link_txt}",
+              watch_list_item_path(details[:watch_list_item].id),
+                       method: :patch %></td>
+      <td><%= link_to 'Remove Item',
+              watch_list_item_path(details[:watch_list_item].id),
+                       method: :delete %></td>
     </tr>
     <% end %>
   </tbody>

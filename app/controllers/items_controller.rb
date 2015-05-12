@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
     @high_bid = @item.high_bid.try(:amount)
     @min_bid = @item.next_bid_amount
     @bid = @item.bids.build
-    if @item.watched?(current_user)
+    if signed_in? && @item.watched?(current_user)
       @watch_list_item = WatchListItem. \
                          find_by(item: @item, user: current_user).id
     end

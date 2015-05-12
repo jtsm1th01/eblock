@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :watch_list_items, only: :create
   end
 
-  resources :watch_list_items, only: [:index, :destroy]
+  resources :watch_list_items, only: [:index, :update, :destroy]
   
   get 'my_donations' => 'items#show_my_donations', as: :my_donations
 

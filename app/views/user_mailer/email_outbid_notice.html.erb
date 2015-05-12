@@ -1,0 +1,22 @@
+<p>Dear <%= @user.fname%>,</p>
+<p>
+  You have been outbid for the item, "<%= @item.name %>."
+  Click on the link below to return to the auction site and place a new bid.
+</p>
+<table style="width:60%">
+  <thead>
+    <tr>
+      <th style="text-align:left">Item Name</th>
+      <th style="text-align:left">Link to Item</th>
+    </tr>
+  </thead>
+  <tbody> 
+    <tr>
+      <td><%= @item.name %></td>
+      <td><%= link_to "Return to item", item_url(@item) %>
+    </tr>
+  </tbody>
+</table>
+<p>Good luck in the auction. We couldn't do this without your support!</p>
+<p>Sincerely,</p>
+<p>The Sponsor</p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505210131) do
+ActiveRecord::Schema.define(version: 20150508175346) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20150505210131) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "wants_email", default: false
   end
 
   add_index "watch_list_items", ["item_id"], name: "index_watch_list_items_on_item_id"

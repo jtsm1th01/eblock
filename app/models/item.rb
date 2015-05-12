@@ -17,16 +17,16 @@ class Item < ActiveRecord::Base
   has_one :winning_bid
   has_many :watch_list_items, dependent: :destroy
   
-  def high_bid_amount
-    bids.any? ? bids.maximum("amount") : 0
+  def high_bid
+    bids.max
   end
   
-  def winning_bid
-    bids.find_by_amount(high_bid_amount)
-  end  
-  
+  def current_winner
+    high_bid.try(:user)
+  end
+
   def next_bid_amount
-    bids.any? ? high_bid_amount + bid_increment : starting_bid
+    bids.empty? ? starting_bid : high_bid.amount + bid_increment
   end
   
   def watched?(user)

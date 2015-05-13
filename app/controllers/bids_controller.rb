@@ -3,7 +3,9 @@ class BidsController < ApplicationController
   before_action :require_login
 
   def create
-    outbid_email = prepare_outbid_notice_if_requested
+    unless @item.current_winner == current_user
+      outbid_email = prepare_outbid_notice_if_requested 
+    end
     @bid = @item.bids.build(bid_params)
     @bid.user = current_user
     if @bid.save

@@ -22,8 +22,6 @@
         <tr>
           <th>Item Name</th>
           <th>Winning Bid</th>
-          <th>PayPal</th>
-          <th>Alt Payment</th>
         </tr>
       </thead>
       <tbody>
@@ -32,14 +30,15 @@
             <tr>
               <td><%= winning_bid.item.name %></td>
               <td><%= winning_bid.bid.amount %></td>
-              <td><a href="https://www.paypal.com/home">Pay via PayPal</a></td>
-              <td><a href="#">Contact Charity for Payment</a></td>
             </tr>
           <% end %>
+            <tr>
+              <td><%= link_to "Pay for Items", @cart.paypal_url(root_url) %></td>
+            </tr>
         <% else %>
-          <tr>
-            <td>No items won</td>
-          </tr>
+            <tr>
+              <td>No items won</td>
+            </tr>
         <% end %>
       </tbody>
     </table>

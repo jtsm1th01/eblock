@@ -7,7 +7,8 @@ class UserMailer < ActionMailer::Base
   end
 
   def email_bidder_wrapup(user)
-    email_setup(user)   
+    email_setup(user)
+    @cart = Cart.new(user) unless user.winning_bids.empty?
   end
   
   def email_sponsor_wrapup #TODO: change hard-coded email address to use the real sponsor's email 

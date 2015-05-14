@@ -12,7 +12,7 @@ class Cart
       :upload => 1,
       :return => return_url,
       :no_shipping => 1,
-      # :notify_url => enter route to send post request
+      :notify_url => 'http://bigruby2-161620.usw1.nitrousbox.com/ipn_test'
       }
 
     @user.winning_bids.each_with_index do |wbid, index|

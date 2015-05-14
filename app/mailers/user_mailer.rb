@@ -1,14 +1,14 @@
 class UserMailer < ActionMailer::Base
-  protect_from_forgery :except => [:ipn_test]
-  
   default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
   before_action :get_funds_raised, except: :email_bid_update
   
-  def ipn_test
-   puts params
+  def email_donor_wrapup(user)
+    email_setup(user)
   end
   
-  def email_donor_wrapup(user)
+  def email_donor_payment_notice(user, items, bidder)
+    @items = items
+    @bidder = bidder
     email_setup(user)
   end
 

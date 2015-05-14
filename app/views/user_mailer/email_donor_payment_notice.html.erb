@@ -1,0 +1,23 @@
+<p>Dear <%= @user.fname %>,</p>
+<p>
+  Thank you for participating in our auction.
+  We have received payment for the items below. Please contact the winning bidder, <%= @bidder %>, at the following email to arrange delivery: <%= @bidder.email %><br>
+</p>
+<h3>Auction Items Paid For:</h3>
+<table style="width:80%">
+  <thead>
+    <tr>
+      <th style="text-align: left">Item Name</th>
+    </tr>
+  </thead>
+   <tbody>
+     <% @items.each do |item| %>
+     <tr>        
+       <td><%= item.name %></td>
+     </tr>
+     <% end %>
+   </tbody>
+</table>
+<p>We couldn't do this without your support. See you next time!</p>
+<p>Sincerely,</p>
+<p><%= @charity.name %></p>

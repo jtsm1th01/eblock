@@ -7,12 +7,14 @@ class Cart
   # TODO skin charity name in paypal form
   def paypal_url(return_url) 
     values = { 
-      :business => 'auction@charity.com',
+      :business => 'mr_travis_smith-facilitator@hotmail.com',
       :cmd => '_cart',
       :upload => 1,
       :return => return_url,
       :no_shipping => 1,
-      :notify_url => 'http://bigruby2-161620.usw1.nitrousbox.com/ipn_test'
+      :no_note => 1,
+      :notify_url => 'http://turbo-rails-west-162113.usw1-2.nitrousbox.com/confirm_payment',
+      :custom => @user.id
       }
 
     @user.winning_bids.each_with_index do |wbid, index|

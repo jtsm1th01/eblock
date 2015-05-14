@@ -4,12 +4,15 @@ class Cart
     @user = user
   end
 
+  # TODO skin charity name in paypal form
   def paypal_url(return_url) 
     values = { 
-      :business => 'charity@auction.com',
+      :business => 'auction@charity.com',
       :cmd => '_cart',
       :upload => 1,
       :return => return_url,
+      :no_shipping => 1,
+      # :notify_url => enter route to send post request
       }
 
     @user.winning_bids.each_with_index do |wbid, index|

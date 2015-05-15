@@ -1,9 +1,23 @@
 class Auction < ActiveRecord::Base
   
-  validates :charity_id, presence: true
+  validates :charity, presence: true
   validates :name, presence: true
   validates :start, presence: true
   validates :finish, presence: true
 
-  belongs_to :charity
+  has_many :items, inverse_of: :auction
+  belongs_to :charity, inverse_of: :auctions
+  
+  def determine_winning_bids
+    items.each do |item|
+      if item.bids.any?
+        WinningBid.create(bid_id:item.winning_bid.id,item_id:item.id)
+      end
+    end
+  end  
+
+  def calculate_funds_raised
+    WinningBid.all.map { |bid| bid.amount }.sum
+  end
+
 end

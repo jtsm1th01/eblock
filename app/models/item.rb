@@ -1,26 +1,29 @@
 class Item < ActiveRecord::Base
-
-# validates :auction_id, presence: true
-# validates :user_id, presence: true
+  
+   has_attached_file :photo,
+                    :styles => { :medium => "300x300>", :thumb => "100x100>" },
+                    :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
+  validates :auction, presence: true
+  validates :user, presence: true
   validates :name, presence: true
   validates :description, presence: true
   validates :value, presence: true
   validates :value, numericality: {only_integer: true}
 
-  belongs_to :auction
-  belongs_to :user
+  belongs_to :auction, inverse_of: :items
+  belongs_to :user, inverse_of: :items
   has_many :bids
+  has_one :winning_bid
   accepts_nested_attributes_for :bids
-  
-  has_attached_file :photo,
-                    :styles => { :medium => "300x300>", :thumb => "100x100>" },
-                    :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
-
-  
   
   def high_bid
     bids.maximum("amount")
   end
+  
+  def winning_bid
+    bids.find_by_amount(high_bid)
+  end  
+  
 
 end

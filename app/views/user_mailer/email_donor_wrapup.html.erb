@@ -1,0 +1,35 @@
+<p>Dear <%= @user.fname %>,</p>
+<p>
+  Thank you for participating in our auction.
+  The auction was a great success! We were able to raise $<%= @funds_raised %>
+  to fund further charitable activities.<br>
+</p>
+<p>
+  A summary of your participation is below...
+</p>
+<h3>Auction Items Donated:</h3>
+<p>Please contact winning bidder(s) via email to arrange delivery.</p>
+<table style="width:80%">
+  <thead>
+    <tr>
+      <th>Item Name</th>
+      <th>Item Value</th>
+      <th>Winning Bid</th>
+      <th>Bidder Email</th>
+    </tr>
+  </thead>
+   <tbody>
+     <% @user.items.each do |item| %>
+     <tr>        
+       <td><%= item.name %></td>
+       <td><%= item.value %></td>
+       <% winning_bid = WinningBid.find_by_item_id(item.id) %>
+       <td><%= winning_bid ? winning_bid.bid.amount : "Item Not Sold" %></td>
+       <td><%= winning_bid ? winning_bid.bid.user.email : nil %></td>
+     </tr>
+     <% end %>
+   </tbody>
+</table>
+<p>We couldn't do this without your support. See you next time!</p>
+<p>Sincerely,</p>
+<p><%= @charity.name %></p>

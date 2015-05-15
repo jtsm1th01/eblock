@@ -1,0 +1,32 @@
+<%= form_for([@charity, @auction]) do |f| %>
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :name, 'Auction Name:' %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :start, 'Start:' %>
+    </div>
+    <div class="col-md-4">
+      <%= f.datetime_select :start, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :finish, 'Finish:' %>
+    </div>
+    <div class="col-md-4">
+      <%= f.datetime_select :finish, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <% button_txt = @auction.new_record? ? 'Create Auction' : 'Update Auction' %>
+      <%= f.submit "#{button_txt}", class: "form-control btn btn-danger" %>
+    </div>
+  </div>
+<% end %>

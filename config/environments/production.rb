@@ -1,5 +1,19 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.paperclip_defaults = {
+  :storage => :s3,
+  :s3_credentials => {
+  :bucket => ENV['S3_BUCKET_NAME'],
+  :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+  :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  }
+}
+
+  config.action_mailer.perform_deliveries = true
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+  # Recommended by Devise http://devise.plataformatec.com.br/
+  config.action_mailer.default_url_options = { host: 'eblock.herokuapp.com'}
 
   # Code is not reloaded between requests.
   config.cache_classes = true

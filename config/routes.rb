@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   
   get 'my_donations' => 'items#show_my_donations', as: :my_donations
   post 'confirm_payment' => 'payment_notifications#confirm_payment'
+  get 'dashboard' => 'charities#dashboard'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

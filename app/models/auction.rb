@@ -9,6 +9,9 @@ class Auction < ActiveRecord::Base
 
   has_many :items, inverse_of: :auction
   has_many :winning_bids, through: :items
+  has_many :donors, through: :items, source: :user
+  has_many :bids, through: :items
+  has_many :bidders, through: :bids, source: :user
   belongs_to :charity, inverse_of: :auctions
   
   def determine_winning_bids

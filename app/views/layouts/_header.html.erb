@@ -14,13 +14,15 @@
     <div class="col-md-12">
       <ul class="nav navbar-nav pull-right layout-nav">
         <li><a href="#">Home</a></li>
-        <li><%= link_to "Items Up for Bid", items_path %></li>
+        <li><%= link_to "Browse Items", items_path %></li>
         <li><%= link_to "Donate an Item", new_item_path %></li>
         <% if user_signed_in? %>
-          <li><a href="#">My Watchlist</a></li>      
-          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "My Watchlist", watch_list_items_path %></li>
+          <li><%= link_to "My Donations", my_donations_path %></li>
+          <li><%= link_to "Sign Out (#{current_user})",
+                         destroy_user_session_path, method: :delete %></li>
         <% else %>
-          <li><%= link_to "Login", new_user_session_path %></li>
+          <li><%= link_to "Sign In", new_user_session_path %></li>
           <li><%= link_to "Sign Up", new_user_registration_path %></li>
         <% end %>
       </ul>

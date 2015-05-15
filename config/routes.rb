@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'items#index'
-  devise_for :users
+  devise_for :users 
 
   resources :charities, only: [] do
     resources :auctions, only: [:new, :create]
@@ -10,7 +10,12 @@ Rails.application.routes.draw do
 
   resources :items, except: [:destroy] do
     resources :bids, only: :create
+    resources :watch_list_items, only: :create
   end
+
+  resources :watch_list_items, only: [:index, :update, :destroy]
+  
+  get 'my_donations' => 'items#show_my_donations', as: :my_donations
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

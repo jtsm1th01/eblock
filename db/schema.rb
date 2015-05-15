@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503222705) do
+ActiveRecord::Schema.define(version: 20150508175346) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -54,17 +54,19 @@ ActiveRecord::Schema.define(version: 20150503222705) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "starting_bid"
+    t.integer  "bid_increment"
   end
 
   add_index "items", ["auction_id"], name: "index_items_on_auction_id"
   add_index "items", ["user_id"], name: "index_items_on_user_id"
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
     t.string   "fname"
     t.string   "lname"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -78,6 +80,17 @@ ActiveRecord::Schema.define(version: 20150503222705) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "watch_list_items", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "wants_email", default: false
+  end
+
+  add_index "watch_list_items", ["item_id"], name: "index_watch_list_items_on_item_id"
+  add_index "watch_list_items", ["user_id"], name: "index_watch_list_items_on_user_id"
 
   create_table "winning_bids", force: true do |t|
     t.integer "bid_id"

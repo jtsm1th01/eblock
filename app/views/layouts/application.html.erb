@@ -7,15 +7,26 @@
   <%= csrf_meta_tags %>
 </head>
   
-<div class="container">
-  <%= render 'layouts/header' %>
-  <div class="row">
-    <div class="col-md-5"><h1>2015 Auction Fundraiser</h1></div>
-    <div class="col-md-7 h3 countdown">Auction Begins: 01 Day 03 Hours 34 Mins</div>
+  <div class="container">
+    <%= render 'layouts/header' %>
+    <div class="row">
+      <div class="col-md-5"><h1>2015 Auction Fundraiser</h1></div>
+<!-- TODO Implement conditional start/finish countdowns and provide dates dynamically. -->
+      <div class="col-md-7 h3 countdown">Auction Ends in:
+        <div id="getting-started"></div>
+        <script type="text/javascript">
+          $("#getting-started")
+            .countdown("2015-05-12 16:00:00", function(event) {
+            $(this).text(
+              event.strftime('%D Days %H:%M:%S')
+            );
+          });
+        </script>
+      </div>
+    </div>
+    <h2>April 28th - 30th, 2015</h2>
   </div>
-  <h2>April 28th - 30th, 2015</h2>
-</div>
-
+  
 <body>
 
 <div class="container">

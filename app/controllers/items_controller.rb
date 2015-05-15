@@ -11,10 +11,14 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @bid = @item.bids.build
     @bid_count = @item.bids.count
-    @high_bid = @item.high_bid unless @bid_count == 0
-    @min_bid = @high_bid ? @high_bid + 5 : 5
+    @high_bid = @item.high_bid.try(:amount)
+    @min_bid = @item.next_bid_amount
+    @bid = @item.bids.build
+    if signed_in? && @item.watched?(current_user)
+      @watch_list_item = WatchListItem. \
+                         find_by(item: @item, user: current_user).id
+    end
   end
 
   def edit
@@ -40,6 +44,11 @@ class ItemsController < ApplicationController
       render 'edit'
     end
   end
+  
+  def show_my_donations
+    @donations = Item.where(user: current_user)
+    render 'my_donations'
+  end
 
   private
 
@@ -47,6 +56,8 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:name,
                                    :description,
                                    :value,
-                                   :photo)
+                                   :photo,
+                                   :starting_bid,
+                                   :bid_increment)
     end
 end

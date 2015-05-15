@@ -8,6 +8,7 @@ gem 'aws-sdk', '< 2.0'
 gem 'devise'
 gem 'httparty'
 
+gem 'jquery-final_countdown-rails'
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

@@ -13,8 +13,10 @@ class User < ActiveRecord::Base
   has_many :items, inverse_of: :user
   has_many :bids
   has_many :winning_bids, through: :bids
+  has_many :watch_list_items, dependent: :destroy
 
   def to_s
     "#{fname} #{lname}"
   end
+
 end

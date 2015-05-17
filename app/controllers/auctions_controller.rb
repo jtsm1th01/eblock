@@ -19,7 +19,20 @@ class AuctionsController < ApplicationController
                                at this time"
     end
   end
-  
+
+  def show
+    @auction = Auction.find(params[:id])
+    pledges = @auction.items.map { |item| item.high_bid.try(:amount) }
+    @pledge_total = pledges.compact.sum
+    @donor_count = @auction.donors.uniq.length
+    @bidder_count = @auction.bidders.uniq.length
+    @donation_count = @auction.items.count
+    items_sold = @auction.items.to_a.delete_if { |item| item.bids.empty? }
+    @items_sold_count = items_sold.compact.length
+    @items_unsold_count = @auction.items.count - @items_sold_count
+    @bids_count = @auction.bids.count
+  end
+
   def wrapup
     Auction.last.determine_winning_bids
     User.all.each do |user|

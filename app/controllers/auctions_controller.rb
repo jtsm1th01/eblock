@@ -4,12 +4,12 @@ class AuctionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:wrapup]
   
   def new
-    @charity = Charity.find(params[:charity_id])
+    @charity = Charity.last
     @auction = @charity.auctions.build
   end
   
   def create
-    @charity = Charity.find(params[:charity_id])
+    @charity = Charity.last
     @auction = @charity.auctions.build(auction_params)
     if @auction.save
       schedule_wrapup
@@ -34,13 +34,13 @@ class AuctionsController < ApplicationController
   end
 
   def wrapup
-    Auction.last.determine_winning_bids
+    Auction.last.determine_winning_bids #TODO: Select auction appropriately
     User.all.each do |user|
       UserMailer.email_bidder_wrapup(user).deliver unless user.bids.empty?
       UserMailer.email_donor_wrapup(user).deliver unless user.items.empty?
     end
     UserMailer.email_sponsor_wrapup.deliver
-    render json: nil, status: :ok
+    render :nothing => true, status: :ok
   end
   
   private

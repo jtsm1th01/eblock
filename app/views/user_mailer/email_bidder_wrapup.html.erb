@@ -22,8 +22,8 @@
     <table style="width:80%">
       <thead>
         <tr>
-          <th>Item Name</th>
-          <th>Winning Bid</th>
+          <th style="text-align: left">Item Name</th>
+          <th style="text-align: left">Winning Bid</th>
         </tr>
       </thead>
       <tbody>
@@ -34,9 +34,11 @@
               <td><%= winning_bid.bid.amount %></td>
             </tr>
           <% end %>
-            <tr>
-              <td><%= link_to "Pay for Items", @cart.paypal_url(root_url) %></td>
-            </tr>
+            <div>
+              <tr>
+                <td style="padding-top: 20px"><%= link_to "Pay for Items", @cart.paypal_url(root_url) %></td>
+              </tr>
+            </div>
         <% else %>
             <tr>
               <td>No items won</td>

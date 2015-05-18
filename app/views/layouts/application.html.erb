@@ -14,14 +14,14 @@
 <!-- TODO Implement conditional start/finish countdowns and provide dates dynamically. -->
       <div class="col-md-7 h3 countdown">Auction Ends in:
         <div id="getting-started"></div>
-        <script type="text/javascript">
+        <%= javascript_tag do %>
           $("#getting-started")
-            .countdown("2015-05-12 16:00:00", function(event) {
+            .countdown(<%= @auction_finish %>, function(event) {
             $(this).text(
               event.strftime('%D Days %H:%M:%S')
             );
           });
-        </script>
+        <% end %>
       </div>
     </div>
     <h2>April 28th - 30th, 2015</h2>

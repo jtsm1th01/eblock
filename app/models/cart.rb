@@ -13,7 +13,7 @@ class Cart
       :return => return_url,
       :no_shipping => 1,
       :no_note => 1,
-      :notify_url => 'http://turbo-rails-west-162113.usw1-2.nitrousbox.com/confirm_payment',
+      :notify_url => 'http://eblock-next.herokuapp.com/confirm_payment',
       :custom => @user.id
       }
 

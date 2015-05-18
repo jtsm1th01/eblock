@@ -16,9 +16,8 @@
       A summary of your participation is below...
     </p>
     <h3>Auction Items Won:</h3>
-    <p>Item <%= pluralize(@user.winning_bids.length, 'donor') %> will contact you
-      via email to arrange delivery of item(s).
-    </p>
+    <p>Item donors will contact you via email to arrange delivery of item(s).</p>
+
     <table style="width:80%">
       <thead>
         <tr>
@@ -35,7 +34,7 @@
             </tr>
           <% end %>
             <tr>
-              <td><%= link_to "Pay for Items", @cart.paypal_url(root_url) %></td>
+              <td><%= link_to "Pay for Items", @user.paypal_url(root_url) %></td>
             </tr>
         <% else %>
             <tr>

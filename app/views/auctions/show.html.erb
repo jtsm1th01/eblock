@@ -4,10 +4,10 @@
     <b>Total funds pledged:</b> $<%= @pledge_total %>
   </li>
   <li class="list-group-item">
-    <b>Payments Received:</b>
+    <b>Payments Received:</b> $<%= @payments_received %>
   </li>
   <li class="list-group-item">
-    <b>Payments to Collect:</b>
+    <b>Payments to Collect:</b> $<%= @pledge_total - @payments_received %>
   </li>
   <li class="list-group-item">
     <b>Unique Donors:</b> <%= @donor_count %>

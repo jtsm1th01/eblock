@@ -5,13 +5,19 @@ class UserMailer < ActionMailer::Base
   def email_donor_wrapup(user)
     email_setup(user)
   end
+  
+  def email_donor_payment_notice(user, items, bidder)
+    @items = items
+    @bidder = bidder
+    email_setup(user)
+  end
 
   def email_bidder_wrapup(user)
-    email_setup(user)   
+    email_setup(user)
   end
   
   def email_sponsor_wrapup #TODO: change hard-coded email address to use the real sponsor's email 
-    mail(to: 'travis.smith@mac.com', subject: 'Charity Auction Wrap-up')
+    mail(to: 'fkhayes@gmail.com', subject: 'Charity Auction Wrap-up')
   end
   
   def email_outbid_notice(item)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150512200035) do
+ActiveRecord::Schema.define(version: 20150515175522) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20150512200035) do
   create_table "winning_bids", force: true do |t|
     t.integer "bid_id"
     t.integer "item_id"
+    t.boolean "paid",    default: false
   end
 
   add_index "winning_bids", ["bid_id"], name: "index_winning_bids_on_bid_id"

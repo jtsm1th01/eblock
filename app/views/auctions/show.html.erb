@@ -1,0 +1,28 @@
+<h1><%= @auction.name %> Summary</h1>
+<ul class="list-group" style="width: 50%">
+  <li class="list-group-item">
+    <b>Total funds pledged:</b> $<%= @pledge_total %>
+  </li>
+  <li class="list-group-item">
+    <b>Payments Received:</b> $<%= @payments_received %>
+  </li>
+  <li class="list-group-item">
+    <b>Payments to Collect:</b> $<%= @pledge_total - @payments_received %>
+  </li>
+  <li class="list-group-item">
+    <b>Unique Donors:</b> <%= @donor_count %>
+  </li>
+  <li class="list-group-item">
+    <b>Items Donated:</b> <%= @donation_count %> | <b>Declined:</b>
+  </li>
+  <li class="list-group-item">
+    <b>Items Sold:</b> <%= @items_sold_count %> |
+    <b>Unsold:</b> <%= @items_unsold_count %>
+  </li>
+  <li class="list-group-item">
+    <b>Unique Bidders:</b> <%= @bidder_count %>
+  </li>
+  <li class="list-group-item">
+    <b>Bids Placed:</b> <%= @bids_count %>
+  </li>
+</ul>

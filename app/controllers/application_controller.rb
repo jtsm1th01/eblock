@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :get_auction_finish
 
   protected
 
@@ -17,4 +18,7 @@ class ApplicationController < ActionController::Base
       session[:forward_url] ? session.delete(:forward_url) : super
     end
 
+    def get_auction_finish
+      @auction_finish = Auction.last.finish.to_f * 1000
+    end
 end

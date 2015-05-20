@@ -3,6 +3,15 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.search(params[:search])
+    if params[:name_sort]
+      @items = Item.order(name: :asc)
+    elsif params[:current_bid_sort]
+      @items = Item.all.sort_by(&:sort_by_current_bid)
+    elsif params[:bid_count_sort]
+      @items = Item.all.sort_by(&:sort_by_number_of_bids)   
+    else
+      @items = Item.all
+    end 
   end
 
   def new

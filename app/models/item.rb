@@ -32,4 +32,14 @@ class Item < ActiveRecord::Base
   def watched?(user)
     user.watch_list_items.pluck(:item_id).include?(id)
   end
+  
+  def self.search(search)
+    if search
+      search_length = search.split.length
+      Item.where([(['name LIKE ?'] * search_length).join(' OR ')] + (search.split.map {|search| "%#{search}%"}))
+    else
+      all
+    end
+  end
+
 end

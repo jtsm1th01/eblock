@@ -10,7 +10,6 @@ class Item < ActiveRecord::Base
   validates :description, presence: true
   validates :value, :starting_bid, :bid_increment,
              numericality: {only_integer: true, greater_than: 0}
-
   belongs_to :auction, inverse_of: :items
   belongs_to :user, inverse_of: :items
   has_many :bids
@@ -21,6 +20,14 @@ class Item < ActiveRecord::Base
     bids.max
   end
   
+  def sort_by_current_bid
+    bids.max.try(:amount) || 0
+  end
+  
+  def sort_by_number_of_bids
+    bids.count
+  end
+    
   def current_winner
     high_bid.try(:user)
   end

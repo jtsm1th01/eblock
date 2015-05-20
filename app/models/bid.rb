@@ -9,7 +9,7 @@ class Bid < ActiveRecord::Base
   belongs_to :user
   has_one :winning_bid
   
-  def <=>(other)
-   amount <=> other.amount
-  end
+   def <=>(other)
+     amount <=> other.amount
+   end
 end

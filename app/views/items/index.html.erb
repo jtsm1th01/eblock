@@ -4,10 +4,10 @@
   <thead>
     <tr>
       <th>Photo</th>
-      <th>Item</th>
-      <th>Current Bid</th>
+      <th><%= link_to "Item", items_path(:name_sort => "name_sort") %></th>
+      <th><%= link_to "Current Bid", items_path(:current_bid_sort => "current_bid_sort") %></th>
       <th>Do I Hear</th>
-      <th>Bids</th>
+      <th><%= link_to "Bids", items_path(:bid_count_sort => "bid_count_sort") %></th>
     </tr>
   </thead>
   <tbody>

@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  before_save :downcase_item_name
   
   has_attached_file :photo,
                     :styles => { :medium => "300x300>", :thumb => "100x100>" },
@@ -15,7 +16,15 @@ class Item < ActiveRecord::Base
   has_many :bids
   has_one :winning_bid
   has_many :watch_list_items, dependent: :destroy
+
+  def to_s
+    name.titleize
+  end
   
+  def downcase_item_name
+    name.downcase!
+  end
+
   def high_bid
     bids.max
   end

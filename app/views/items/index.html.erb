@@ -6,21 +6,28 @@
   <%= submit_tag "Search for Items", {class:"form-control btn-primary"} %>
   <% end %>
 </div>
+
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Photo</th>
-      <th><%= link_to "Item", items_path(:name_sort => "name_sort") %></th>
-      <th><%= link_to "Current Bid", items_path(:current_bid_sort => "current_bid_sort") %></th>
+      <th><%= link_to "Item",
+              items_path(:name_sort => direction(:name_sort)) %>
+      </th>
+      <th><%= link_to "Current Bid",
+              items_path(:current_bid_sort => direction(:current_bid_sort)) %>
+      </th>
       <th>Do I Hear</th>
-      <th><%= link_to "Bids", items_path(:bid_count_sort => "bid_count_sort") %></th>
+      <th><%= link_to "Bids",
+              items_path(:bid_count_sort => direction(:bid_count_sort)) %>
+      </th>
     </tr>
   </thead>
   <tbody>
     <% @items.each do |item| %>
       <tr>
         <td><%= link_to image_tag(item.photo.url(:thumb)), item_path(item) %></td>
-        <td><%= link_to item.name, item_path(item) %></td>
+        <td><%= link_to item, item_path(item) %></td>
         <td>$<%= item.high_bid.try(:amount) || 0 %></td>
         <td>$<%= item.next_bid_amount %></td>
         <td><%= item.bids.count %></td>

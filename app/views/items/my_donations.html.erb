@@ -13,7 +13,7 @@
     <% @donations.each do |donation| %>
       <tr>
         <td><%= link_to image_tag(donation.photo.url(:thumb)), item_path(donation) %></td>
-        <td><%= link_to donation.name, item_path(donation) %></td>
+        <td><%= link_to donation, item_path(donation) %></td>
         <td><%= link_to 'Edit Donation', edit_item_path(donation) %></td>
         <td>$<%= donation.high_bid.try(:amount) || 0 %></td>
         <td><%= donation.bids.count %></td>

@@ -1,6 +1,6 @@
 module ItemsHelper
 
   def direction(column)
-    params[column] ? "DESC" : "ASC"
+    params[column] == "ASC" ? "DESC" : "ASC"
   end
 end

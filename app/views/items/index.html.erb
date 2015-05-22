@@ -11,6 +11,8 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <%= params %>
+      <%= session[:search] %>
       <th>Photo</th>
       <th><%= link_to "Item",
               items_path(:name_sort => direction(:name_sort)) %>

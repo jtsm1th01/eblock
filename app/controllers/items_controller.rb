@@ -2,19 +2,17 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
+    search_params = params[:search] || session[:search]
+    @items = search_params ? Item.search(search_params).includes(:bids) : Item.all.includes(:bids)
     if params[:name_sort]
-      @items = Item.order("name #{params[:name_sort]}")
+      @items = @items.order("name #{params[:name_sort]}")
     elsif params[:current_bid_sort]
-#       @items = Item.all.sort_by(&:sort_by_current_bid)
-      @items = Item.includes(:bids).order("bids.amount #{params[:current_bid_sort]}")
+      @items = @items.order("bids.amount #{params[:current_bid_sort]}")
     elsif params[:bid_count_sort]
-      @items = Item.includes(:bids).sort_by(&:sort_by_number_of_bids)
+      @items = @items.sort_by(&:sort_by_number_of_bids)
       params[:bid_count_sort] == "DESC" ? @items.reverse! : @items
-    elsif params[:search]
-      @items = Item.search(params[:search])
-    else
-      @items = Item.all
-    end 
+    end
+session[:search] ||= params[:search]
   end
 
   def new

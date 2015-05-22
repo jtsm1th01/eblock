@@ -2,8 +2,9 @@
 <p>Please click on item name to view item details.</p>
 <div class="form-group form-inline">
   <%= form_tag items_path, :method => 'get' do %>
-  <%= text_field_tag :search, params[:search], {class:"form-control"} %>
+  <%= text_field_tag :search, params[:search] || session[:search], {class:"form-control"} %>
   <%= submit_tag "Search for Items", {class:"form-control btn-primary"} %>
+  <b><%= link_to "Clear Search", items_path, style: "padding-left: 10px" %></b>
   <% end %>
 </div>
 
@@ -12,14 +13,14 @@
     <tr>
       <th>Photo</th>
       <th><%= link_to "Item",
-              items_path(:name_sort => direction(:name_sort)) %>
+items_path(:name_sort => direction(:name_sort)) %><%= name_icon %>
       </th>
       <th><%= link_to "Current Bid",
-              items_path(:current_bid_sort => direction(:current_bid_sort)) %>
+items_path(:current_bid_sort => direction(:current_bid_sort)) %><%= current_bid_icon %>
       </th>
       <th>Do I Hear</th>
       <th><%= link_to "Bids",
-              items_path(:bid_count_sort => direction(:bid_count_sort)) %>
+items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %>
       </th>
     </tr>
   </thead>

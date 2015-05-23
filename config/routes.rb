@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post 'auctions/wrapup' => 'auctions#wrapup', as: :wrapup
   post 'confirm_payment' => 'payment_notifications#confirm_payment'
 
-  resources :items, except: [:destroy] do
+  resources :items do
     resources :bids, only: :create
     resources :watch_list_items, only: :create
   end

@@ -1,12 +1,14 @@
 <h1>My Donations</h1>
+<p class="lead">Donations may be removed or edited until the auction begins.</p>
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Photo</th>
       <th>Item</th>
-      <th>&nbsp;</th>
       <th>Current Bid</th>
       <th>Bids</th>
+      <th>Edit Item</th>
+      <th>Remove Item</th>
     </tr>
   </thead>
   <tbody>
@@ -14,9 +16,10 @@
       <tr>
         <td><%= link_to image_tag(donation.photo.url(:thumb)), item_path(donation) %></td>
         <td><%= link_to donation, item_path(donation) %></td>
-        <td><%= link_to 'Edit Donation', edit_item_path(donation) %></td>
         <td>$<%= donation.high_bid.try(:amount) || 0 %></td>
         <td><%= donation.bids.count %></td>
+        <td><%= link_to edit_item_path(donation) do %><%= tag(:span, class: "glyphicon glyphicon-pencil") %><% end %></td>
+        <td><%= link_to item_path(donation), method: :delete, data: {confirm: "Remove '#{donation.name}' from auction?" } do %><%= tag(:span, class: "glyphicon glyphicon-ban-circle") %><% end %></td>
       </tr>
     <% end %>
   </tbody>

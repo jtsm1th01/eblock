@@ -54,6 +54,12 @@ session[:search] ||= params[:search]
       render 'edit'
     end
   end
+
+  def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to my_donations_path, notice: 'Item removed from the auction.' 
+  end
   
   def show_my_donations
     @donations = Item.where(user: current_user)

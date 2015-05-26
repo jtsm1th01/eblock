@@ -1,0 +1,38 @@
+<h1>Donations Needing Approval</h1>
+<% @items.each do |item| %>
+<div class="row">
+  <div class="col-md-12">
+    <h3><%= item.name.titleize %></h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag item.photo.url(:medium) %>
+  </div>
+  <div class="col-md-6">
+    <h4>Item Description:</h4>
+    <p><%= item.description %></p>
+    <div class="h4">Value: $<%= item.value %></div>
+    <div class="p"></div>
+<%= form_for(item) do |f| %>
+    <div class="review-div">
+    <%= f.label :starting_bid, 'Starting Bid:' %>
+    $ <%= f.number_field :starting_bid, class: 'form-control review-amount-field' %>
+    </div>
+    <div>
+    <%= f.label :bid_increment, 'Minimum Bid Increment:' %>
+    $ <%= f.number_field :bid_increment, class: 'form-control review-amount-field' %>
+    </div>
+  </div>
+  <% end %>
+<% end %>
+</div>
+  
+  
+
+  
+
+
+
+

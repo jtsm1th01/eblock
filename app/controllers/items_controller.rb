@@ -66,6 +66,10 @@ session[:search] ||= params[:search]
     render 'my_donations'
   end
 
+  def review
+    @items = Item.where(approved: false) 
+  end
+
   private
 
     def item_params

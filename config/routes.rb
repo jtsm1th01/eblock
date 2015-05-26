@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :watch_list_items, only: [:index, :update, :destroy]
 
   get 'my_donations' => 'items#show_my_donations', as: :my_donations
+  get 'review' => 'items#review' 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

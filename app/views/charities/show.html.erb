@@ -1,0 +1,8 @@
+<h1>Charity Dashboard</h1>
+
+<% @auctions.each do |auction| %>
+<h2><%= link_to "Summary of #{auction.name}", auction_path(auction) %></h2>
+<% end %>
+
+
+

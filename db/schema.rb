@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508175346) do
+ActiveRecord::Schema.define(version: 20150515175522) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -76,8 +76,12 @@ ActiveRecord::Schema.define(version: 20150508175346) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
@@ -95,6 +99,7 @@ ActiveRecord::Schema.define(version: 20150508175346) do
   create_table "winning_bids", force: true do |t|
     t.integer "bid_id"
     t.integer "item_id"
+    t.boolean "paid",    default: false
   end
 
   add_index "winning_bids", ["bid_id"], name: "index_winning_bids_on_bid_id"

@@ -19,7 +19,6 @@ items_path(:name_sort => direction(:name_sort)) %><%= name_icon %>
       <th><%= link_to "Current Bid",
 items_path(:current_bid_sort => direction(:current_bid_sort)) %><%= current_bid_icon %>
       </th>
-      <th>Do I Hear</th>
       <th><%= link_to "Bids",
 items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %>
       </th>
@@ -31,7 +30,6 @@ items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %
         <td><%= link_to image_tag(item.photo.url(:thumb)), item_path(item) %></td>
         <td><%= link_to item, item_path(item) %></td>
         <td>$<%= item.high_bid.try(:amount) || 0 %></td>
-        <td>$<%= item.next_bid_amount %></td>
         <td><%= item.bids.count %></td>
       </tr>
     <% end %>

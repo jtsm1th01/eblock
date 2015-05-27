@@ -1,37 +1,68 @@
 <h1>Donations Needing Approval</h1>
 <% @items.each do |item| %>
-<div class="row">
-  <div class="col-md-12">
-    <h3><%= item.name.titleize %></h3>
-  </div>
-</div>
-
-<div class="row">
+<%= form_for(item) do |f| %>
+<div class="row panel">
   <div class="col-md-4">
     <%= image_tag item.photo.url(:medium) %>
   </div>
   <div class="col-md-6">
-    <h4>Item Description:</h4>
-    <p><%= item.description %></p>
-    <div class="h4">Value: $<%= item.value %></div>
-    <div class="p"></div>
-<%= form_for(item) do |f| %>
-    <div class="review-div">
-    <%= f.label :starting_bid, 'Starting Bid:' %>
-    $ <%= f.number_field :starting_bid, class: 'form-control review-amount-field' %>
+    <div class="row form-group review-div">
+      <div class="col-md-4">
+        <%= f.label :name, 'Item Name:' %>
+      </div>
+      <div class="col-md-8">
+        <%= f.text_field :name, class: 'form-control', value: item.name.titleize %>
+      </div>
     </div>
-    <div>
-    <%= f.label :bid_increment, 'Minimum Bid Increment:' %>
-    $ <%= f.number_field :bid_increment, class: 'form-control review-amount-field' %>
+    <div class="row form-group review-div">
+      <div class="col-md-4">
+        <%= f.label :description, 'Item Description:' %>
+      </div>
+      <div class="col-md-8">
+        <%= f.text_area :description, class: 'form-control' %>
+      </div>
     </div>
+      <div class="row form-group review-div">
+        <div class="col-md-4">
+          <%= f.label :value, 'Value:' %>
+        </div>
+        <div class="col-md-6">
+          $ <%= f.number_field :value, class: 'form-control amount-field', disabled: true %>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-md-4">
+          <%= f.label :starting_bid, 'Starting Bid:' %>
+        </div>
+        <div class="col-md-6">
+          $ <%= f.number_field :starting_bid, class: 'form-control amount-field' %>
+        </div>  
+      </div>
+      <div class="row form-group">
+        <div class="col-md-4">
+          <%= f.label :bid_increment, 'Minimum Bid Increment:' %>
+        </div>
+        <div class="col-md-6">
+          $ <%= f.number_field :bid_increment, class: 'form-control amount-field' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <%= f.submit "Approve", class: "form-control btn btn-success" %>
+        </div>
+        <div class="col-md-3">
+          <%= link_to "Decline Item", item_path(item), method: :delete, data: {confirm: "Remove '#{item.name}' from auction?" }, class: 'btn btn-danger' %>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
   <% end %>
-<% end %>
-</div>
-  
-  
 
-  
+
+
+
+
 
 
 

@@ -48,12 +48,28 @@ session[:search] ||= params[:search]
 
   def update
     @item = Item.find(params[:id])
+    if params[:commit] == "Approve"
+      @item.update(approved: "true")
+    end
     if @item.update(item_params)
       redirect_to item_path(@item), :notice => 'Item has been updated.'
     else
       render 'edit'
     end
   end
+
+#def approve
+#  item = Item.find(params[:id])
+#  item.edit(approved: true)
+#  unless item.starting_bid.nil?
+#    item.save(item_params)
+#  
+#  if @item.update(item_params)
+#    redirect_to item_path(@item), :notice => 'Item has been updated.'
+#  else
+#    render 'edit'
+#  end
+#end
 
   def destroy
     @item = Item.find(params[:id])
@@ -67,7 +83,7 @@ session[:search] ||= params[:search]
   end
 
   def review
-    @items = Item.where(approved: false) 
+    @items = Item.where(approved: "false") 
   end
 
   private
@@ -78,6 +94,7 @@ session[:search] ||= params[:search]
                                    :value,
                                    :photo,
                                    :starting_bid,
-                                   :bid_increment)
+                                   :bid_increment,
+                                   :approved)
     end
 end

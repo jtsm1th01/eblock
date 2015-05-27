@@ -46,12 +46,12 @@
           $ <%= f.number_field :bid_increment, class: 'form-control amount-field' %>
         </div>
       </div>
-      <div class="row">
+      <div class="row form-group">
         <div class="col-md-3">
           <%= f.submit "Approve", class: "form-control btn btn-success" %>
         </div>
         <div class="col-md-3">
-          <%= link_to "Decline Item", item_path(item), method: :delete, data: {confirm: "Remove '#{item.name}' from auction?" }, class: 'btn btn-danger' %>
+          <%= link_to "Decline", item_path(item), method: :delete, data: {confirm: "Remove '#{item.name}' from auction?" }, class: 'btn btn-danger' %>
         </div>
       </div>
     </div>

@@ -49,9 +49,11 @@ session[:search] ||= params[:search]
   def update
     @item = Item.find(params[:id])
     if params[:commit] == "Approve"
-      @item.update(approved: "true")
+      @item.update(approved: true)
     end
-    if @item.update(item_params)
+    if @item.update(item_params) && params[:commit] == "Approve" 
+      redirect_to review_path, :notice => 'Item has been approved.'
+    elsif @item.update(item_params) 
       redirect_to item_path(@item), :notice => 'Item has been updated.'
     else
       render 'edit'
@@ -83,7 +85,7 @@ session[:search] ||= params[:search]
   end
 
   def review
-    @items = Item.where(approved: "false") 
+    @items = Item.where(approved: false) 
   end
 
   private

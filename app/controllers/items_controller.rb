@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :get_current_auction
+  before_action :get_auction_status
 
   def index
     search_params = params[:search] || session[:search]

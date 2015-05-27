@@ -14,6 +14,10 @@ class Auction < ActiveRecord::Base
   has_many :bidders, through: :bids, source: :user
   belongs_to :charity, inverse_of: :auctions
   
+  def to_s
+    name
+  end
+
   def determine_winning_bids
     items.each do |item|
       unless item.bids.empty?

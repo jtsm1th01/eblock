@@ -10,13 +10,13 @@
   <div class="container">
     <%= render 'layouts/header' %>
     <div class="row">
-      <div class="col-md-5"><h1>2015 Auction Fundraiser</h1></div>
+      <div class="col-md-5"><h1><%= @auction %></h1></div>
 <!-- TODO Implement conditional start/finish countdowns and provide dates dynamically. -->
       <div class="col-md-7 h3 countdown">Auction Ends in:
         <div id="getting-started"></div>
         <%= javascript_tag do %>
           $("#getting-started")
-            .countdown(<%= @auction_finish %>, function(event) {
+            .countdown(<%= @auction.finish.to_f * 1000 %>, function(event) {
             $(this).text(
               event.strftime('%D Days %H:%M:%S')
             );

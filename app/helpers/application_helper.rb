@@ -1,4 +1,18 @@
 module ApplicationHelper
+
+  def auction_upcoming?
+    DateTime.current < @auction.start
+  end
+
+  def auction_in_progress?
+    now = DateTime.current
+    now > @auction.start && now < @auction.finish
+  end
+
+  def auction_ended?
+    DateTime.current > @auction.finish
+  end
+
   def countdown_explanation
     if auction_upcoming?
       'Auction Begins in:'

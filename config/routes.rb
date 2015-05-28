@@ -5,8 +5,10 @@ Rails.application.routes.draw do
 
   resource :charity
   get 'dashboard' => 'charities#show'
+  get 'dashboard/auctions/:name/summary' => 'auctions#show', as: :auction_path
   
-  resources :auctions, only: [:new, :create, :show]
+  resources :auctions, only: [:new, :create]
+  get 'auctions/:name' => 'items#index'
   post 'auctions/wrapup' => 'auctions#wrapup', as: :wrapup
   post 'confirm_payment' => 'payment_notifications#confirm_payment'
 

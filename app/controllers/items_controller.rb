@@ -2,7 +2,9 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @auction = Auction.find_by_name(params[:name])
+
+    @auction = Auction.find_by_name(params[:name]) || get_current_auction
+
     search_params = params[:search] || session[:search]
     @items = search_params ? Item.search(search_params).includes(:bids) : Item.all.includes(:bids)
     if params[:name_sort]

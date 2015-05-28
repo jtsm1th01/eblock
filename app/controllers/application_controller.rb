@@ -30,11 +30,17 @@ class ApplicationController < ActionController::Base
                    Auction.order(:finish).last
     end
 
-    def get_auction_status
+    def auction_upcoming?
+      DateTime.current < @auction.start
+    end
+
+    def auction_in_progress?
       now = DateTime.current
-      @auction_upcoming = now < @auction.start
-      @auction_in_progress = now > @auction.start && now < @auction.finish
-      @auction_over = now > @auction.finish
+      now > @auction.start && now < @auction.finish
+    end
+
+    def auction_ended?
+      DateTime.current > @auction.finish
     end
 
     def clear_item_search

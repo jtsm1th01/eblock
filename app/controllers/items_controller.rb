@@ -2,9 +2,6 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-
-    @auction = Auction.find_by_name(params[:name]) || get_current_auction
-
     search_params = params[:search] || session[:search]
     @items = search_params ? Item.search(search_params).includes(:bids) : Item.all.includes(:bids)
     if params[:name_sort]
@@ -15,7 +12,7 @@ class ItemsController < ApplicationController
       @items = @items.sort_by(&:sort_by_number_of_bids)
       params[:bid_count_sort] == "DESC" ? @items.reverse! : @items
     end
-session[:search] ||= params[:search]
+    session[:search] ||= params[:search]
   end
 
   def new

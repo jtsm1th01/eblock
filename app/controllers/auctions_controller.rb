@@ -39,10 +39,12 @@ class AuctionsController < ApplicationController
   end
 
   def wrapup
-    Auction.last.determine_winning_bids #TODO: Select auction appropriately
-    User.all.each do |user|
-      UserMailer.email_bidder_wrapup(user).deliver unless user.bids.empty?
-      UserMailer.email_donor_wrapup(user).deliver unless user.items.empty?
+    @current_auction.determine_winning_bids
+    @current_auction.donors.each do |donor|
+      UserMailer.email_donor_wrapup(donor).deliver
+    end
+    @current_auction.bidders.each do |bidder|
+      UserMailer.email_bidder_wrapup(bidder).deliver
     end
     UserMailer.email_sponsor_wrapup.deliver
     render :nothing => true, status: :ok

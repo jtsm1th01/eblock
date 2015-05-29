@@ -5,7 +5,7 @@
   </head>
   <body>
     <p><%= Date.today %></p>
-    <p><%= Charity.name %></p>
+    <p><%= @charity.name %></p>
     <p>Dear <%= @user.fname %>,</p>
     <p>
      Thank you for participating in our auction.
@@ -26,8 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <% if @user.winning_bids.any? %>
-          <% @user.winning_bids.each do |winning_bid| %>
+        <% @user.winning_bids.where(auction: @current_auction).each do |winning_bid| %>
             <tr>
               <td><%= winning_bid.item.name %></td>
               <td><%= winning_bid.bid.amount %></td>
@@ -35,7 +34,10 @@
           <% end %>
             <div>
               <tr>
-                <td style="padding-top: 20px"><%= link_to "Pay for Items", @user.paypal_url(root_url) %></td>
+                <td style="padding-top: 20px">
+                  <%= link_to "Pay for Items",
+                               @user.paypal_url(root_url, @current_auction) %>
+                </td>
               </tr>
             </div>
         <% else %>
@@ -47,6 +49,6 @@
     </table>
     <p>We couldn't do this without your support. See you next time!</p>
     <p>Sincerely,</p>
-    <p>The Sponsor</p>
+    <p><%= @charity.name %></p>
   </body>
 </html>

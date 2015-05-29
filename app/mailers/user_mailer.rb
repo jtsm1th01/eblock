@@ -16,29 +16,31 @@ class UserMailer < ActionMailer::Base
     email_setup(user)
   end
   
-  def email_sponsor_wrapup #TODO: change hard-coded email address to use the real sponsor's email 
-    mail(to: 'fkhayes@gmail.com', subject: 'Charity Auction Wrap-up')
+  def email_sponsor_wrapup
+    @current_auction = Auction.order(:finish).last
+    mail(to: Charity.last.email, subject: 'Charity Auction Wrap-up')
   end
   
   def email_outbid_notice(item)
     @item = item
     @user = item.current_winner
     @url = root_url
-    @charity = Charity.first
+    @charity = Charity.last
     email_with_name = %(@user <#{@user.email}>)
     mail(to: email_with_name, subject: "You've been outbid!")
   end
   
   private
   def email_setup(user)
+    @current_auction = Auction.order(:finish).last
     @user = user
     @url = root_url
-    @charity = Charity.first
+    @charity = Charity.last
     email_with_name = %(@user <#{@user.email}>)
     mail(to: email_with_name, subject: 'Charity Auction Wrap-up')
   end
   
-  def get_funds_raised #TODO: correct auction selection
-    @funds_raised = Auction.last.calculate_funds_raised
+  def get_funds_raised
+    @funds_raised = @current_auction.calculate_funds_raised
   end
 end

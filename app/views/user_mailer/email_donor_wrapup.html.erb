@@ -1,5 +1,5 @@
 <p><%= Date.today %></p>
-<p><%= Charity.name %></p>
+<p><%= @charity.name %></p>
   
 <p>Dear <%= @user.fname %>,</p>
 <p>
@@ -20,7 +20,7 @@
     </tr>
   </thead>
    <tbody>
-     <% @user.items.each do |item| %>
+     <% @user.items.where(auction: @current_auction).each do |item| %>
      <tr>        
        <td><%= item.name %></td>
        <td><%= item.value %></td>

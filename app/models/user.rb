@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   end
 
   # TODO skin charity name in paypal form
-  def paypal_url(return_url) 
+  def paypal_url(return_url, current_auction) 
     values = { 
       :business => 'mr_travis_smith-facilitator@hotmail.com',
       :cmd => '_cart',
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
       :custom => id
       }
 
-    winning_bids.each_with_index do |wbid, index|
+    winning_bids.where(auction: current_auction).each_with_index do |wbid, index|
       values.merge!({
         "item_name_#{index + 1}" => wbid.item.name,
         "amount_#{index + 1}" => wbid.bid.amount

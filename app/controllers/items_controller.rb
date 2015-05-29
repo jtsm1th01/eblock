@@ -16,7 +16,11 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new(:auction_id => Auction.last.id)
+    if auction_upcoming?
+      @item = Item.new
+    else 
+      redirect_to :back, alert: "We're sorry but the donation period has ended."
+    end
   end
 
   def show
@@ -32,12 +36,16 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
+    if auction_upcoming?
+      @item = Item.find(params[:id])
+    else
+      redirect_to :back, alert: "Changes not allowed once auction begins."
+    end
   end
 
   def create
     @item = current_user.items.build(item_params)
-    @item.auction = Auction.last
+    @item.auction = @current_auction
     if @item.save
       redirect_to root_url, :notice => 'Thank you for your donation!'
     else
@@ -49,11 +57,12 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if params[:commit] == "Approve"
-      @item.update(approved: true)
+      @item.approved = true
     end
     if @item.update(item_params) && params[:commit] == "Approve" 
       redirect_to review_path, :notice => 'Item has been approved.'
-    elsif @item.update(item_params) 
+    elsif @item.update(item_params)
+      @item.update(approved: false)
       redirect_to item_path(@item), :notice => 'Item has been updated.'
     else
       render 'edit'
@@ -74,9 +83,13 @@ class ItemsController < ApplicationController
 #end
 
   def destroy
-    @item = Item.find(params[:id])
-    @item.destroy
-    redirect_to my_donations_path, notice: 'Item removed from the auction.' 
+    if auction_upcoming?
+      @item = Item.find(params[:id])
+      @item.destroy
+      redirect_to my_donations_path, notice: 'Item removed from the auction.' 
+    else
+      redirect_to :back, alert: "Changes not allowed once auction begins."
+    end
   end
   
   def show_my_donations

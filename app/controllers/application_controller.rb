@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :clear_item_search
+  before_action :get_current_auction
 
   protected
 

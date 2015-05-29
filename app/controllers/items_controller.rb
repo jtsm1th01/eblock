@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
 
   def index
     search_params = params[:search] || session[:search]
-    @items = search_params ? Item.search(search_params).includes(:bids) : Item.all.includes(:bids)
+    @items = search_params ? Item.search(search_params).includes(:bids) : @current_auction.items
     if params[:name_sort]
       @items = @items.order("name #{params[:name_sort]}")
     elsif params[:current_bid_sort]

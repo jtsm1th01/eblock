@@ -1,16 +1,16 @@
 module ApplicationHelper
 
   def auction_upcoming?
-    DateTime.current < @auction.start
+    DateTime.current < @current_auction.start
   end
 
   def auction_in_progress?
     now = DateTime.current
-    now > @auction.start && now < @auction.finish
+    now > @current_auction.start && now < @current_auction.finish
   end
 
   def auction_ended?
-    DateTime.current > @auction.finish
+    DateTime.current > @current_auction.finish
   end
 
   def countdown_explanation
@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def config_countdown
-    deadline = auction_upcoming? ? @auction.start : @auction.finish
+    deadline = auction_upcoming? ? @current_auction.start : @current_auction.finish
     deadline.to_f * 1000
   end
 end

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :get_current_auction
+  before_action :set_current_auction
   before_action :clear_item_search
 
 
@@ -21,8 +21,8 @@ class ApplicationController < ActionController::Base
       session[:forward_url] ? session.delete(:forward_url) : super
     end
 
-    def get_current_auction
-      @auction = Auction.order(:finish).last
+    def set_current_auction
+      @current_auction = Auction.order(:finish).last
     end
 
     def clear_item_search

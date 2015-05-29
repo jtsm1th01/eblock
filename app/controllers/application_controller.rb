@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+apclass ApplicationController < ActionController::Base
   include ApplicationHelper
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -21,15 +21,7 @@ class ApplicationController < ActionController::Base
     end
 
     def get_current_auction
-      #  now = TimeDate.current
-      #  upcoming auction = now < start
-      #  auction in progress = now > start && now < finish
-      #  auction over = now > finish
-      #  To determine the current auction: look for an auction that is in progress or upcoming,
-      #    if none exists, the current auction is the last auction, that is, the most recently ended.
-      @auction = # Auction.find("? < start", now) ||
-                 # Auction.find("? > start AND ? < finish", now, now) ||
-                   Auction.order(:finish).last
+      @auction = Auction.order(:finish).last
     end
 
     def clear_item_search

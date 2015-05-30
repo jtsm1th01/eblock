@@ -26,8 +26,24 @@ class ApplicationController < ActionController::Base
     end
 
     def clear_item_search
-      user_searching = params[:name_sort] || params[:current_bid_sort] || params[:bid_count_sort]
+      user_searching = params[:name_sort] || \
+                       params[:current_bid_sort] || \
+                       params[:bid_count_sort]
       session[:search] = nil unless user_searching
     end
 
+    def require_admin
+      unless current_user.admin?
+        redirect_to :back,
+                    :alert => 'Only Charity Administrators Allowed.'
+      end
+    end
+
+    def require_login
+      unless user_signed_in?
+        session[:forward_url] = item_url(@item)
+                 redirect_to new_user_session_path,
+                 :alert => 'Please sign in or sign up before continuing.'
+      end
+    end
 end

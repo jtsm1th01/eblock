@@ -42,14 +42,6 @@ class BidsController < ApplicationController
       @item = Item.find(params[:item_id])
     end
 
-    def require_login
-      unless user_signed_in?
-        session[:forward_url] = item_url(@item)
-                 redirect_to new_user_session_path,
-                :alert => 'Please sign in or sign up before continuing.'
-      end
-    end
-
     def bid_params
       params.require(:bid).permit(:amount)
     end

@@ -50,12 +50,7 @@ class Item < ActiveRecord::Base
   end
   
   def self.search(search)
-    if search
       search_length = search.split.length
-      Item.where([(['name LIKE ?'] * search_length).join(' OR ')] + (search.split.map {|search| "%#{search}%"}))
-    else
-      all
-    end
+      Item.where([(['name LIKE ?'] * search_length).join(' OR ') + ' AND auction_id = ?'] + (search.split.map {|search| "%#{search}%"}) << 1)
   end
-
 end

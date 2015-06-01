@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if auction_upcoming?
+    if(auction_upcoming? || current_user.admin?)
       @item = Item.find(params[:id])
     else
       redirect_to :back, alert: "Changes not allowed once auction begins."
@@ -83,7 +83,7 @@ class ItemsController < ApplicationController
 #end
 
   def destroy
-    if auction_upcoming?
+    if(auction_upcoming? || current_user.admin?)
       @item = Item.find(params[:id])
       @item.destroy
       redirect_to my_donations_path, notice: 'Item removed from the auction.' 

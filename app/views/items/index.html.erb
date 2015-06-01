@@ -22,7 +22,7 @@ items_path(:current_bid_sort => direction(:current_bid_sort)) %><%= current_bid_
       <th><%= link_to "Bids",
 items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %>
       </th>
-      <% if current_user.admin? %>
+      <% if(current_user.present? && current_user.admin?) %>
         <th class="text-center">Edit</th>
         <th class="text-center">Delete</th>
       <% end %>
@@ -35,7 +35,7 @@ items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %
         <td><%= link_to item, item_path(item) %></td>
         <td>$<%= item.high_bid.try(:amount) || 0 %></td>
         <td><%= item.bids.count %></td>
-        <% if current_user.admin? %>
+        <% if(current_user.present? && current_user.admin?) %>
           <td class="text-center"><%= link_to edit_item_path(item) do %><%= tag(:span, class: "glyphicon glyphicon-pencil") %><% end %></td>
           <td class="text-center"><%= link_to item_path(item), method: :delete, data: {confirm: "Remove '#{item.name}' from auction?" } do %><%= tag(:span, class: "glyphicon glyphicon-ban-circle") %><% end %></td>
         <% end %>

@@ -7,11 +7,11 @@
                      start: t,
                     finish: (t + 86400))
 
-     User.create!(fname: "Julian",
-                 lname: "Bishop",
-                 email: "jbishop@xtol.com",
-                 password: "anex1234",
-                 password_confirmation: "anex1234")
+ User.create!(fname: "Julian",
+              lname: "Bishop",
+              email: "jbishop@xtol.com",
+              password: "anex1234",
+              password_confirmation: "anex1234")
 
 70.times do |n|
   name = Faker::Commerce.product_name

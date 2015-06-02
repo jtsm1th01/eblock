@@ -52,7 +52,7 @@ class Item < ActiveRecord::Base
   def self.search(search_terms, auction)
     search_terms = search_terms.split
     query_conditions = [ (['name LIKE ?'] * search_terms.count).join(' OR ') +
-                          ' AND auction_id = ? ' + ' And approved = ?' ]
+                          ' AND auction_id = ? ' + 'And approved = ?' ]
     query_values = search_terms.map {|term| "%#{term}%"} << "#{auction.id}" << true
     Item.where(query_conditions + query_values)   
   end

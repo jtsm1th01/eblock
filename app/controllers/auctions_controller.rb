@@ -1,11 +1,14 @@
 require 'cgi'
-
 class AuctionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:wrapup]
   
   def new
-    @charity = Charity.last
-    @auction = @charity.auctions.build
+    if auction_ended?
+      @auction = Auction.new
+    else
+      redirect_to :back, :alert => 'You may not create a new auction until the
+                                    current auction has ended.'
+    end
   end
   
   def create
@@ -15,11 +18,12 @@ class AuctionsController < ApplicationController
       schedule_wrapup
       redirect_to root_url, :notice => 'Your auction has been created!'
     else
-      render 'new', :alert => "We're sorry but we couldn't create your auction \
-                               at this time"
+      render 'new', :alert => "We're sorry, but we are unable create your
+                               auction at this time."
     end
   end
 
+  # show corresponds to Auction summary report
   def show
     @auction = Auction.find(params[:id])
     pledges = @auction.items.map { |item| item.high_bid.try(:amount) }

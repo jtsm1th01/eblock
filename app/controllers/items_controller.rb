@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
       @items = Item.search(search_terms, @current_auction).includes(:bids)
       session[:search] ||= params[:search] #preserves search
     else
-      @items = @current_auction.items.includes(:bids)
+      @items = @current_auction.items.where(approved: true).includes(:bids)
     end
     # TODO: Take Julian's feedback into account for sorting methods.
     if params[:name_sort]

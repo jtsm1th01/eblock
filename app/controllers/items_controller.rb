@@ -1,9 +1,15 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :clear_search_if_requested
 
   def index
-    search_params = params[:search] || session[:search]
-    @items = search_params ? Item.search(search_params).includes(:bids) : @current_auction.items
+    if search_terms = (params[:search] || session[:search])
+      @items = Item.search(search_terms, @current_auction).includes(:bids)
+      session[:search] ||= params[:search] #preserves search
+    else
+      @items = @current_auction.items.includes(:bids)
+    end
+    # TODO: Take Julian's feedback into account for sorting methods.
     if params[:name_sort]
       @items = @items.order("name #{params[:name_sort]}")
     elsif params[:current_bid_sort]
@@ -12,7 +18,6 @@ class ItemsController < ApplicationController
       @items = @items.sort_by(&:sort_by_number_of_bids)
       params[:bid_count_sort] == "DESC" ? @items.reverse! : @items
     end
-    session[:search] ||= params[:search]
   end
 
   def new
@@ -111,5 +116,9 @@ class ItemsController < ApplicationController
                                    :starting_bid,
                                    :bid_increment,
                                    :approved)
+    end
+
+    def clear_search_if_requested
+      session[:search] = nil if params[:clear_search]
     end
 end

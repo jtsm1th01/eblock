@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_current_auction
-#   before_action :clear_item_search
+# before_action :clear_item_search
 
 
   protected
@@ -25,12 +25,12 @@ class ApplicationController < ActionController::Base
       @current_auction = Auction.order(:finish).last
     end
 
-    def clear_item_search
-      user_searching = params[:name_sort] || \
-                       params[:current_bid_sort] || \
-                       params[:bid_count_sort]
-      session[:search] = nil unless user_searching
-    end
+#     def clear_item_search
+#       user_searching = params[:name_sort] || \
+#                        params[:current_bid_sort] || \
+#                        params[:bid_count_sort]
+#       session[:search] = nil unless user_searching
+#     end
 
     def require_admin
       unless current_user.admin?

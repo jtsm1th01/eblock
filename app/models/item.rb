@@ -9,8 +9,8 @@ class Item < ActiveRecord::Base
   validates :user, presence: true
   validates :name, presence: true
   validates :description, presence: true
-  validates :value, :starting_bid, :bid_increment,
-             numericality: {only_integer: true, greater_than: 0}
+  validates :value, numericality: {only_integer: true, greater_than: 0}
+  # validates :starting_bid, :bid_increment, numericality: {only_integer: true, greater_than: 0}
   belongs_to :auction, inverse_of: :items
   belongs_to :user, inverse_of: :items
   has_many :bids

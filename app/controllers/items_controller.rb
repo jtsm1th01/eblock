@@ -62,12 +62,9 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if params[:commit] == "Approve"
-      @item.approved = true
-    end
-    if @item.update(item_params) && params[:commit] == "Approve" 
+      @item.update(item_params.merge approved: true)
       redirect_to review_path, :notice => 'Item has been approved.'
-    elsif @item.update(item_params)
-      @item.update(approved: false)
+    elsif @item.update(item_params.merge approved: false)
       redirect_to item_path(@item), :notice => 'Item has been updated.'
     else
       render 'edit'

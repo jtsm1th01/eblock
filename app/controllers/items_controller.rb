@@ -98,7 +98,7 @@ class ItemsController < ApplicationController
   end
   
   def show_my_donations
-    @donations = Item.where(user: current_user)
+    @donations = Item.where(user: current_user).includes(:bids)
     render 'my_donations'
   end
 

@@ -17,7 +17,7 @@
         <td><%= link_to image_tag(donation.photo.url(:thumb)), item_path(donation) %></td>
         <td><%= link_to donation, item_path(donation) %></td>
         <td>$<%= donation.high_bid.try(:amount) || 0 %></td>
-        <td><%= donation.bids.count %></td>
+        <td><%= donation.bids.size %></td>
         <td class="text-center"><%= link_to edit_item_path(donation) do %><%= tag(:span, class: "glyphicon glyphicon-pencil") %><% end %></td>
         <td class="text-center"><%= link_to item_path(donation), method: :delete, data: {confirm: "Remove '#{donation.name}' from auction?" } do %><%= tag(:span, class: "glyphicon glyphicon-ban-circle") %><% end %></td>
       </tr>

@@ -1,4 +1,4 @@
-# Charity.create(name: "NorCal Autism Research Foundation",
+#Charity.create(name: "NorCal Autism Research Foundation",
 #                email: "auction@charity.com")
 
  t = Time.now

@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :app_setup_if_needed, only: :index
+  before_action :create_admin
   before_action :authenticate_user!, except: [:index, :show]
   before_action :clear_search_if_requested
 
@@ -120,5 +121,14 @@ class ItemsController < ApplicationController
 
     def clear_search_if_requested
       session[:search] = nil if params[:clear_search]
+    end
+
+    def create_admin
+      @sponsor = User.first
+      if User.count == 1 && @sponsor.admin == false
+        @sponsor.update(admin: true)
+        flash[:notice] = "Welcome to the Sponsor Dashboard!"
+        redirect_to dashboard_path
+      end
     end
 end

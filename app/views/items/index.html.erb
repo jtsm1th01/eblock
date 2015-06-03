@@ -1,6 +1,5 @@
 <h1>Items Up for Bid</h1>
 
-
 <div class="form-group form-inline">
   <%= form_tag items_path, :method => 'get' do %>
   <%= text_field_tag :search, params[:search] || session[:search], {class:"form-control"} %>

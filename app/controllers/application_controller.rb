@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_current_auction
+  before_action :set_app_environment
   
 # before_action :clear_item_search
 
@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
       session[:forward_url] ? session.delete(:forward_url) : super
     end
 
-    def set_current_auction
+    def set_app_environment
+      @charity = Charity.last
       @current_auction = Auction.order(:finish).last
     end
 
@@ -49,10 +50,8 @@ class ApplicationController < ActionController::Base
     end
   
   def app_setup_if_needed
-    if Charity.any? 
-      root
-    else
-      redirect_to new_charity_path
+    unless Charity.any? 
+     redirect_to new_charity_path
     end
   end
 end

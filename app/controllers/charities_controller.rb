@@ -14,7 +14,7 @@ class CharitiesController < ApplicationController
   def create
     @charity = Charity.new(charity_params)
     if @charity.save
-      redirect_to new_user_registration_path, notice: "Charity created!"
+      redirect_to new_user_registration_path
     else
       render 'new'
     end

@@ -6,15 +6,18 @@ class ItemsController < ApplicationController
 
   def index
     if search_terms = (params[:search] || session[:search])
-      @items = Item.search(search_terms, @current_auction).includes(:bids).paginate(page: params[:page])
+      @items = Item.search(search_terms, @current_auction).includes(:bids)
       session[:search] ||= params[:search] #preserves search
     else
-      @items = @current_auction.items.where(approved: true).includes(:bids).paginate(page: params[:page], per_page: 20)
+      if @current_auction.nil?
+        @items = Item.all
+      else
+        @items = @current_auction.items.where(approved: true).includes(:bids)
+      end
     end
      
     # TODO: Take Julian's feedback into account for sorting methods.
     if params[:name_sort]
-      session[:paginate] = params[:page]
       @items = @items.order("name #{params[:name_sort]}")
     elsif params[:current_bid_sort]
       @items = @items.order("bids.amount #{params[:current_bid_sort]}")
@@ -22,6 +25,7 @@ class ItemsController < ApplicationController
       @items = @items.sort_by(&:sort_by_number_of_bids)
       params[:bid_count_sort] == "DESC" ? @items.reverse! : @items
     end
+#     @items.paginate(page: params[:page], per_page: 20)
   end
 
   def new
@@ -75,19 +79,6 @@ class ItemsController < ApplicationController
     end
   end
 
-#def approve
-#  item = Item.find(params[:id])
-#  item.edit(approved: true)
-#  unless item.starting_bid.nil?
-#    item.save(item_params)
-#  
-#  if @item.update(item_params)
-#    redirect_to item_path(@item), :notice => 'Item has been updated.'
-#  else
-#    render 'edit'
-#  end
-#end
-
   def destroy
     if(auction_upcoming? || current_user.admin?)
       @item = Item.find(params[:id])
@@ -125,9 +116,9 @@ class ItemsController < ApplicationController
 
     def create_admin
       @sponsor = User.first
-      if User.count == 1 && @sponsor.admin == false
+      if user_signed_in? && User.count == 1 && @sponsor.admin == false
         @sponsor.update(admin: true)
-        flash[:notice] = "Welcome to the Sponsor Dashboard!"
+        flash[:notice] = "Welcome to the Charity Dashboard!"
         redirect_to dashboard_path
       end
     end

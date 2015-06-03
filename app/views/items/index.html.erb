@@ -10,7 +10,7 @@
 
 <p>Please click on image or name to view item details. Click column headings to sort.</p>
 
-<%= will_paginate %>
+<%#= will_paginate unless @current_auction.nil? %>
 
 <table class="table table-hover">
   <thead>
@@ -47,4 +47,5 @@ items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %
   </tbody>
 </table>
 
-<%= will_paginate %>
+<%#= will_paginate unless @current_auction.nil? %>
+

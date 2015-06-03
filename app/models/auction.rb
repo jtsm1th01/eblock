@@ -17,7 +17,7 @@ class Auction < ActiveRecord::Base
   end
 
   def duration
-    format_date = Proc.new { |date| date.strftime("%a, %B #{date.day.ordinalize}") }
+    format_date = Proc.new { |date| date.strftime("%B #{date.day.ordinalize}") }
     format_date.call(start) + ' - ' + format_date.call(finish)
   end
 

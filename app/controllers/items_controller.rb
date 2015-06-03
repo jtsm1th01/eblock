@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :app_setup_if_needed, only: :index
   before_action :authenticate_user!, except: [:index, :show]
   before_action :clear_search_if_requested
 

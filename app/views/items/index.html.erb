@@ -1,4 +1,6 @@
 <h1>Items Up for Bid</h1>
+
+
 <div class="form-group form-inline">
   <%= form_tag items_path, :method => 'get' do %>
   <%= text_field_tag :search, params[:search] || session[:search], {class:"form-control"} %>
@@ -8,6 +10,8 @@
 </div>
 
 <p>Please click on image or name to view item details. Click column headings to sort.</p>
+
+<%= will_paginate %>
 
 <table class="table table-hover">
   <thead>
@@ -43,3 +47,5 @@ items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate %>

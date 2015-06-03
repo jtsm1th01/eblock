@@ -4,13 +4,15 @@ class ItemsController < ApplicationController
 
   def index
     if search_terms = (params[:search] || session[:search])
-      @items = Item.search(search_terms, @current_auction).includes(:bids)
+      @items = Item.search(search_terms, @current_auction).includes(:bids).paginate(page: params[:page])
       session[:search] ||= params[:search] #preserves search
     else
-      @items = @current_auction.items.where(approved: true).includes(:bids)
+      @items = @current_auction.items.where(approved: true).includes(:bids).paginate(page: params[:page], per_page: 20)
     end
+     
     # TODO: Take Julian's feedback into account for sorting methods.
     if params[:name_sort]
+      session[:paginate] = params[:page]
       @items = @items.order("name #{params[:name_sort]}")
     elsif params[:current_bid_sort]
       @items = @items.order("bids.amount #{params[:current_bid_sort]}")

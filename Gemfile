@@ -8,6 +8,8 @@ gem 'aws-sdk', '< 2.0'
 gem 'devise'
 gem 'httparty'
 gem 'faker'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 gem 'jquery-final_countdown-rails'
 gem 'bootstrap-sass'

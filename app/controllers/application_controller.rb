@@ -3,9 +3,11 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-
+  
+  before_action :app_setup_if_needed
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_current_auction
+  
 # before_action :clear_item_search
 
 
@@ -46,4 +48,12 @@ class ApplicationController < ActionController::Base
                  :alert => 'Please sign in or sign up before continuing.'
       end
     end
+  
+  def app_setup_if_needed
+    if Charity.any? 
+      root
+    else
+      redirect_to new_charity_path
+    end
+  end
 end

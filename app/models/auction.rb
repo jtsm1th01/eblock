@@ -16,6 +16,11 @@ class Auction < ActiveRecord::Base
     name
   end
 
+  def duration
+    format_date = Proc.new { |date| date.strftime("%a, %B #{date.day.ordinalize}") }
+    format_date.call(start) + ' - ' + format_date.call(finish)
+  end
+
   def determine_winning_bids
     items.each do |item|
       unless item.bids.empty?

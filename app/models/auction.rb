@@ -17,8 +17,10 @@ class Auction < ActiveRecord::Base
   end
 
   def duration
-    format_date = Proc.new { |date| date.strftime("%B #{date.day.ordinalize}") }
-    format_date.call(start) + ' - ' + format_date.call(finish)
+    format_date = Proc.new do |date| 
+      date.strftime("%B #{date.day.ordinalize} at %I:%M %p")
+    end
+    format_date.call(start) + ' - ' + format_date.call(finish) + " (" + start.strftime("%Z") + ")"
   end
 
   def determine_winning_bids

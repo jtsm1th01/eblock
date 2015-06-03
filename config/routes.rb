@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
 
   root 'items#index'
-  devise_for :users, controllers: { registrations: "users/registrations" }
-  devise_scope :user do
-    get "setup", to: "users/registrations#new_admin"
-  end
+  devise_for :users
 
-  resources :charities
+  resource :charity
   get 'dashboard' => 'charities#show'
   
   resources :auctions, only: [:new, :create, :show]

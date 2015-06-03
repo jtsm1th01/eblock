@@ -11,15 +11,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def admin_present?
-    if User.where(admin: true)
-      root_path
-    else
-      setup_path
-    end
-  end
-
-  def configure_permitted_parameters
+    def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) do |u|
         u.permit(:fname, :lname, :email, :password, :password_confirmation)
       end

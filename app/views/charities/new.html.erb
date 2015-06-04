@@ -19,7 +19,7 @@
       <%= f.label :name, "Charity Name:" %><br />
     </div>
     <div class="col-md-3">
-    <%= f.text_field :name, class: "form-control"  %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Charity Name"  %>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
       <%= f.label :subhead, "Sub-Heading (Optional):" %><br />
     </div>
     <div class="col-md-3">
-      <%= f.text_field :subhead, class: "form-control"  %>
+      <%= f.text_field :subhead, class: "form-control", placeholder: "Example: Eastern Chapter"  %>
     </div>
   </div>
 
@@ -37,7 +37,7 @@
       <%= f.label :email, "Charity Email:" %><br />
     </div>
     <div class="col-md-3">
-    <%= f.email_field :email, class: "form-control" %>
+      <%= f.email_field :email, class: "form-control", placeholder: "auction@charity.com" %>
     </div>
 </div>
 
@@ -46,17 +46,31 @@
       <%= f.label :url, "Homepage:" %><br />
     </div>
     <div class="col-md-3">
-      <%= f.text_field :url, class: "form-control" %>
+      <%= f.text_field :url, class: "form-control", placeholder: "www.charity.com" %>
     </div>
   </div>
 
-  <!-- Upload Logo -->
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :logo, 'Logo:' %>
+    </div>
+    <div class="col-md-3">
+      <%= f.file_field :logo, class: 'form-control' %>
+    </div>
+  </div>
 
-  <!-- Color Picker -->
+    <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :bg_color, "Background Color:" %><br />
+    </div>
+    <div class="col-md-3">
+      <%= f.color_field :bg_color, class: "form-control" %>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-2">
-      <%= f.submit "Create Charity", class: 'form-control btn btn-danger' %>
+      <%= f.submit "Create Charity", class: 'form-control btn btn-primary' %>
     </div>
   </div>
   <% end %>

@@ -25,10 +25,23 @@ class CharitiesController < ApplicationController
     @pending_items = Item.where(approved: false)
   end
   
+  def edit
+    @charity = Charity.last
+  end
+  
+  def update
+    @charity = Charity.last
+    if @charity.update(charity_params)
+      flash[:notice] = "Your Charity's information has been updated!"
+      redirect_to edit_charity_path(@charity)
+    else
+      render 'edit'
+    end
+  end
+  
   private
   
   def charity_params
     params.require(:charity).permit(:name, :subhead, :email, :url)
-  end
-  
+  end  
 end

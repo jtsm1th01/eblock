@@ -6,13 +6,13 @@ class ItemsController < ApplicationController
 
   def index
     if search_terms = (params[:search] || session[:search])
-      @items = Item.search(search_terms, @current_auction).includes(:bids)
+      @items = Item.search(search_terms, @current_auction).includes(:bids).paginate(page: params[:page], per_page: 20)
       session[:search] ||= params[:search] #preserves search
     else
       if @current_auction.nil?
         @items = Item.all
       else
-        @items = @current_auction.items.where(approved: true).includes(:bids)
+        @items = @current_auction.items.where(approved: true).includes(:bids).paginate(page: params[:page], per_page: 20)
       end
     end
      
@@ -25,7 +25,6 @@ class ItemsController < ApplicationController
       @items = @items.sort_by(&:sort_by_number_of_bids)
       params[:bid_count_sort] == "DESC" ? @items.reverse! : @items
     end
-#     @items.paginate(page: params[:page], per_page: 20)
   end
 
   def new
@@ -95,7 +94,7 @@ class ItemsController < ApplicationController
   end
 
   def review
-    @items = Item.where(approved: false) 
+    @items = Item.where(approved: false).paginate(page: params[:page], per_page: 10) 
   end
 
   private

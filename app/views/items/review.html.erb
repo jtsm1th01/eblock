@@ -1,4 +1,7 @@
 <h1>Donations Needing Approval</h1>
+
+<%= will_paginate unless @current_auction.nil? %>
+
 <% @items.each do |item| %>
 <%= form_for(item) do |f| %>
 <div class="row panel">
@@ -58,6 +61,8 @@
     <% end %>
   </div>
   <% end %>
+
+<%= will_paginate unless @current_auction.nil? %>
 
 
 

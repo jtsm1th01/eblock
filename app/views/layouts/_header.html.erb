@@ -12,17 +12,33 @@
   <div class="row">
     <div class="col-md-12">
       <ul class="nav navbar-nav pull-right layout-nav">
-        <li><%= link_to "Browse Items", root_path %></li>
-        <li><%= link_to "Donate an Item", new_item_path %></li>
+        <li class=<%= 'active' if current_page?(root_path) %>>
+          <%= link_to "Browse Items", root_path %>
+        </li>
+        <li class=<%= 'active' if current_page?(new_item_path) %>>
+          <%= link_to "Donate an Item", new_item_path %>
+        </li>
         <% if user_signed_in? %>
-          <li><%= link_to "My Watchlist", watch_list_items_path %></li>
-          <li><%= link_to "My Donations", my_donations_path %></li>
-          <li><%= link_to "Dashboard", dashboard_path if current_user.admin? %>
-          <li><%= link_to "Sign Out (#{current_user.to_s.titleize})",
-                         destroy_user_session_path, method: :delete %></li>
+          <li class=<%= 'active' if current_page?(watch_list_items_path) %>>
+            <%= link_to "My Watchlist", watch_list_items_path %>
+          </li>
+          <li class=<%= 'active' if current_page?(my_donations_path) %>>
+            <%= link_to "My Donations", my_donations_path %>
+          </li>
+          <li class=<%= 'active' if current_page?(dashboard_path) %>>
+            <%= link_to "Dashboard", dashboard_path if current_user.admin? %>
+          </li>
+          <li class=<%= 'active' if current_page?(destroy_user_session_path) %>>
+            <%= link_to "Sign Out (#{current_user.to_s.titleize})",
+                         destroy_user_session_path, method: :delete %>
+          </li>
         <% else %>
-          <li><%= link_to "Sign In", new_user_session_path %></li>
-          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+          <li class=<%= 'active' if current_page?(new_user_session_path) %>>
+            <%= link_to "Sign In", new_user_session_path %>
+          </li>
+          <li class=<%= 'active' if current_page?(new_user_registration_path) %>>
+            <%= link_to "Sign Up", new_user_registration_path %>
+          </li>
         <% end %>
       </ul>
     </div>

@@ -5,7 +5,7 @@ class Auction < ActiveRecord::Base
   validates :start, presence: true
   validates :finish, presence: true
 
-  has_many :items, inverse_of: :auction
+  has_many :items, inverse_of: :auction, dependent: :destroy
   has_many :winning_bids, through: :items
   has_many :donors, through: :items, source: :user
   has_many :bids, through: :items

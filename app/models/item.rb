@@ -10,7 +10,7 @@ class Item < ActiveRecord::Base
 
   belongs_to :auction, inverse_of: :items
   belongs_to :user, inverse_of: :items
-  has_many :bids
+  has_many :bids, dependent: :destroy
   has_one :winning_bid
   has_many :watch_list_items, dependent: :destroy
   has_attached_file :photo,

@@ -91,7 +91,7 @@ class ItemsController < ApplicationController
       @item.destroy
       redirect_to my_donations_path, notice: 'Item removed from the auction.' 
     else
-      redirect_to :back, alert: "Changes not allowed once auction begins."
+      redirect_to :back, alert: "You may not withdraw an item at this time."
     end
   end
   

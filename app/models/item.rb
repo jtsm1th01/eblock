@@ -1,23 +1,22 @@
 class Item < ActiveRecord::Base
+
   attr_accessor :approval_in_process
   before_save :downcase_item_name
-  
-  has_attached_file :photo,
-                    :styles => { :medium => "300x300>", :thumb => "100x100>" },
-                    :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
-  validates :auction, presence: true
-  validates :user, presence: true
-  validates :name, presence: true
-  validates :description, presence: true
+
+  validates :auction, :user, :name, :description, presence: true
   validates :value, numericality: {only_integer: true, greater_than: 0}
   validates :starting_bid, :bid_increment,
   numericality: {only_integer: true, greater_than: 0}, if: "approval_in_process"
+
   belongs_to :auction, inverse_of: :items
   belongs_to :user, inverse_of: :items
   has_many :bids
   has_one :winning_bid
   has_many :watch_list_items, dependent: :destroy
+  has_attached_file :photo,
+                    :styles => { :medium => "300x300>", :thumb => "100x100>" },
+                    :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
   def to_s
     name.titleize

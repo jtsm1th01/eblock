@@ -20,9 +20,14 @@ class CharitiesController < ApplicationController
     end
   end
   
+  # Charities#show corresponds to the sponsor dashboard.
   def show
     @auctions = Auction.all
-    @pending_items = Item.where(approved: false)
+    unless @current_auction.nil?
+      @pending_items_count = @current_auction.items.where(approved: false).count
+    else
+      @pending_items_count = 0
+    end
   end
   
   def edit

@@ -29,10 +29,10 @@ class ItemsController < ApplicationController
   end
 
   def new
-    if auction_upcoming?
+    if @current_auction != nil && auction_upcoming?
       @item = Item.new
     else 
-      redirect_to :back, alert: "We're sorry but the donation period has ended."
+      redirect_to :back, alert: "Tnank you, but we are not accepting donations at this time."
     end
   end
 

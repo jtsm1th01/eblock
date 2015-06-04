@@ -61,7 +61,7 @@
           <%= f.submit "Approve", class: "form-control btn btn-success" %>
         </div>
         <div class="col-md-3">
-          <%= link_to "Decline", item_path(item), method: :delete, data: {confirm: "Remove '#{item.name}' from auction?" }, class: 'btn btn-danger' %>
+          <%= f.submit "Decline", class: "form-control btn btn-alert" %>
         </div>
       </div>
     </div>

@@ -78,6 +78,10 @@ class ItemsController < ApplicationController
         redirect_to review_path,
         :alert => 'Please complete all fields before approving items'
       end
+    elsif params[:commit] == "Decline"
+      @item.declined = true
+      @item.save(validate: false)
+      redirect_to review_path, :notice => 'Item has been declined.'
     elsif @item.update(item_params.merge approved: current_user.admin )
       redirect_to item_path(@item), :notice => 'Item has been updated.'
     else

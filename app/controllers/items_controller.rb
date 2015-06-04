@@ -102,7 +102,11 @@ class ItemsController < ApplicationController
   end
 
   def review
-    @items = @current_auction.items.where(approved: false)
+    unless @current_auction.nil?
+      @items = @current_auction.items.where(approved: false)
+    else
+      @items = []
+    end
   end
 
   private

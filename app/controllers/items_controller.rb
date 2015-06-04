@@ -70,9 +70,16 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if params[:commit] == "Approve"
-      @item.update(item_params.merge approved: true)
-      redirect_to review_path, :notice => 'Item has been approved.'
-    elsif @item.update(item_params.merge approved: false)
+      @item.approval_in_process = true
+      if @item.update(item_params.merge approved: true)
+        @item.approval_in_process = false
+        redirect_to review_path, :notice => 'Item has been approved.'
+      else
+        @item.approval_in_process = false
+        redirect_to review_path,
+        :alert => 'Please complete all fields before approving items'
+      end
+    elsif @item.update(item_params.merge approved: current_user.admin )
       redirect_to item_path(@item), :notice => 'Item has been updated.'
     else
       render 'edit'
@@ -95,7 +102,7 @@ class ItemsController < ApplicationController
   end
 
   def review
-    @items = Item.where(approved: false) 
+    @items = @current_auction.items.where(approved: false)
   end
 
   private

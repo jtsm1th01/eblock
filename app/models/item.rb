@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  attr_accessor :approval_in_process
   before_save :downcase_item_name
   
   has_attached_file :photo,
@@ -10,7 +11,8 @@ class Item < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
   validates :value, numericality: {only_integer: true, greater_than: 0}
-  # validates :starting_bid, :bid_increment, numericality: {only_integer: true, greater_than: 0}
+  validates :starting_bid, :bid_increment,
+  numericality: {only_integer: true, greater_than: 0}, if: "approval_in_process"
   belongs_to :auction, inverse_of: :items
   belongs_to :user, inverse_of: :items
   has_many :bids

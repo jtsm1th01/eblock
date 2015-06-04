@@ -106,7 +106,7 @@ class ItemsController < ApplicationController
 
   def review
     unless @current_auction.nil?
-      @items = @current_auction.items.where(approved: false) \
+      @items = @current_auction.items.where(approved: false, declined: false) \
                                .paginate(page: params[:page], per_page: 10) 
     else
       @items = []

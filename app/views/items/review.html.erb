@@ -1,8 +1,8 @@
-<h1>Donations Needing Approval</h1>
+<h1>Review Donations</h1>
 
 <%= will_paginate unless @current_auction.nil? %>
 
-<div class="lead"><%= 'No items to approve.' if @items.empty? %></div>
+<div class="lead"><%= 'No items to review.' if @items.empty? %></div>
 <% @items.each do |item| %>
 <%= form_for(item) do |f| %>
 <div class="row panel">
@@ -61,7 +61,7 @@
           <%= f.submit "Approve", class: "form-control btn btn-success" %>
         </div>
         <div class="col-md-3">
-          <%= f.submit "Decline", class: "form-control btn btn-alert" %>
+          <%= f.submit "Decline", class: "form-control btn btn-danger" %>
         </div>
       </div>
     </div>

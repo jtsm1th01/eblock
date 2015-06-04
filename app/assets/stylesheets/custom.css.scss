@@ -63,3 +63,9 @@
     color: $state-danger-text;
   }
 }
+
+.active {
+  text-decoration: underline;
+  pointer-events: none;
+  font-weight: bold;
+}

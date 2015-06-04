@@ -30,7 +30,7 @@ class Item < ActiveRecord::Base
   end
   
   def sort_by_current_bid
-    bids.max.try(:amount) || 0
+    high_bid.try(:amount) || 0
   end
   
   def sort_by_number_of_bids

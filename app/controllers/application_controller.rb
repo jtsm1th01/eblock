@@ -6,9 +6,6 @@ class ApplicationController < ActionController::Base
   
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_app_environment
-  
-# before_action :clear_item_search
-
 
   protected
 

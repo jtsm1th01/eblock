@@ -12,7 +12,7 @@
         <%= f.label :name, 'Item Name:' %>
       </div>
       <div class="col-md-8">
-        <%= f.text_field :name, class: 'form-control', value: item.name.titleize %>
+        <%= f.text_field :name, class: 'form-control' %>
       </div>
     </div>
     <div class="row form-group review-div">
@@ -28,7 +28,7 @@
           <%= f.label :value, 'Value:' %>
         </div>
         <div class="col-md-4">
-          $ <%= f.number_field :value, class: 'form-control amount-field', disabled: true %>
+          $ <%= f.number_field :value, class: 'form-control amount-field', disabled: true %> .00
         </div>
       </div>
       <div class="row form-group">
@@ -36,7 +36,12 @@
           <%= f.label :starting_bid, 'Starting Bid:' %>
         </div>
         <div class="col-md-4">
-          $ <%= f.number_field :starting_bid, class: 'form-control amount-field' %>
+          <% bid_default = (item.value * 0.7).round %>
+          <% while bid_default % 10 != 0 %>
+               bid_default -= 1
+          <% end %>
+          $ <%= f.number_field :starting_bid, class: 'form-control amount-field',
+                               :value => bid_default %> .00
         </div>  
       </div>
       <div class="row form-group">
@@ -44,7 +49,8 @@
           <%= f.label :bid_increment, 'Minimum Bid Increment:' %>
         </div>
         <div class="col-md-4">
-          $ <%= f.number_field :bid_increment, class: 'form-control amount-field' %>
+          $ <%= f.number_field :bid_increment, class: 'form-control amount-field',
+                               :value => 5 %> .00
         </div>
       </div>
       <div class="row form-group">

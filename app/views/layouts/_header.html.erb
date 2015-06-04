@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-md-12">
       <ul class="nav navbar-nav pull-right layout-nav">
-        <li class=<%= 'active' if current_page?(root_path) %>><%= link_to "Home", root_path %></li>
+        <li class=<%= 'active' if current_page?(root_path) %>><%= link_to "Browse Items", root_path %></li>
         <li class=<%= 'active' if current_page?(new_item_path) %>><%= link_to "Donate an Item", new_item_path %></li>
         <% if user_signed_in? %>
         <li class=<%= 'active' if current_page?(watch_list_items_path) %>><%= link_to "My Watchlist", watch_list_items_path %></li>

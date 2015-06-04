@@ -12,6 +12,7 @@
     </tr>
   </thead>
   <tbody>
+    <%= render 'no_items' if @donations.empty? %>
     <% @donations.each do |donation| %>
       <tr>
         <td><%= link_to image_tag(donation.photo.url(:thumb)), item_path(donation) %></td>

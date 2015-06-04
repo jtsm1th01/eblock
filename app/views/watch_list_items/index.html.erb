@@ -12,6 +12,7 @@
     </tr>
   </thead>
   <tbody>
+    <%= render :partial => 'items/no_items' if @watch_list.empty? %>
     <% @watch_list.each do |item, details| %>
     <tr>
       <td><%= link_to image_tag(item.photo.url(:thumb)), item_path(item) %></td>

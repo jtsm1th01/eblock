@@ -1,9 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.page-header {
-  background-color: lightblue;
-}
 /* TODO: (remove charity logo hardcode stylerule) */
 .glyphicon-heart {
   font-size: 90px;
@@ -12,6 +9,16 @@
 
 .glyphicon-plus-sign, .glyphicon-minus-sign {
   font-size: 150%;
+}
+
+.logo {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.jumbotron {
+  text-align: center;
+  margin-top: 5%;
 }
 
 .number-input {

@@ -86,7 +86,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if(auction_upcoming? || current_user.admin?)
+    if auction_upcoming?
       @item = Item.find(params[:id])
       @item.destroy
       redirect_to my_donations_path, notice: 'Item removed from the auction.' 

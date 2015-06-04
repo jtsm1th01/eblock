@@ -12,66 +12,6 @@
     <p>We need some information about your charity in order to continue.</p>
   </div>
 
-  <%= form_for @charity, url: charity_path(@charity) do |f| %>
+  <%= render 'form' %>
 
-  <div class="row form-group">
-    <div class="col-md-2">
-      <%= f.label :name, "Charity Name:" %><br />
-    </div>
-    <div class="col-md-3">
-      <%= f.text_field :name, class: "form-control", placeholder: "Charity Name"  %>
-    </div>
-  </div>
-
-  <div class="row form-group">
-    <div class="col-md-2">
-      <%= f.label :subhead, "Sub-Heading (Optional):" %><br />
-    </div>
-    <div class="col-md-3">
-      <%= f.text_field :subhead, class: "form-control", placeholder: "Example: Eastern Chapter"  %>
-    </div>
-  </div>
-
-  <div class="row form-group">
-    <div class="col-md-2">
-      <%= f.label :email, "Charity Email:" %><br />
-    </div>
-    <div class="col-md-3">
-      <%= f.email_field :email, class: "form-control", placeholder: "auction@charity.com" %>
-    </div>
-</div>
-
-  <div class="row form-group">
-    <div class="col-md-2">
-      <%= f.label :url, "Homepage:" %><br />
-    </div>
-    <div class="col-md-3">
-      <%= f.text_field :url, class: "form-control", placeholder: "www.charity.com" %>
-    </div>
-  </div>
-
-  <div class="row form-group">
-    <div class="col-md-2">
-      <%= f.label :logo, 'Logo:' %>
-    </div>
-    <div class="col-md-3">
-      <%= f.file_field :logo, class: 'form-control' %>
-    </div>
-  </div>
-
-    <div class="row form-group">
-    <div class="col-md-2">
-      <%= f.label :bg_color, "Background Color:" %><br />
-    </div>
-    <div class="col-md-3">
-      <%= f.color_field :bg_color, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2">
-      <%= f.submit "Create Charity", class: 'form-control btn btn-primary' %>
-    </div>
-  </div>
-  <% end %>
 </div>

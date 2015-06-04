@@ -16,7 +16,7 @@ class CharitiesController < ApplicationController
     if @charity.save
       redirect_to new_user_registration_path
     else
-      render 'new'
+      render 'new', :layout => false
     end
   end
   
@@ -24,7 +24,7 @@ class CharitiesController < ApplicationController
   def show
     @auctions = Auction.all
     unless @current_auction.nil?
-      @pending_items_count = @current_auction.items.where(approved: false).count
+      @pending_items_count = @current_auction.items.where(approved: false, declined: false).count
     else
       @pending_items_count = 0
     end

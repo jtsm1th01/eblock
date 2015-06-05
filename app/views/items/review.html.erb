@@ -7,7 +7,11 @@
 <%= form_for(item) do |f| %>
 <div class="row panel">
   <div class="col-md-4">
-    <%= image_tag item.photo.url(:medium) %>
+    <% if item.photo_file_name.nil? %>
+      <td><span style="font-size: 90px;" class="glyphicon glyphicon-camera"></span></td>
+    <% else %>
+      <%= image_tag item.photo.url(:medium) %>
+    <% end %>
   </div>
   <div class="col-md-6">
     <div class="row form-group review-div">
@@ -70,3 +74,4 @@
   <% end %>
 
 <%= will_paginate unless @current_auction.nil? %>
+

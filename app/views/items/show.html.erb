@@ -8,7 +8,11 @@
 
 <div class="row">
   <div class="col-md-4">
-    <%= image_tag @item.photo.url(:medium) %>
+    <% if @item.photo_file_name.nil? %>
+      <td><span style="font-size: 90px;" class="glyphicon glyphicon-camera"></span></td>
+    <% else %>
+      <td><%= image_tag @item.photo.url(:medium) %></td>
+    <% end %>
   </div>
   <div class="col-md-6">
     <div class="h4">Item Description:</div>
@@ -22,6 +26,5 @@
       <%= render 'items/bid_form' %>
     </div>
 </div>
-
 
 

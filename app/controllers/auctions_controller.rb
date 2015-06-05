@@ -34,7 +34,8 @@ class AuctionsController < ApplicationController
     @bidder_count = @auction.bidders.uniq.length
     
     @donation_count = @auction.items.count
-    
+    @declined_items_count = @auction.items.where(declined: true).count
+
     items_sold = @auction.items.to_a.delete_if { |item| item.bids.empty? }
     @items_sold_count = items_sold.compact.length
     @items_unsold_count = @auction.items.count - @items_sold_count

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resource :charity
-  get 'dashboard' => 'charities#show'
+  get 'dashboard' => 'charities#show', as: :dashboard
   
   resources :auctions, only: [:new, :create, :show]
   post 'auctions/wrapup' => 'auctions#wrapup', as: :wrapup

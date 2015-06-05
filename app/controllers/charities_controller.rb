@@ -38,7 +38,7 @@ class CharitiesController < ApplicationController
     @charity = Charity.last
     if @charity.update(charity_params)
       flash[:notice] = "Your Charity's information has been updated!"
-      redirect_to edit_charity_path(@charity)
+      redirect_to dashboard_path
     else
       render 'edit'
     end

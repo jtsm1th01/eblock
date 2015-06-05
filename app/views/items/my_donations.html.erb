@@ -7,6 +7,8 @@
       <th>Item</th>
       <th>Current Bid</th>
       <th>Bids</th>
+      <th>Approval</th>
+      <th>Result</th>
       <th class="text-center">Edit Item</th>
       <th class="text-center">Remove Item</th>
     </tr>
@@ -19,6 +21,8 @@
         <td><%= link_to donation, item_path(donation) %></td>
         <td>$<%= donation.high_bid.try(:amount) || 0 %></td>
         <td><%= donation.bids.size %></td>
+        <td><%= approval(donation) %></td>
+        <td></td>
         <td class="text-center"><%= link_to edit_item_path(donation) do %><%= tag(:span, class: "glyphicon glyphicon-pencil") %><% end %></td>
         <td class="text-center"><%= link_to item_path(donation), method: :delete, data: {confirm: "Remove '#{donation.name}' from auction?" } do %><%= tag(:span, class: "glyphicon glyphicon-ban-circle") %><% end %></td>
       </tr>

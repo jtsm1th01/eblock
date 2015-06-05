@@ -40,8 +40,8 @@
         </div>
         <div class="col-md-4">
           <% bid_default = (item.value * 0.7).round %>
-          <% while bid_default % 10 != 0 %>
-               bid_default -= 1
+          <% until bid_default % 5 == 0 || bid_default < 5 %>
+          <%   bid_default -= 1  %>
           <% end %>
           $ <%= f.number_field :starting_bid, class: 'form-control amount-field',
                                :value => bid_default %> .00

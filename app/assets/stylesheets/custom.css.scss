@@ -65,5 +65,8 @@
 }
 
 .active {
-  text-decoration: underline
+  text-decoration: underline;
+  pointer-events: none;
+  font-weight: bold;
 }
+

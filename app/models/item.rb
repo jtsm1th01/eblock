@@ -1,6 +1,8 @@
 class Item < ActiveRecord::Base
 
   attr_accessor :approval_in_process
+  before_save   :downcase_item_name_for_name_down_column
+  before_update :downcase_item_name_for_name_down_column
 
   validates :auction, :user, :name, :description, presence: true
   validates :value, numericality: {only_integer: true, greater_than: 0}
@@ -54,5 +56,9 @@ class Item < ActiveRecord::Base
     query_values = search_terms.map {|term| "%#{term}%"} << "#{auction.id}" << true
 
     Item.where(conditions + query_values)
+  end
+
+  def downcase_item_name_for_name_down_column
+    name_down = name.downcase
   end
 end

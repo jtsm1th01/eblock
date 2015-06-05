@@ -6,19 +6,21 @@ class ItemsController < ApplicationController
 
   def index
     if search_terms = (params[:search] || session[:search])
-      @items = Item.search(search_terms, @current_auction).includes(:bids).paginate(page: params[:page], per_page: 20)
+      @items = Item.search(search_terms, @current_auction).includes(:bids) \
+                   .paginate(page: params[:page], per_page: 20)
       session[:search] ||= params[:search] #preserves search
     else
       if @current_auction.nil?
         @items = Item.all
       else
-        @items = @current_auction.items.where(approved: true).includes(:bids).paginate(page: params[:page], per_page: 20)
+        @items = @current_auction.items.where(approved: true).includes(:bids) \
+                                 .paginate(page: params[:page], per_page: 20)
       end
     end
      
     # TODO: Take Julian's feedback into account for sorting methods.
     if params[:name_sort]
-      @items = @items.order("name #{params[:name_sort]}")
+      @items = @items.order("name_down #{params[:name_sort]}")
     elsif params[:current_bid_sort]
       @items = @items.order("bids.amount #{params[:current_bid_sort]}")
     elsif params[:bid_count_sort]
@@ -78,10 +80,6 @@ class ItemsController < ApplicationController
         redirect_to review_path,
         :alert => 'Please complete all fields before approving items'
       end
-    elsif params[:commit] == "Decline"
-      @item.declined = true
-      @item.save(validate: false)
-      redirect_to review_path, :notice => 'Item has been declined.'
     elsif @item.update(item_params.merge approved: current_user.admin )
       redirect_to item_path(@item), :notice => 'Item has been updated.'
     else

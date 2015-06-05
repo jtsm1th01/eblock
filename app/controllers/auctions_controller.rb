@@ -11,6 +11,10 @@ class AuctionsController < ApplicationController
     end
   end
   
+  def edit
+    @auction = @current_auction
+  end
+  
   def create
     @charity = Charity.last
     @auction = @charity.auctions.build(auction_params)
@@ -22,6 +26,21 @@ class AuctionsController < ApplicationController
                                auction at this time."
     end
   end
+  
+  def update
+    if @current_auction.update(auction_params)
+      redirect_to dashboard_path, notice: "Auction updated."
+    else
+      @auction = @current_auction
+      render 'edit'
+    end
+  end
+  
+  def destroy
+    @current_auction.destroy
+    redirect_to dashboard_path, notice: 'Auction has been canceled.' 
+  end
+    
 
   # show corresponds to Auction summary report
   def show

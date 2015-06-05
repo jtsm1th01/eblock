@@ -7,6 +7,8 @@
         There are no items on your watchlist.
       <% elsif current_page?('/my_donations') %>
         You have not yet made any donations.
+      <% elsif current_page?(controller: "auctions", action: "show") %>
+        No items in auction.
       <% end %>
     </div>
   </td>

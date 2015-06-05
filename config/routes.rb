@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resource :charity
   get 'dashboard' => 'charities#show', as: :dashboard
   
-  resources :auctions, only: [:new, :create, :show]
+  resources :auctions
   post 'auctions/wrapup' => 'auctions#wrapup', as: :wrapup
   post 'confirm_payment' => 'payment_notifications#confirm_payment'
 

@@ -59,7 +59,7 @@
               </tr>
             </thead>
             <tbody>
-              <%= render 'no_items' if @items.empty? %>
+              <%= render 'items/no_items' if @items.empty? %>
               <% @items.each do |donation| %>
               <tr>
                 <td><%= link_to donation, item_path(donation) %></td>

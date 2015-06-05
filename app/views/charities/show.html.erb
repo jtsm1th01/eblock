@@ -9,8 +9,13 @@
         </div>
         <div class="panel-body">
           <div class="panel-link"><%= link_to "Create Auction", new_auction_path %></div>
+          <% unless @current_auction.nil? %>
           <div class="panel-link"><%= link_to "Review Donations", review_path %>
             <span class="badge"><%= @pending_items_count %></span></div>
+
+          <div class="panel-link"><%= link_to "Edit Current Auction", edit_auction_path(@current_auction) %></div>
+          <div class="panel-link"><%= link_to "Cancel Current Auction", auction_path(@current_auction), method: :delete, data: {confirm: "WARNING: This will delete all current auction info. Are you sure?" } %></div>
+          <% end %>
         </div>
       </div>
       <div class="panel panel-default">
@@ -18,6 +23,9 @@
           <h3 class="panel-title">Auction Summaries</h3>
         </div>
         <div class="panel-body">
+          <% unless Auction.any? %>
+          No auctions available.
+          <% end %>
           <% @auctions.each do |auction| %>
           <div><%= link_to auction.name, auction_path(auction) %></div>
           <% end %>

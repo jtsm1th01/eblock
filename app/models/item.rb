@@ -1,7 +1,6 @@
 class Item < ActiveRecord::Base
 
   attr_accessor :approval_in_process
-  before_save :downcase_item_name
 
   validates :auction, :user, :name, :description, presence: true
   validates :value, numericality: {only_integer: true, greater_than: 0}
@@ -20,10 +19,6 @@ class Item < ActiveRecord::Base
 
   def to_s
     name.titleize
-  end
-  
-  def downcase_item_name
-    name.downcase!
   end
 
   def high_bid
@@ -50,11 +45,14 @@ class Item < ActiveRecord::Base
     user.watch_list_items.pluck(:item_id).include?(id)
   end
   
-  def self.search(search_terms, auction)
+  def Item.search(search_terms, auction)
+    keyword = Rails.env == 'production' ? 'ILIKE' : 'LIKE'
     search_terms = search_terms.split
-    query_conditions = [ (['name LIKE ?'] * search_terms.count).join(' OR ') +
+    conditions = [ (["name #{keyword} ?"] * search_terms.count).join(' OR ') +
                           ' AND auction_id = ? ' + 'And approved = ?' ]
+
     query_values = search_terms.map {|term| "%#{term}%"} << "#{auction.id}" << true
-    Item.where(query_conditions + query_values)   
+
+    Item.where(conditions + query_values)
   end
 end

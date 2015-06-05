@@ -15,7 +15,7 @@ module MyDonationsHelper
   
   def buyer_email(item)
     if item.winning_bid 
-      if item.winning_bid.paid
+      if item.winning_bid.paid || current_user.admin
         item.winning_bid.bid.user.email
       else
         "Will Notify"

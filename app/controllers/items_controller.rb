@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
     if @current_auction != nil && auction_upcoming?
       @item = Item.new
     else 
-      redirect_to :back, alert: "Tnank you, but we are not accepting donations at this time."
+      redirect_to :back, alert: "Thank you, but we are not accepting donations at this time."
     end
   end
 

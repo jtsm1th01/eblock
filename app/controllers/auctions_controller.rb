@@ -26,6 +26,7 @@ class AuctionsController < ApplicationController
   # show corresponds to Auction summary report
   def show
     @auction = Auction.find(params[:id])
+    @items = Item.where(auction_id: @auction.id)
     pledges = @auction.items.map { |item| item.high_bid.try(:amount) }
     @pledge_total = pledges.compact.sum
     @payments_received = @auction.winning_bids.where(paid: true).map { |wbid| wbid.bid.amount }.sum

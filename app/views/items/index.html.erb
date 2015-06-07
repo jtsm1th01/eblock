@@ -1,20 +1,35 @@
 <h1>Items Up for Bid</h1>
-<p>Please click on item name to view item details.</p>
+<div class="form-group form-inline">
+  <%= form_tag items_path, :method => 'get' do %>
+  <%= text_field_tag :search, params[:search] || session[:search], {class:"form-control"} %>
+  <%= submit_tag "Search for Items", {class:"form-control btn-primary"} %>
+  <b><%= link_to "Clear Search", items_path, style: "padding-left: 10px" %></b>
+  <% end %>
+</div>
+
+<p>Please click on image or name to view item details. Click column headings to sort.</p>
+
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Photo</th>
-      <th>Item</th>
-      <th>Current Bid</th>
+      <th><%= link_to "Item",
+items_path(:name_sort => direction(:name_sort)) %><%= name_icon %>
+      </th>
+      <th><%= link_to "Current Bid",
+items_path(:current_bid_sort => direction(:current_bid_sort)) %><%= current_bid_icon %>
+      </th>
       <th>Do I Hear</th>
-      <th>Bids</th>
+      <th><%= link_to "Bids",
+items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %>
+      </th>
     </tr>
   </thead>
   <tbody>
     <% @items.each do |item| %>
       <tr>
         <td><%= link_to image_tag(item.photo.url(:thumb)), item_path(item) %></td>
-        <td><%= link_to item.name, item_path(item) %></td>
+        <td><%= link_to item, item_path(item) %></td>
         <td>$<%= item.high_bid.try(:amount) || 0 %></td>
         <td>$<%= item.next_bid_amount %></td>
         <td><%= item.bids.count %></td>

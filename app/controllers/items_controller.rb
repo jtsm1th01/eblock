@@ -2,7 +2,17 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @items = Item.all
+    search_params = params[:search] || session[:search]
+    @items = search_params ? Item.search(search_params).includes(:bids) : Item.all.includes(:bids)
+    if params[:name_sort]
+      @items = @items.order("name #{params[:name_sort]}")
+    elsif params[:current_bid_sort]
+      @items = @items.order("bids.amount #{params[:current_bid_sort]}")
+    elsif params[:bid_count_sort]
+      @items = @items.sort_by(&:sort_by_number_of_bids)
+      params[:bid_count_sort] == "DESC" ? @items.reverse! : @items
+    end
+session[:search] ||= params[:search]
   end
 
   def new
@@ -43,6 +53,12 @@ class ItemsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to my_donations_path, notice: 'Item removed from the auction.' 
   end
   
   def show_my_donations

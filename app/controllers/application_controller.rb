@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :get_auction_finish
+  before_action :clear_item_search
 
   protected
 
@@ -21,4 +22,10 @@ class ApplicationController < ActionController::Base
     def get_auction_finish
       @auction_finish = Auction.last.finish.to_f * 1000
     end
-end
+  
+  def clear_item_search
+    user_searching = params[:name_sort] || params[:current_bid_sort] || params[:bid_count_sort]
+    session[:search] = nil unless user_searching
+  end
+
+  end

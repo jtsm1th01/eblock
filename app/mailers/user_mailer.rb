@@ -1,5 +1,4 @@
-class UserMailer < ActionMailer::Base
-  default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
+class UserMailer < ActionMailer::Base 
   before_action :get_funds_raised, except: :email_bid_update
   
   def email_donor_wrapup(user)
@@ -32,6 +31,7 @@ class UserMailer < ActionMailer::Base
   
   private
   def email_setup(user)
+    default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
     @current_auction = Auction.order(:finish).last
     @user = user
     @url = root_url

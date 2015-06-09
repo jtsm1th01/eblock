@@ -1,6 +1,11 @@
 class UserMailer < ActionMailer::Base 
+  before_action :get_current_auction
   before_action :get_funds_raised, except: :email_bid_update
   
+  def get_current_auction
+    @current_auction = Auction.order(:finish).last
+  end
+
   def email_donor_wrapup(user)
     email_setup(user)
   end

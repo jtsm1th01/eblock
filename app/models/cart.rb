@@ -4,7 +4,7 @@ class Cart
     @user = user
   end
 
-  # TODO skin charity name in paypal form
+  # must be valid paypal test acct, so business not skinnable for demo purposes
   def paypal_url(return_url) 
     values = { 
       :business => 'mr_travis_smith-facilitator@hotmail.com',

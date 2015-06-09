@@ -51,7 +51,7 @@ class Item < ActiveRecord::Base
     keyword = Rails.env == 'production' ? 'ILIKE' : 'LIKE'
     search_terms = search_terms.split
     conditions = [ (["name #{keyword} ?"] * search_terms.count).join(' OR ') +
-                          ' AND auction_id = ? ' + 'And approved = ?' ]
+                          ' AND auction_id = ? ' + 'AND approved = ?' ]
 
     query_values = search_terms.map {|term| "%#{term}%"} << "#{auction.id}" << true
 

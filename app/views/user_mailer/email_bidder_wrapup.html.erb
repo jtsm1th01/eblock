@@ -26,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @user.winning_bids.where(auction: @current_auction).each do |winning_bid| %>
+        <% @user.winning_bids.joins(:item).merge( Item.where(auction: @current_auction) ).each do |winning_bid| %>
             <tr>
               <td><%= winning_bid.item.name %></td>
               <td><%= winning_bid.bid.amount %></td>

@@ -1,6 +1,7 @@
 class UserMailer < ActionMailer::Base 
   before_action :get_current_auction
   before_action :get_funds_raised, except: :email_bid_update
+  default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
   
   def get_current_auction
     @current_auction = Auction.order(:finish).last
@@ -21,7 +22,6 @@ class UserMailer < ActionMailer::Base
   end
   
   def email_sponsor_wrapup
-    @current_auction = Auction.order(:finish).last
     mail(to: Charity.last.email, subject: 'Charity Auction Wrap-up')
   end
   
@@ -36,8 +36,6 @@ class UserMailer < ActionMailer::Base
   
   private
   def email_setup(user)
-    default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
-    @current_auction = Auction.order(:finish).last
     @user = user
     @url = root_url
     @charity = Charity.last

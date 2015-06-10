@@ -39,7 +39,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url = root_url
     @charity = Charity.last
-    email_with_name = %(@user <#{@user.email}>)
+    email_with_name = %(#{@user.fname} #{@user.lname} <#{@user.email}>)
     mail(to: email_with_name, subject: 'Charity Auction Wrap-up')
   end
   

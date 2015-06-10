@@ -65,10 +65,10 @@ class AuctionsController < ApplicationController
 
   def wrapup
     @current_auction.determine_winning_bids
-    @current_auction.donors.each do |donor|
+    @current_auction.donors.uniq.each do |donor|
       UserMailer.email_donor_wrapup(donor).deliver
     end
-    @current_auction.bidders.each do |bidder|
+    @current_auction.bidders.uniq.each do |bidder|
       UserMailer.email_bidder_wrapup(bidder).deliver
     end
     UserMailer.email_sponsor_wrapup.deliver

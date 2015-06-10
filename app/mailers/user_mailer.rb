@@ -18,8 +18,8 @@ class UserMailer < ActionMailer::Base
   end
 
   def email_bidder_wrapup(user)
-    @winning_bids = user.winning_bids.joins(:item).merge( Item.where(auction: @current_auction) )
     email_setup(user)
+    @winning_bids = user.winning_bids.joins(:item).merge( Item.where(auction: @current_auction) )
   end 
   
   def email_sponsor_wrapup

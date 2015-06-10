@@ -19,8 +19,10 @@ class UserMailer < ActionMailer::Base
 
   def email_bidder_wrapup(user)
     email_setup(user)
-    @winning_bids = user.winning_bids.joins(:item).merge( Item.where(auction: @current_auction) )
-  end
+    # @winning_bids = user.winning_bids.joins(:item).merge( Item.where(auction: @current_auction) )
+    @winning_bids = user.winning_bids.includes(:item).includes(:auction).to_a
+    @winning_bids.keep_if { |wbid| wbid.item.auction == @current_auction }
+  end 
   
   def email_sponsor_wrapup
     mail(to: User.first.email, subject: 'Charity Auction Donor/Bidder List')

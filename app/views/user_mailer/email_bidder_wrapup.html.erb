@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <% if @winning_bids.empty? %>
+        <% if @winning_bids.nil? || @winning_bids.empty? %>
           <tr>
             <td>No items won</td>
           </tr>

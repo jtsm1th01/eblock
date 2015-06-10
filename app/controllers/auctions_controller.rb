@@ -65,6 +65,7 @@ class AuctionsController < ApplicationController
 
   def wrapup
     @current_auction.determine_winning_bids
+    sleep 10
     @current_auction.donors.uniq.each do |donor|
       UserMailer.email_donor_wrapup(donor).deliver
     end

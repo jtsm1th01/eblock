@@ -25,12 +25,12 @@
         </tr>
       </thead>
       <tbody>
-        <% if @winning_bids.nil? || @winning_bids.empty? %>
+        <% if @current_wbids.nil? || @current_wbids.empty? %>
           <tr>
             <td>No items won</td>
           </tr>
         <% else %>
-          <% @winning_bids.each do |winning_bid| %>
+          <% @current_wbids.each do |winning_bid| %>
             <tr>
               <td><%= winning_bid.item.name %></td>
               <td><%= winning_bid.bid.amount %></td>

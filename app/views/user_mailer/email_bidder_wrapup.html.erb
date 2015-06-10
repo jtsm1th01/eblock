@@ -16,8 +16,7 @@
       A summary of your participation is below...
     </p>
     <h3>Auction Items Won:</h3>
-    <p>Item donors will contact you via email to arrange delivery of item(s).</p>
-
+    
     <table style="width:80%">
       <thead>
         <tr>
@@ -26,28 +25,29 @@
         </tr>
       </thead>
       <tbody>
-        <% if @winning_bids.any? %>
+        <% if @winning_bids.nil? || @winning_bids.empty? %>
+          <tr>
+            <td>No items won</td>
+          </tr>
+        <% else %>
           <% @winning_bids.each do |winning_bid| %>
             <tr>
               <td><%= winning_bid.item.name %></td>
               <td><%= winning_bid.bid.amount %></td>
             </tr>
           <% end %>
-            <div>
-              <tr>
-                <td style="padding-top: 20px">
-                  <%= link_to "Pay for Items",
-                               @user.paypal_url(root_url, @current_auction) %>
-                </td>
-              </tr>
-            </div>
-        <% else %>
+          <div>
             <tr>
-              <td>No items won</td>
+              <td style="padding-top: 20px">
+                <%= link_to "Pay for Items",
+                    @user.paypal_url(root_url, @current_auction) %>
+              </td>
             </tr>
+          </div>
         <% end %>
       </tbody>
     </table>
+    <p>After payment, item donors will contact you via email to arrange delivery of item(s).</p>
     <p>We couldn't do this without your support. See you next time!</p>
     <p>Sincerely,</p>
     <p><%= @charity.name %></p>

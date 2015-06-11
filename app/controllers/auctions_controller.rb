@@ -19,6 +19,7 @@ class AuctionsController < ApplicationController
     @charity = Charity.last
     @auction = @charity.auctions.build(auction_params)
     if @auction.save
+      @current_auction = @auction
       schedule_wrapup
       redirect_to root_url, :notice => 'Your auction has been created!'
     else
@@ -86,7 +87,7 @@ class AuctionsController < ApplicationController
   private
 
     def schedule_wrapup
-      date = @auction.finish.utc.iso8601
+      date = @current_auction.finish.utc.iso8601
       url = CGI::escape(wrapup_url)
       uri = URI(ENV["TEMPORIZE_URL"])
       HTTParty.post("https://api.temporize.net/v1/events/#{date}/#{url}",

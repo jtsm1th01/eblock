@@ -8,7 +8,7 @@ Rails.application.configure do
   :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
   }
 }
-  config.logger = Logger.new(STDOUT)
+
   config.action_mailer.perform_deliveries = true
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true

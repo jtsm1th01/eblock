@@ -28,7 +28,9 @@ class AuctionsController < ApplicationController
   end
   
   def update
+    original_finish = @current_auction.finish
     if @current_auction.update(auction_params)
+      schedule_wrapup unless original_finish == @current_auction.finish?
       redirect_to dashboard_path, notice: "Auction updated."
     else
       @auction = @current_auction
@@ -64,15 +66,20 @@ class AuctionsController < ApplicationController
   end
 
   def wrapup
-    @current_auction.determine_winning_bids
-    sleep 10
-    @current_auction.donors.uniq.each do |donor|
-      UserMailer.email_donor_wrapup(donor).deliver
+    end_of_auction = @current_auction.finish
+    now = DateTime.current
+    if ((now - 5.minutes)..(now + 5.minutes)).cover? end_of_auction
+      sleep 10
+      @current_auction.determine_winning_bids
+      sleep 10
+      @current_auction.donors.uniq.each do |donor|
+        UserMailer.email_donor_wrapup(donor).deliver
+      end
+      @current_auction.bidders.uniq.each do |bidder|
+        UserMailer.email_bidder_wrapup(bidder).deliver
+      end
+      UserMailer.email_sponsor_wrapup.deliver
     end
-    @current_auction.bidders.uniq.each do |bidder|
-      UserMailer.email_bidder_wrapup(bidder).deliver
-    end
-    UserMailer.email_sponsor_wrapup.deliver
     render :nothing => true, status: :ok
   end
   

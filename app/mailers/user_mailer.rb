@@ -18,7 +18,6 @@ class UserMailer < ActionMailer::Base
   end
 
   def email_bidder_wrapup(user)
-    email_setup(user)
     @winning_bids = user.winning_bids #.joins(:item).merge( Item.where(auction: @current_auction) )
     @current_wbids = []
     @winning_bids.each do |wbid|
@@ -26,7 +25,7 @@ class UserMailer < ActionMailer::Base
         @current_wbids.push(wbid)
       end
     end
-    return @current_wbids
+    email_setup(user)
   end 
   
   def email_sponsor_wrapup
@@ -45,7 +44,7 @@ class UserMailer < ActionMailer::Base
   private
   def email_setup(user)
     @user = user
-    @url = root_url
+    @url = "http://eblock-next.herokuapp.com"
     @charity = Charity.last
     email_with_name = %(#{@user.fname} #{@user.lname} <#{@user.email}>)
     mail(to: email_with_name, subject: 'Charity Auction Wrap-up')

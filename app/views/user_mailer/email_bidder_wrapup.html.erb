@@ -40,7 +40,7 @@
             <tr>
               <td style="padding-top: 20px">
                 <%= link_to "Pay for Items",
-                    @user.paypal_url(root_url, @current_auction) %>
+                  @user.paypal_url(@url, @current_wbids) %>
               </td>
             </tr>
           </div>

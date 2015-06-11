@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
   before_update :downcase_item_name_for_name_down_column
 
   validates :auction, :user, :name, :description, presence: true
-  validates :value, numericality: {only_integer: true, greater_than: 0}
+  validates :value, numericality: {only_integer: true, greater_than: 0, :message => " cannot be blank" }
   validates :starting_bid, :bid_increment,
   numericality: {only_integer: true, greater_than: 0}, if: "approval_in_process"
 

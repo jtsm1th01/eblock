@@ -4,6 +4,7 @@ class Auction < ActiveRecord::Base
   validates :name, presence: true
   validates :start, presence: true
   validates :finish, presence: true
+  validate :finish_must_be_after_start
 
   has_many :items, inverse_of: :auction, dependent: :destroy
   has_many :winning_bids, through: :items
@@ -33,6 +34,12 @@ class Auction < ActiveRecord::Base
 
   def calculate_funds_raised
     winning_bids.map { |bid| bid.amount }.sum
+  end
+  
+    def finish_must_be_after_start
+    if finish.present? && finish < start
+      errors.add(:finish, "must be after start.")
+    end
   end
 
 end

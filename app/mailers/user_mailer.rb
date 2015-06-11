@@ -26,6 +26,7 @@ class UserMailer < ActionMailer::Base
         @current_wbids.push(wbid)
       end
     end
+    return @current_wbids
   end 
   
   def email_sponsor_wrapup

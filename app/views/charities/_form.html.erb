@@ -76,10 +76,15 @@
     </div>
   </div>
   
-  <div class="row">
-    <div class="col-md-2">
-      <% button_txt = @charity.new_record? ? 'Create Charity' : 'Update Charity' %>
-      <%= f.submit "#{button_txt}", class: "form-control btn btn-danger" %>
-    </div>
+<div class="row">
+  <div class="col-md-2">
+    <% button_txt = @charity.new_record? ? 'Create Charity' : 'Update Charity' %>
+    <%= f.submit "#{button_txt}", class: "form-control btn btn-primary" %>
   </div>
+  <% unless @charity.new_record? %>
+  <div class="col-md-2">
+    <%= link_to "Back", dashboard_path, class: 'btn btn-danger' %>
+  </div>
+  <% end %>
+</div>
 <% end %>

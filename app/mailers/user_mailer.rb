@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base 
   before_action :get_current_auction
   before_action :get_funds_raised, except: :email_bid_update
-  default from: %("#{Charity.last.name}" <#{Charity.last.email}>)
+  default from: Charity.last.nil? ? 'from@example.com' : %("#{Charity.last.name}" <#{Charity.last.email}>)
   
   def get_current_auction
     @current_auction = Auction.order(:finish).last

@@ -10,7 +10,7 @@
 
 <p>Please click on image or name to view item details. Click column headings to sort.</p>
 
-<%= will_paginate unless @current_auction.nil? %>
+<%= will_paginate @items unless @current_auction.nil? %>
 
 <table class="table table-hover">
   <thead>
@@ -64,5 +64,5 @@
   </tbody>
 </table>
 
-<%= will_paginate unless @current_auction.nil? %>
+<%= will_paginate @items unless @current_auction.nil? %>
 

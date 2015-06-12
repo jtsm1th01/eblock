@@ -8,14 +8,18 @@ class ItemsController < ApplicationController
   def index
     if search_terms = (params[:search] || session[:search])
       @items = Item.search(search_terms, @current_auction).includes(:bids) \
-                   .paginate(page: params[:page], per_page: 20)
+        .paginate(page: params[:page], per_page: 20)
       session[:search] ||= params[:search] #preserves search
     else
       if @current_auction.nil?
         @items = Item.all
       else
-        @items = @current_auction.items.where(approved: true).includes(:bids) \
-                                 .paginate(page: params[:page], per_page: 20)
+        if params[:bid_count_sort]
+          @items = @current_auction.items.where(approved: true).includes(:bids)
+        else
+          @items = @current_auction.items.where(approved: true).includes(:bids) \
+            .paginate(page: params[:page], per_page: 20)
+        end
       end
     end
      

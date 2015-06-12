@@ -104,7 +104,8 @@ def update
     if auction_upcoming? || current_user.admin?
       @item = Item.find(params[:id])
       @item.destroy
-      redirect_to my_donations_path, notice: 'Item removed from the auction.' 
+      destination = current_user.admin? ? root_url : my_donations_path
+      redirect_to destination, notice: 'Item removed from the auction.'
     else
       redirect_to :back, alert: "You may not withdraw an item at this time."
     end

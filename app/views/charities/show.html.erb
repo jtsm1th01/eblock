@@ -31,10 +31,16 @@
           <% if Auction.exists? %>
             <ul class="list-unstyled">
               <% @auctions.each do |auction| %>
+<<<<<<< Updated upstream
               <% spaces = 20 - auction.name.length %>
               <% duration = auction.start.strftime('%d/%w') + ' - ' + \
                             auction.finish.strftime('%x') %>
               <% link_txt = "%-#{spaces}s %s" % [auction.name, duration] %>
+=======
+              <% duration = auction.start.strftime('%d/%w') + ' - ' + \
+                            auction.finish.strftime('%x') %>
+              <% link_txt = auction.name + ': ' + duration %>
+>>>>>>> Stashed changes
               <li><%= link_to link_txt, auction_path(auction) %></li>
               <% end %>
             </ul>
@@ -76,15 +82,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -102,7 +102,7 @@ def update
   end
   
   def show_my_donations
-    @donations = Item.where(user: current_user).includes(:bids)
+    @donations = @current_auction.items.where(user: current_user).includes(:bids)
     render 'my_donations'
   end
 

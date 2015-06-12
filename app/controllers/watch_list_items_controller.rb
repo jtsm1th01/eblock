@@ -4,6 +4,7 @@ class WatchListItemsController < ApplicationController
   def index
     watch_list_items = WatchListItem.where(user: current_user)
     items = watch_list_items.map { |watch_list_item| watch_list_item.item }
+    items.keep_if { |i| i.auction == @current_auction }
     @watch_list = Hash.new
     items.each do |item|
       user_bid = item.bids.where(user: current_user).maximum("amount") || 0

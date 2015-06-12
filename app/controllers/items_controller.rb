@@ -101,7 +101,7 @@ def update
   end
 
   def destroy
-    if auction_upcoming?
+    if auction_upcoming? || current_user.admin?
       @item = Item.find(params[:id])
       @item.destroy
       redirect_to my_donations_path, notice: 'Item removed from the auction.' 

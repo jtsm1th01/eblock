@@ -107,8 +107,12 @@ def update
   end
   
   def show_my_donations
-    @donations = @current_auction.items.where(user: current_user).includes(:bids)
-    render 'my_donations'
+    if Auction.all.empty?
+      redirect_to :back, alert: "Your donations list is not available before an auction has been created."
+    else
+      @donations = @current_auction.items.where(user: current_user).includes(:bids)
+      render 'my_donations'
+    end
   end
 
   def review

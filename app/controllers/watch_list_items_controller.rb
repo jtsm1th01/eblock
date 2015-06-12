@@ -51,10 +51,14 @@ class WatchListItemsController < ApplicationController
      if item.bids.where(user: current_user).empty?
         "You have not bid."
      elsif item.high_bid.user == current_user
+       if item.auction.finish < DateTime.current
+        "You won this item."
+       else
         "You are winning this item."
-      else
+       end
+     else
         "You have been outbid!"
-      end
+     end
   end
   
 end

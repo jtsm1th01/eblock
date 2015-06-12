@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  require 'will_paginate/array'
   before_action :app_setup_if_needed, only: :index
   before_action :create_admin
   before_action :authenticate_user!, except: [:index, :show]
@@ -24,7 +25,7 @@ class ItemsController < ApplicationController
     elsif params[:current_bid_sort]
       @items = @items.order("bids.amount #{params[:current_bid_sort]}")
     elsif params[:bid_count_sort]
-      @items = @items.sort_by(&:sort_by_number_of_bids)
+      @items = @items.sort_by(&:sort_by_number_of_bids).paginate(page: params[:page], per_page: 20)
       params[:bid_count_sort] == "DESC" ? @items.reverse! : @items
     end
   end

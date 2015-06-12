@@ -2,7 +2,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-3 panel-dashboard">
+    <div class="col-md-4 panel-dashboard">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Auction Tasks</h3>
@@ -29,28 +29,25 @@
         </div>
         <div class="panel-body">
           <% if Auction.exists? %>
-            <ul class="list-unstyled">
-              <% @auctions.each do |auction| %>
-<<<<<<< Updated upstream
-              <% spaces = 20 - auction.name.length %>
-              <% duration = auction.start.strftime('%d/%w') + ' - ' + \
-                            auction.finish.strftime('%x') %>
-              <% link_txt = "%-#{spaces}s %s" % [auction.name, duration] %>
-=======
-              <% duration = auction.start.strftime('%d/%w') + ' - ' + \
-                            auction.finish.strftime('%x') %>
-              <% link_txt = auction.name + ': ' + duration %>
->>>>>>> Stashed changes
-              <li><%= link_to link_txt, auction_path(auction) %></li>
-              <% end %>
-            </ul>
+          <% @auctions.each do |auction| %>
+          <% duration = auction.start.strftime('%m/%d') + '-' + \
+                    auction.finish.strftime('%x') %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= link_to "#{auction.name}", auction_path(auction) %>
+            </div>
+            <div class="col-md-6">
+              <%= link_to "#{duration}", auction_path(auction) %>
+            </div>
+          </div>
+          <% end %>
           <% else %>
             No auctions available.
           <% end %>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Charity Details</h3>

@@ -7,7 +7,7 @@ module MyDonationsHelper
   end
   
   def result(item)
-    if auction_ended?
+    if item.auction.finish < DateTime.current
       return "Unsold" if item.bids.empty?
       item.winning_bid.paid ? "Paid" : "Payment Pending"
     end

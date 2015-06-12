@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
 
   def index
     if search_terms = (params[:search] || session[:search])
-      if params[:search].blank?
+      if search_terms.blank?
         redirect_to :back
       else
         @items = Item.search(search_terms, @current_auction).includes(:bids) \

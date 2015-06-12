@@ -59,6 +59,6 @@ class Item < ActiveRecord::Base
   end
 
   def downcase_item_name_for_name_down_column
-    name_down = name.downcase
+    self.name_down = self.name.downcase
   end
 end

@@ -7,9 +7,13 @@ class ItemsController < ApplicationController
 
   def index
     if search_terms = (params[:search] || session[:search])
-      @items = Item.search(search_terms, @current_auction).includes(:bids) \
-        .paginate(page: params[:page], per_page: 20)
-      session[:search] ||= params[:search] #preserves search
+      if params[:search].blank?
+        redirect_to :back
+      else
+        @items = Item.search(search_terms, @current_auction).includes(:bids) \
+                     .paginate(page: params[:page], per_page: 20)
+        session[:search] ||= params[:search] #preserves search
+      end
     else
       if @current_auction.nil?
         @items = Item.all

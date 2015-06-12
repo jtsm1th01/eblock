@@ -13,8 +13,13 @@
           <div class="panel-link"><%= link_to "Review Donations", review_path %>
             <span class="badge"><%= @pending_items_count %></span></div>
 
-          <div class="panel-link"><%= link_to "Edit Current Auction", edit_auction_path(@current_auction) %></div>
-          <div class="panel-link"><%= link_to "Cancel Current Auction", auction_path(@current_auction), method: :delete, data: {confirm: "WARNING: This will delete all current auction info. Are you sure?" } %></div>
+          <div class="panel-link">
+            <%= link_to "Edit Current Auction", edit_auction_path(@current_auction) %>
+          </div>
+          <div class="panel-link">
+            <%= link_to "Cancel Current Auction", auction_path(@current_auction),
+                method: :delete, data: {confirm: "WARNING: This will delete all current auction info. Are you sure?" } %>
+          </div>
           <% end %>
         </div>
       </div>
@@ -23,11 +28,18 @@
           <h3 class="panel-title">Auction Summaries</h3>
         </div>
         <div class="panel-body">
-          <% unless Auction.any? %>
-          No auctions available.
-          <% end %>
-          <% @auctions.each do |auction| %>
-          <div><%= link_to auction.name, auction_path(auction) %></div>
+          <% if Auction.exists? %>
+            <ul class="list-unstyled">
+              <% @auctions.each do |auction| %>
+              <% spaces = 20 - auction.name.length %>
+              <% duration = auction.start.strftime('%d/%w') + ' - ' + \
+                            auction.finish.strftime('%x') %>
+              <% link_txt = "%-#{spaces}s %s" % [auction.name, duration] %>
+              <li><%= link_to link_txt, auction_path(auction) %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            No auctions available.
           <% end %>
         </div>
       </div>

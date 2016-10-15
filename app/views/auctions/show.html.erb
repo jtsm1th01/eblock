@@ -1,28 +1,80 @@
-<h1><%= @auction.name %> Summary</h1>
-<ul class="list-group" style="width: 50%">
-  <li class="list-group-item">
-    <b>Total funds pledged:</b> $<%= @pledge_total %>
-  </li>
-  <li class="list-group-item">
-    <b>Payments Received:</b> $<%= @payments_received %>
-  </li>
-  <li class="list-group-item">
-    <b>Payments to Collect:</b> $<%= @pledge_total - @payments_received %>
-  </li>
-  <li class="list-group-item">
-    <b>Unique Donors:</b> <%= @donor_count %>
-  </li>
-  <li class="list-group-item">
-    <b>Items Donated:</b> <%= @donation_count %> | <b>Declined:</b>
-  </li>
-  <li class="list-group-item">
-    <b>Items Sold:</b> <%= @items_sold_count %> |
-    <b>Unsold:</b> <%= @items_unsold_count %>
-  </li>
-  <li class="list-group-item">
-    <b>Unique Bidders:</b> <%= @bidder_count %>
-  </li>
-  <li class="list-group-item">
-    <b>Bids Placed:</b> <%= @bids_count %>
-  </li>
-</ul>
+<h1>Dashboard</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 panel-dashboard">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= @auction.name %> Overview</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <b>Total funds pledged:</b> $<%= @pledge_total %>
+            </li>
+            <li class="list-group-item">
+              <b>Payments Received:</b> $<%= @payments_received %>
+            </li>
+            <li class="list-group-item">
+              <b>Payments to Collect:</b> $<%= @pledge_total - @payments_received %>
+            </li>
+            <li class="list-group-item">
+              <b>Unique Donors:</b> <%= @donor_count %>
+            </li>
+            <li class="list-group-item">
+              <b>Items Donated:</b> <%= @donation_count %> |
+              <b>Declined: </b><%= @declined_items_count %>
+            </li>
+            <li class="list-group-item">
+              <b>Items Sold:</b> <%= @items_sold_count %> |
+              <b>Unsold:</b> <%= @items_unsold_count %>
+            </li>
+            <li class="list-group-item">
+              <b>Unique Bidders:</b> <%= @bidder_count %>
+            </li>
+            <li class="list-group-item">
+              <b>Bids Placed:</b> <%= @bids_count %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 panel-dashboard">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= @auction.name %> Details</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Approval</th>
+                <th>Result</th>
+                <th>Donor Name / Email</th>
+                <th>Winner Name / Email</th>
+                <th>Winning Bid Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render 'items/no_items' if @items.empty? %>
+              <% @items.each do |donation| %>
+              <tr>
+                <td><%= link_to donation, item_path(donation) %></td>
+                <td><%= approval(donation) %></td>
+                <td><%= result(donation) %></td>
+                <td><%= donation.user.to_s.titleize %> / <%= donation.user.email %></td>
+                <td><%= buyer_email(donation) %></td>
+                <td><%= donation.winning_bid.try(:bid).try(:amount) %></tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <%= link_to 'Back', dashboard_path, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
+

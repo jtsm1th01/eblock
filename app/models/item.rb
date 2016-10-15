@@ -1,28 +1,26 @@
 class Item < ActiveRecord::Base
-  before_save :downcase_item_name
-  
+
+  attr_accessor :approval_in_process
+  before_save   :downcase_item_name_for_name_down_column
+  before_update :downcase_item_name_for_name_down_column
+
+  validates :auction, :user, :name, :description, presence: true
+  validates :value, numericality: {only_integer: true, greater_than: 0, :message => " cannot be blank" }
+  validates :starting_bid, :bid_increment,
+  numericality: {only_integer: true, greater_than: 0}, if: "approval_in_process"
+
+  belongs_to :auction, inverse_of: :items
+  belongs_to :user, inverse_of: :items
+  has_many :bids, dependent: :destroy
+  has_one :winning_bid
+  has_many :watch_list_items, dependent: :destroy
   has_attached_file :photo,
                     :styles => { :medium => "300x300>", :thumb => "100x100>" },
                     :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
-  validates :auction, presence: true
-  validates :user, presence: true
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :value, :starting_bid, :bid_increment,
-             numericality: {only_integer: true, greater_than: 0}
-  belongs_to :auction, inverse_of: :items
-  belongs_to :user, inverse_of: :items
-  has_many :bids
-  has_one :winning_bid
-  has_many :watch_list_items, dependent: :destroy
 
   def to_s
     name.titleize
-  end
-  
-  def downcase_item_name
-    name.downcase!
   end
 
   def high_bid
@@ -30,7 +28,7 @@ class Item < ActiveRecord::Base
   end
   
   def sort_by_current_bid
-    bids.max.try(:amount) || 0
+    high_bid.try(:amount) || 0
   end
   
   def sort_by_number_of_bids
@@ -49,13 +47,18 @@ class Item < ActiveRecord::Base
     user.watch_list_items.pluck(:item_id).include?(id)
   end
   
-  def self.search(search)
-    if search
-      search_length = search.split.length
-      Item.where([(['name LIKE ?'] * search_length).join(' OR ')] + (search.split.map {|search| "%#{search}%"}))
-    else
-      all
-    end
+  def Item.search(search_terms, auction)
+    keyword = Rails.env == 'production' ? 'ILIKE' : 'LIKE'
+    search_terms = search_terms.split
+    conditions = [ (["name #{keyword} ?"] * search_terms.count).join(' OR ') +
+                          ' AND auction_id = ? ' + 'AND approved = ?' ]
+
+    query_values = search_terms.map {|term| "%#{term}%"} << "#{auction.id}" << true
+
+    Item.where(conditions + query_values)
   end
 
+  def downcase_item_name_for_name_down_column
+    self.name_down = self.name.downcase
+  end
 end

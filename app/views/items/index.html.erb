@@ -1,39 +1,68 @@
 <h1>Items Up for Bid</h1>
+
 <div class="form-group form-inline">
   <%= form_tag items_path, :method => 'get' do %>
   <%= text_field_tag :search, params[:search] || session[:search], {class:"form-control"} %>
   <%= submit_tag "Search for Items", {class:"form-control btn-primary"} %>
-  <b><%= link_to "Clear Search", items_path, style: "padding-left: 10px" %></b>
+  <b><%= link_to "Clear Search", items_path(:clear_search => true), style: "padding-left: 10px" %></b>
   <% end %>
 </div>
 
 <p>Please click on image or name to view item details. Click column headings to sort.</p>
+
+<%= will_paginate @items unless @current_auction.nil? %>
 
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Photo</th>
       <th><%= link_to "Item",
-items_path(:name_sort => direction(:name_sort)) %><%= name_icon %>
+              items_path(:name_sort => direction(:name_sort)) %>
+              <%= name_icon %>
       </th>
       <th><%= link_to "Current Bid",
-items_path(:current_bid_sort => direction(:current_bid_sort)) %><%= current_bid_icon %>
+              items_path(:current_bid_sort => direction(:current_bid_sort)) %>
+              <%= current_bid_icon %>
       </th>
-      <th>Do I Hear</th>
       <th><%= link_to "Bids",
-items_path(:bid_count_sort => direction(:bid_count_sort)) %><%= bid_count_icon %>
+              items_path(:bid_count_sort => direction(:bid_count_sort)) %>
+              <%= bid_count_icon %>
       </th>
+      <% if(current_user.present? && current_user.admin?) %>
+        <th class="text-center">Edit</th>
+        <th class="text-center">Delete</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
+    <%= render 'no_items' if @items.empty? %>
     <% @items.each do |item| %>
       <tr>
-        <td><%= link_to image_tag(item.photo.url(:thumb)), item_path(item) %></td>
+        <% if item.photo_file_name.nil? %>
+          <td><span style="font-size: 25px;" class="glyphicon glyphicon-camera"></span></td>
+        <% else %>
+          <td><%= link_to image_tag(item.photo.url(:thumb)), item_path(item) %></td>
+        <% end %>
         <td><%= link_to item, item_path(item) %></td>
         <td>$<%= item.high_bid.try(:amount) || 0 %></td>
-        <td>$<%= item.next_bid_amount %></td>
-        <td><%= item.bids.count %></td>
+        <td><%= item.bids.size %></td>
+        <% if(current_user.present? && current_user.admin?) %>
+          <td class="text-center">
+            <%= link_to edit_item_path(item) do %>
+              <%= tag(:span, class: "glyphicon glyphicon-pencil") %>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <%= link_to item_path(item), method: :delete,
+            data: {confirm: "Remove '#{item.name}' from auction?" } do %>
+            <%= tag(:span, class: "glyphicon glyphicon-ban-circle") %>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @items unless @current_auction.nil? %>
+

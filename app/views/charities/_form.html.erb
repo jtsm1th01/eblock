@@ -1,0 +1,93 @@
+<%= form_for @charity, url: charity_path(@charity) do |f| %>
+
+  <% if @charity.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(@charity.errors.count, "error") %>.
+    </div>
+    <ul>
+      <% @charity.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :name, "Charity Name:" %><br />
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :name, class: "form-control", placeholder: "Charity Name"  %>
+    </div>
+  </div>
+  
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :subhead, "Sub-Heading (Optional):" %><br />
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :subhead, class: "form-control", placeholder: "Example: Eastern Chapter"  %>
+    </div>
+  </div>
+  
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :email, "Charity Email:" %><br />
+    </div>
+    <div class="col-md-3">
+      <%= f.email_field :email, class: "form-control", placeholder: "auction@charity.com" %>
+    </div>
+  </div>
+  
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :url, "Homepage:" %><br />
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :url, class: "form-control", placeholder: "www.charity.com" %>
+    </div>
+  </div>
+  
+<div class="row form-group">
+  <div class="col-md-2">
+    <%= f.label :logo, 'Logo:' %>
+  </div>
+  <% if @charity.persisted? %>
+    <div class="col-md-1">
+      <%= f.label :logo, "Current:" %>
+    </div>
+    <div class="col-md-2">
+      <%= image_tag @charity.logo.url(:tiny), class: "logo" %>
+    </div>
+    <div class="col-md-1">
+      <%= f.label :logo, "Update:" %>
+    </div>
+  <% end %>
+  <div class="col-md-3">
+    <%= f.file_field :logo, class: 'form-control' %>
+  </div>
+</div>
+  
+  <div class="row form-group">
+    <div class="col-md-2">
+      <%= f.label :bg_color, "Background Color:" %><br />
+    </div>
+    <div class="col-md-3">
+      <% bg_color = @charity.new_record? ? "#eeeeee" : @charity.bg_color %>
+      <%= f.color_field :bg_color, class: "form-control", value: bg_color %>
+    </div>
+  </div>
+  
+<div class="row">
+  <div class="col-md-2">
+    <% button_txt = @charity.new_record? ? 'Create Charity' : 'Update Charity' %>
+    <%= f.submit "#{button_txt}", class: "form-control btn btn-primary" %>
+  </div>
+  <% unless @charity.new_record? %>
+  <div class="col-md-2">
+    <%= link_to "Back", dashboard_path, class: 'btn btn-danger' %>
+  </div>
+  <% end %>
+</div>
+<% end %>

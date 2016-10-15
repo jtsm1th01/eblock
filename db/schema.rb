@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515175522) do
+ActiveRecord::Schema.define(version: 20150605021418) do
 
   create_table "auctions", force: true do |t|
     t.integer  "charity_id"
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(version: 20150515175522) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "email"
+    t.text     "subhead"
+    t.string   "url"
+    t.string   "bg_color"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "items", force: true do |t|
@@ -56,22 +63,26 @@ ActiveRecord::Schema.define(version: 20150515175522) do
     t.datetime "photo_updated_at"
     t.integer  "starting_bid"
     t.integer  "bid_increment"
+    t.boolean  "approved",           default: false
+    t.boolean  "declined",           default: false
+    t.string   "name_down"
   end
 
   add_index "items", ["auction_id"], name: "index_items_on_auction_id"
+  add_index "items", ["name_down"], name: "index_items_on_name_down"
   add_index "items", ["user_id"], name: "index_items_on_user_id"
 
   create_table "users", force: true do |t|
+    t.string   "email",                  default: "",    null: false
     t.string   "fname"
     t.string   "lname"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -79,6 +90,7 @@ ActiveRecord::Schema.define(version: 20150515175522) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.boolean  "admin",                  default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

@@ -1,4 +1,4 @@
-<h2>Charity Auction Donor/Bidder Match List:</h2>
+<h2><%= @current_auction.name %> Auction Donor/Bidder Match List:</h2>
 
 <p>Donors should contact winning bidder(s) via email to arrange delivery.</p>
 <table style="width:100%">
@@ -13,7 +13,7 @@
     </tr>
   </thead>
    <tbody>
-     <% WinningBid.all.each do |winning_bid| %>
+     <% @current_auction.winning_bids.each do |winning_bid| %>
      <tr>        
        <td><%= winning_bid.item.name %></td>
        <td>$<%= winning_bid.bid.amount %></td>

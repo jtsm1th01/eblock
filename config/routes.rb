@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
   root 'items#index'
-  devise_for :users 
+  devise_for :users
 
   resource :charity
-  get 'dashboard' => 'charities#show'
+  get 'dashboard' => 'charities#show', as: :dashboard
   
-  resources :auctions, only: [:new, :create, :show]
+  resources :auctions
   post 'auctions/wrapup' => 'auctions#wrapup', as: :wrapup
   post 'confirm_payment' => 'payment_notifications#confirm_payment'
 
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :watch_list_items, only: [:index, :update, :destroy]
 
   get 'my_donations' => 'items#show_my_donations', as: :my_donations
+  get 'review' => 'items#review' 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

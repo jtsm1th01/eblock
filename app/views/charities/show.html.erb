@@ -1,8 +1,81 @@
-<h1>Charity Dashboard</h1>
+<h1>Dashboard</h1>
 
-<% @auctions.each do |auction| %>
-<h2><%= link_to "Summary of #{auction.name}", auction_path(auction) %></h2>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 panel-dashboard">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Auction Tasks</h3>
+        </div>
+        <div class="panel-body">
+          <div class="panel-link"><%= link_to "Create Auction", new_auction_path %></div>
+          <% unless @current_auction.nil? %>
+          <div class="panel-link"><%= link_to "Review Donations", review_path %>
+            <span class="badge"><%= @pending_items_count %></span></div>
 
-
-
+          <div class="panel-link">
+            <%= link_to "Edit Current Auction", edit_auction_path(@current_auction) %>
+          </div>
+          <div class="panel-link">
+            <%= link_to "Cancel Current Auction", auction_path(@current_auction),
+                method: :delete, data: {confirm: "WARNING: This will delete all current auction info. Are you sure?" } %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Auction Summaries</h3>
+        </div>
+        <div class="panel-body">
+          <% if Auction.exists? %>
+          <% @auctions.each do |auction| %>
+          <% duration = auction.start.strftime('%m/%d') + '-' + \
+                    auction.finish.strftime('%x') %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= link_to "#{auction.name}", auction_path(auction) %>
+            </div>
+            <div class="col-md-6">
+              <%= link_to "#{duration}", auction_path(auction) %>
+            </div>
+          </div>
+          <% end %>
+          <% else %>
+            No auctions available.
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Charity Details</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div>Name:</div>
+              <div>Sub-Heading:</div>
+              <div>Email:</div>
+              <div>Homepage:</div>
+              <div>Header Color:</div>
+            </div>
+            <div class="col-md-8">
+              <div><%= @charity.name %></div>
+              <div><%= @charity.subhead %></div>
+              <div><%= @charity.email %></div>
+              <div><%= @charity.url %></div>
+              <div class="color-box" style="background-color:<%= @charity.bg_color %>"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel-link"><%= link_to "Edit Charity", edit_charity_path %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

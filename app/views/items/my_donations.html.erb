@@ -7,17 +7,28 @@
       <th>Item</th>
       <th>Current Bid</th>
       <th>Bids</th>
+      <th>Approval</th>
+      <th>Result</th>
+      <th>Buyer Email</th>
       <th class="text-center">Edit Item</th>
       <th class="text-center">Remove Item</th>
     </tr>
   </thead>
   <tbody>
+    <%= render 'no_items' if @donations.empty? %>
     <% @donations.each do |donation| %>
       <tr>
-        <td><%= link_to image_tag(donation.photo.url(:thumb)), item_path(donation) %></td>
+        <% if donation.photo_file_name.nil? %>
+          <td><span style="font-size: 25px;" class="glyphicon glyphicon-camera"></span></td>
+        <% else %>
+          <td><%= link_to image_tag(donation.photo.url(:thumb)), item_path(donation) %></td>
+        <% end %>
         <td><%= link_to donation, item_path(donation) %></td>
         <td>$<%= donation.high_bid.try(:amount) || 0 %></td>
-        <td><%= donation.bids.count %></td>
+        <td><%= donation.bids.size %></td>
+        <td><%= approval(donation) %></td>
+        <td><%= result(donation) %></td>
+        <td><%= buyer_email(donation) %></td>
         <td class="text-center"><%= link_to edit_item_path(donation) do %><%= tag(:span, class: "glyphicon glyphicon-pencil") %><% end %></td>
         <td class="text-center"><%= link_to item_path(donation), method: :delete, data: {confirm: "Remove '#{donation.name}' from auction?" } do %><%= tag(:span, class: "glyphicon glyphicon-ban-circle") %><% end %></td>
       </tr>

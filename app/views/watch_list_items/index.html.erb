@@ -8,13 +8,18 @@
       <th>Current Bid</th>
       <th>My Bid</th>
       <th>Status</th>
-      <th class="text-center">Outbid Notice</th>
+      <th class="text-center">Email if Outbid?</th>
     </tr>
   </thead>
   <tbody>
+    <%= render :partial => 'items/no_items' if @watch_list.empty? %>
     <% @watch_list.each do |item, details| %>
     <tr>
-      <td><%= link_to image_tag(item.photo.url(:thumb)), item_path(item) %></td>
+      <% if item.photo_file_name.nil? %>
+        <td><span style="font-size: 25px;" class="glyphicon glyphicon-camera"></span></td>
+      <% else %>
+        <td><%= link_to image_tag(item.photo.url(:thumb)), item_path(item) %></td>
+      <% end %>
       <td><%= link_to item, item_path(item) %></td>
       <td>$<%= item.high_bid.try(:amount) || 0 %></td>
       <td>$<%= details[:user_bid] %></td>

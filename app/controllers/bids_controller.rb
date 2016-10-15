@@ -3,7 +3,7 @@ class BidsController < ApplicationController
   before_action :require_login
 
   def create
-    if accepting_bids?
+    if auction_in_progress?
       outbid_email = prepare_outbid_notice_if_requested
       @bid = @item.bids.build(bid_params)
       @bid.user = current_user
@@ -18,7 +18,7 @@ class BidsController < ApplicationController
       end
     else
       redirect_to item_url(@item),
-      :alert => "We're sorry, but this auction has ended."
+      :alert => "We're sorry, but bidding is not available at this time."
     end
   end
   
@@ -40,18 +40,6 @@ class BidsController < ApplicationController
 
     def set_item
       @item = Item.find(params[:item_id])
-    end
-
-    def require_login
-      unless user_signed_in?
-        session[:forward_url] = item_url(@item)
-                 redirect_to new_user_session_path,
-                :alert => 'Please sign in or sign up before continuing.'
-      end
-    end
-
-    def accepting_bids?
-      Time.now < Auction.last.finish
     end
 
     def bid_params

@@ -4,6 +4,7 @@ class WatchListItemsController < ApplicationController
   def index
     watch_list_items = WatchListItem.where(user: current_user)
     items = watch_list_items.map { |watch_list_item| watch_list_item.item }
+    items.keep_if { |i| i.auction == @current_auction }
     @watch_list = Hash.new
     items.each do |item|
       user_bid = item.bids.where(user: current_user).maximum("amount") || 0
@@ -50,10 +51,14 @@ class WatchListItemsController < ApplicationController
      if item.bids.where(user: current_user).empty?
         "You have not bid."
      elsif item.high_bid.user == current_user
+       if item.auction.finish < DateTime.current
+        "You won this item."
+       else
         "You are winning this item."
-      else
+       end
+     else
         "You have been outbid!"
-      end
+     end
   end
   
 end

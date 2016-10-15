@@ -1,19 +1,29 @@
 class Auction < ActiveRecord::Base
-  require 'paypal-sdk-rest'
-  include PayPal::SDK::REST
   
   validates :charity, presence: true
   validates :name, presence: true
   validates :start, presence: true
   validates :finish, presence: true
+  validate :finish_must_be_after_start
 
-  has_many :items, inverse_of: :auction
+  has_many :items, inverse_of: :auction, dependent: :destroy
   has_many :winning_bids, through: :items
   has_many :donors, through: :items, source: :user
   has_many :bids, through: :items
   has_many :bidders, through: :bids, source: :user
   belongs_to :charity, inverse_of: :auctions
   
+  def to_s
+    name
+  end
+
+  def duration
+    format_date = Proc.new do |date| 
+      date.strftime("%B #{date.day.ordinalize} at %I:%M %p")
+    end
+    format_date.call(start) + ' - ' + format_date.call(finish) + " (" + start.strftime("%Z") + ")"
+  end
+
   def determine_winning_bids
     items.each do |item|
       unless item.bids.empty?
@@ -26,14 +36,10 @@ class Auction < ActiveRecord::Base
     winning_bids.map { |bid| bid.amount }.sum
   end
   
-  def invoice_buyers
-    @api = PayPal::SDK::REST.set_config(
-      :ssl_options => {}, # Set ssl options
-      :mode => :sandbox,  # Set :sandbox or :live
-      :client_id     => "ASS7bvXOZfNo0IErQjO9hXFCz3lIMS2ufx6OTkVDzPlkTK5w-VoDbN4GlWm2cweJEgZLzhCspDMjCvr-",
-      :client_secret => "EM45p6FAaE6QoHftofXY7OnX0dIGuAWXHBvskOrFxCblbPZ7bx5kexbkO8c6zdCPi_36SuXT7_sThGRM" )
-    @api.token
-    
+    def finish_must_be_after_start
+    if finish.present? && finish < start
+      errors.add(:finish, "must be after start.")
+    end
   end
 
 end

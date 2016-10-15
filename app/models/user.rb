@@ -5,11 +5,6 @@ class User < ActiveRecord::Base
          :confirmable
   validates :fname, presence: true
   validates :lname, presence: true
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sesitive: false }
-
   has_many :items, inverse_of: :user
   has_many :bids
   has_many :winning_bids, through: :bids
@@ -19,8 +14,8 @@ class User < ActiveRecord::Base
     "#{fname} #{lname}"
   end
 
-  # TODO skin charity name in paypal form
-  def paypal_url(return_url) 
+  # must be valid paypal test acct, so business not skinnable for demo purposes
+  def paypal_url(return_url, current_wbids) 
     values = { 
       :business => 'mr_travis_smith-facilitator@hotmail.com',
       :cmd => '_cart',
@@ -32,7 +27,7 @@ class User < ActiveRecord::Base
       :custom => id
       }
 
-    winning_bids.each_with_index do |wbid, index|
+    current_wbids.each_with_index do |wbid, index|
       values.merge!({
         "item_name_#{index + 1}" => wbid.item.name,
         "amount_#{index + 1}" => wbid.bid.amount

@@ -1,17 +1,18 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.page-header {
-  background-color: lightblue;
-}
-/* TODO: (remove charity logo hardcode stylerule) */
-.glyphicon-heart {
-  font-size: 90px;
-  color: #D45555;
-}
-
 .glyphicon-plus-sign, .glyphicon-minus-sign {
   font-size: 150%;
+}
+
+.logo {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.jumbotron {
+  text-align: center;
+  margin-top: 5%;
 }
 
 .number-input {
@@ -21,6 +22,19 @@
 .amount-field {
   width: 65%;
   display: inline;
+}
+
+.review-amount-field {
+  width: 20%;
+  display: inline;
+}
+
+.review-div {
+  margin-top: 15px;
+}
+
+.panel {
+  padding-bottom: 25px;
 }
 
 .countdown {
@@ -43,3 +57,26 @@
     color: $state-danger-text;
   }
 }
+
+
+.active {
+  text-decoration: underline;
+  pointer-events: none;
+  font-weight: bold;
+}
+
+.color-box {   
+    float: left;
+    width: 50%;
+    height: 10px;
+    margin: 5px 0px 5px 0px;
+}
+
+.panel-link {
+  margin-top: 10px;
+}
+
+.panel-dashboard {
+  padding-left: 0;
+}
+

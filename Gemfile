@@ -7,11 +7,13 @@ gem "paperclip", "~>4.2"
 gem 'aws-sdk', '< 2.0'
 gem 'devise'
 gem 'httparty'
+gem 'faker'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 gem 'jquery-final_countdown-rails'
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 4.0.3'
-gem 'paypal-sdk-rest'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views

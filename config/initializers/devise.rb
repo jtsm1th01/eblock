@@ -10,7 +10,10 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
+    #eblock-initial setup -- comment out Charity.any mailer and use temp_setup when running migrations
+    #for the first time; then comment that out and reinstate mailer_sender with Charity.any?
   config.mailer_sender = Charity.any? ? Charity.first.email : 'setup@eblock.com'
+  #config.mailer_sender = 'temp_setup@eblock.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'

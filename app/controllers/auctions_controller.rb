@@ -20,7 +20,7 @@ class AuctionsController < ApplicationController
     @auction = @charity.auctions.build(auction_params)
     if @auction.save
       @current_auction = @auction
-      schedule_wrapup
+      #schedule_wrapup (disabled for demo purposes)
       redirect_to root_url, :notice => 'Your auction has been created!'
     else
       render 'new', :alert => "We're sorry, but we are unable create your
@@ -31,7 +31,8 @@ class AuctionsController < ApplicationController
   def update
     original_finish = @current_auction.finish
     if @current_auction.update(auction_params)
-      schedule_wrapup unless original_finish == @current_auction.finish?
+      #schedule_wrapup unless original_finish == @current_auction.finish?
+      #disabled for demo purposes
       redirect_to dashboard_path, notice: "Auction updated."
     else
       @auction = @current_auction

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
       :return => return_url,
       :no_shipping => 1,
       :no_note => 1,
-      :notify_url => 'http://eblock-next.herokuapp.com/confirm_payment',
+      :notify_url => 'http://auctionblock.herokuapp.com/confirm_payment',
       :custom => id
       }
 

@@ -19,7 +19,8 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
   # Recommended by Devise http://devise.plataformatec.com.br/
-  config.action_mailer.default_url_options = { host: 'http://turbo-rails-west-162113.usw1-2.nitrousbox.com/' }
+  config.action_mailer.default_url_options = { host: 'https://eblock-jtsm1th01.c9users.io'
+ }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

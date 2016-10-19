@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base 
   before_action :get_current_auction
   before_action :get_funds_raised, except: :email_bid_update
-  default from: Charity.last.nil? ? 'from@example.com' : %("#{Charity.last.name}" <#{Charity.last.email}>)
+  default from: Charity.last.nil? ? 'from@example.com' : %("#{Charity.last.name}")
   
   def get_current_auction
     @current_auction = Auction.order(:finish).last
@@ -45,7 +45,7 @@ class UserMailer < ActionMailer::Base
   private
   def email_setup(user)
     @user = user
-    @url = "http://eblock-next.herokuapp.com"
+    @url = "https://eblock-jtsm1th01.c9users.io"
     @charity = Charity.last
     email_with_name = %(#{@user.fname} #{@user.lname} <#{@user.email}>)
     mail(to: email_with_name, subject: 'Charity Auction Wrap-up')

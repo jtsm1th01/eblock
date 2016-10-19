@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   protected
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) do |u|
+      devise_parameter_sanitizer.permit(:sign_up) do |u|
         u.permit(:fname, :lname, :email, :password, :password_confirmation)
       end
     end
@@ -24,12 +24,12 @@ class ApplicationController < ActionController::Base
       @current_auction = Auction.order(:finish).last
     end
 
-#     def clear_item_search
-#       user_searching = params[:name_sort] || \
-#                        params[:current_bid_sort] || \
-#                        params[:bid_count_sort]
-#       session[:search] = nil unless user_searching
-#     end
+     def clear_item_search
+       user_searching = params[:name_sort] || \
+                        params[:current_bid_sort] || \
+                        params[:bid_count_sort]
+       session[:search] = nil unless user_searching
+     end
 
     def require_admin
       unless current_user.admin?

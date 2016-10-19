@@ -36,7 +36,7 @@ class Auction < ActiveRecord::Base
     winning_bids.map { |bid| bid.amount }.sum
   end
   
-    def finish_must_be_after_start
+  def finish_must_be_after_start
     if finish.present? && finish < start
       errors.add(:finish, "must be after start.")
     end

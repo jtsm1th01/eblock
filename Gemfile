@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.7'
-gem "paperclip"
-gem 'aws-sdk', '~> 2.3'
+gem 'paperclip'
+gem 'aws-sdk'
 gem 'devise'
 gem 'httparty'
 gem 'faker'

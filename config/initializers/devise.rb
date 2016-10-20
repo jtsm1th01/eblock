@@ -12,8 +12,8 @@ Devise.setup do |config|
   # with default "from" parameter.
     #eblock-initial setup -- comment out Charity.any mailer and use temp_setup when running migrations
     #for the first time; then comment that out and reinstate mailer_sender with Charity.any?
-  #config.mailer_sender = Charity.any? ? Charity.first.email : 'setup@auctionblock.com'
-  config.mailer_sender = 'temp_setup@auctionblock.com'
+  config.mailer_sender = Charity.any? ? Charity.first.email : 'setup@auctionblock.com'
+  #config.mailer_sender = 'temp_setup@auctionblock.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
